@@ -1,0 +1,59 @@
+﻿@page "/funcionarios"
+@using BMManagerLN
+@using BMManagerLN.SubFuncionarios
+@using BMManager.BMManagerUI.Features
+<!-- Injetar instância da lógica de negócio-->
+@inject APIBMManagerLN ln
+
+<Titulo Nome="Funcionários" NomeBotao="Registar" UrlBotao="funcionarios/registar" />
+
+<div class="Tabela">
+    <table>
+        <thead class="TabelaCabecalho">
+            <!-- Cabeçalho da tabela -->
+            <tr>
+                <!-- Linha do cabeçalho -->
+                <!-- Header do cabeçalho -->
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Equipa</th>
+            </tr>
+        </thead>
+        <tbody class="TabelaCorpo">
+            @if (_funcionarios == null)
+            {
+                <p>A carregar funcionários ...</p>
+            }
+            else
+            {
+                <!-- Corpo da tabela -->
+                @foreach (var funcionario in _funcionarios)
+                {
+                    <tr>
+                        <!-- Linha da tabela -->
+                        <!-- Data em cada linha da tabela -->
+                        <td>@funcionario.Codigo_Utilizador</td>
+                        <td>@funcionario.Nome</td>
+                        <td>@funcionario.GetEquipaName()</td>
+                        <td>
+                            <Texto Nome = "Visualizar" Url = "funcionarios/visualizar"/>
+                        </td>
+                        <td>
+                            <Texto Nome = "Modificar" Url = "funcionarios/visualizar"/>
+                        </td>
+                        <!-- Falta Visualizar e Modificar -->
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    private List<Funcionario> _funcionarios;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _funcionarios = await ln.GetFuncionarios(); //trocar para método da lógica de negócio
+    }
+}

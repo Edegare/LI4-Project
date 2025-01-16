@@ -1,0 +1,11 @@
+﻿.MenuInicial {
+    height: 100%;
+    margin-top: 2%;
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    height: 400px;
+    border-radius: 8px;
+}

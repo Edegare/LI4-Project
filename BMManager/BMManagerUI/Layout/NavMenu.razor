@@ -1,0 +1,54 @@
+﻿@using BMManager.BMManagerUI.Features
+@inject NavigationManager NavigationManager
+
+<nav class="navbar mb-2 shadow">
+    <div class="d-flex align-items-center justify-content-between w-100">
+        <!-- Itens à esquerda -->
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand">
+                @if (_url == "")
+                {
+                    <Menu Nome="BMManager" Url="/" />
+                }
+                else
+                {
+                    <Menu Nome="BMManager" Url="/menuinicial" />
+                }
+            </a>
+            <!--@if (_url != "")-->
+            <!--{-->
+                <a class="navbar-brand ms-3">
+                    <Menu Nome="Funcionários" Url="funcionarios" />
+                </a>
+            <!--}-->
+            </div>
+        <!--@if (_url != "") -->
+        <!--{-->
+                <!-- Itens à direita -->
+                <div class="d-flex align-items-center">
+                    <a class="navbar-brand ms-3">
+                        <Menu Nome="Alterar senha" Url="alterarsenha" />
+                    </a>
+                    <a class="navbar-brand ms-3">
+                        <Menu Nome="Terminar sessão" Url="terminarsessao" />
+                    </a>
+                </div>
+        <!--}-->
+    </div>
+</nav>
+
+@code {
+    private string _url = "";
+
+    protected override void OnInitialized()
+    {
+        _url = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        _url = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,26 @@
+@if (NomeBotao == null)
+{
+    <div class = "top">
+        <h1 class = "título">@Nome</h1>
+    </div>
+    <hr class = "linha">
+}
+else
+{
+    <div class = "top">
+        <h1 class = "título">@Nome</h1>
+        <Botao Nome=@NomeBotao Url=@UrlBotao />
+    </div>
+    <hr class = "linha">
+}
+
+@code {
+    [Parameter]
+    public string Nome { get; set; } // Texto do botão
+
+    [Parameter]
+    public string NomeBotao { get; set; } // URL de navegação (se fornecida, o botão vira um link)
+
+    [Parameter]
+    public string UrlBotao { get; set; } // URL de navegação (se fornecida, o botão vira um link)
+}

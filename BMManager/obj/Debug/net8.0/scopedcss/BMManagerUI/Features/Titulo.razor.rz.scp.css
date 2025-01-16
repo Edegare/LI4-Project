@@ -1,0 +1,17 @@
+.top[b-k2ztghz7gx] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+}
+
+.título[b-k2ztghz7gx] {
+    font-weight: bold;
+}
+
+.linha[b-k2ztghz7gx] {
+    border: 0;
+    border-top: 2px solid black;
+    margin-top: 15px;
+    margin-bottom: 0px;
+}

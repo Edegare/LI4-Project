@@ -1,0 +1,10 @@
+a {
+    font-size: 24px;
+    color:  #F1DAC4;/* #A69CAC;*/
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #8253ee; /* Muda para uma cor diferente ao passar o rato */
+}

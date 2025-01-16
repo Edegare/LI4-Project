@@ -1,0 +1,9 @@
+a {
+    color: #161B33;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #8253ee; /* Muda para uma cor diferente ao passar o rato */
+}

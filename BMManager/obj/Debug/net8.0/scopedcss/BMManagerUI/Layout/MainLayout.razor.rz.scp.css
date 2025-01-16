@@ -1,0 +1,73 @@
+.page[b-00nrmw4jzo] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* Impede o scroll horizontal */
+    background-color: #A69CAC;
+    height: 100vh; /* Define a altura máxima como 100% da altura da janela de visualização */
+}
+
+main[b-00nrmw4jzo] {
+    flex: 1;
+}
+
+.sidebar[b-00nrmw4jzo] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-00nrmw4jzo] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-00nrmw4jzo]  a, .top-row .btn-link[b-00nrmw4jzo] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-00nrmw4jzo] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-00nrmw4jzo] {
+        display: none;
+    }
+
+    .top-row.auth[b-00nrmw4jzo] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-00nrmw4jzo], .top-row .btn-link[b-00nrmw4jzo] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-00nrmw4jzo] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-00nrmw4jzo] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-00nrmw4jzo] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row[b-00nrmw4jzo], article[b-00nrmw4jzo] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}

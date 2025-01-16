@@ -1,0 +1,25 @@
+@if (!string.IsNullOrEmpty(Url))
+{
+    <a href="@Url">
+        <button class="button">@Nome</button>
+    </a>
+}
+else if (Metodo.HasDelegate)
+{
+    <button type="button" @onclick=Metodo>@Nome</button>
+}
+else
+{
+    <button type = "submit" class="button">@Nome</button>
+}
+
+@code {
+    [Parameter]
+    public string Nome { get; set; } // Texto do botão
+
+    [Parameter]
+    public string Url { get; set; } // URL de navegação (se fornecida, o botão vira um link)
+
+    [Parameter]
+    public EventCallback Metodo { get; set; }
+}

@@ -1,0 +1,36 @@
+body[b-mpzn16t19x] {
+}
+
+.InformacoesRegisto[b-mpzn16t19x] {
+}
+
+.esp[b-mpzn16t19x] {
+    height: 30vh; /* Define a altura máxima como 100% da altura da janela de visualização */
+}
+
+.Botoes[b-mpzn16t19x] {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20000px;
+    bottom: 0; /* Posiciona os botões no final da página */
+    width: 100%; /* Faz os botões ocuparem toda a largura */
+    margin: 0; /* Remove qualquer margem que atrapalhe */
+    padding: 10px; /* Ajuste de espaçamento, opcional */
+}
+
+.linha[b-mpzn16t19x] {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.linha h4[b-mpzn16t19x] {
+    width: 100px; /* Define uma largura fixa para o primeiro elemento */
+    margin: 0; /* Remove a margem padrão do <h4> */
+}
+
+.linha InputText[b-mpzn16t19x] {
+    flex: 1; /* Permite que o campo de entrada se ajuste ao restante do espaço */
+}

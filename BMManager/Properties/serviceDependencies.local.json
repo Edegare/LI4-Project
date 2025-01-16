@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "BMManagerDatabase": {
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:DefaultConnection"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Edgar\\Desktop\\Minha pasta\\LEI\\3ano\\LI4\\Projeto\\BMManager\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BMManager.bundle.scp.css",
+      "PackagePath": "staticwebassets\\BMManager.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Edgar\\Desktop\\Minha pasta\\LEI\\3ano\\LI4\\Projeto\\BMManager\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\Edgar\\Desktop\\Minha pasta\\LEI\\3ano\\LI4\\Projeto\\BMManager\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Edgar\\Desktop\\Minha pasta\\LEI\\3ano\\LI4\\Projeto\\BMManager\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Edgar\\Desktop\\Minha pasta\\LEI\\3ano\\LI4\\Projeto\\BMManager\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\Edgar\\Desktop\\Minha pasta\\LEI\\3ano\\LI4\\Projeto\\BMManager\\wwwroot\\imagens\\BelosMoveisLogo.jpg",
+      "PackagePath": "staticwebassets\\imagens\\BelosMoveisLogo.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BMManager.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.BMManager.props",
+      "PackagePath": "build\\BMManager.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BMManager.props",
+      "PackagePath": "buildMultiTargeting\\BMManager.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.BMManager.props",
+      "PackagePath": "buildTransitive\\BMManager.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

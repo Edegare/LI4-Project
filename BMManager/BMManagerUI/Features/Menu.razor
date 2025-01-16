@@ -1,0 +1,11 @@
+<a href="@Url">
+    @Nome
+</a>
+
+@code {
+    [Parameter]
+    public string Nome { get; set; } // O texto a ser exibido
+
+    [Parameter]
+    public string Url { get; set; } // O link de navegação
+}

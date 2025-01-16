@@ -1,0 +1,40 @@
+.top[b-gi0pdvcggy] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+}
+
+.Titulo[b-gi0pdvcggy] {
+    font-weight: bold;
+}
+
+.linha[b-gi0pdvcggy] {
+    border: 0;
+    border-top: 2px solid black;
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+
+.Tabela[b-gi0pdvcggy] {
+}
+
+table[b-gi0pdvcggy] {
+    width: 100%;
+    text-align: start;
+}
+
+thead[b-gi0pdvcggy] {
+}
+
+.TabelaCabecalho[b-gi0pdvcggy] {
+    border: 0;
+    border-bottom: 2px solid #7c7581;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.TabelaCorpo[b-gi0pdvcggy] {
+}

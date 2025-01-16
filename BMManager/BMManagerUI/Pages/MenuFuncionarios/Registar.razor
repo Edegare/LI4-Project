@@ -1,0 +1,72 @@
+﻿@page "/funcionarios/registar"
+@using BMManager.BMManagerUI.Features
+@using BMManagerLN
+@using BMManagerLN.SubFuncionarios
+@using BMManagerUI.Pages.MenuFuncionarios
+<!-- Injetar instância da lógica de negócio-->
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Registar Funcionário" />
+
+<div class="InformacoesRegisto">
+    <EditForm Model="@novoFuncionario" OnValidSubmit="@RegistarFuncionario" FormName="registarFunc" Enhance>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class = "linha">
+            <h4>Nome</h4>
+            <InputText id="nome" @bind-Value="@novoFuncionario.Nome" />
+        </div>
+        <div class = "linha">
+            <h4>Email</h4>
+            <InputText id="email" @bind-Value="@novoFuncionario.Email" />
+        </div>
+        <div class = "linha">
+            <h4>Senha</h4>
+            <input type="password" @bind="novoFuncionario.Senha" />
+        </div>
+        <div class = "linha">
+            <h4>Telefone</h4>
+            <InputText id="telefone" @bind-Value="@novoFuncionario.Telefone" />
+        </div>
+        <div class = "linha">
+            <h4>Equipa</h4>
+            <select @bind="novoFuncionario.Equipa">
+                <option value="">Selecione uma equipa</option>
+                @foreach (Equipa equipa in Enum.GetValues(typeof(Equipa)))
+                {
+                    <option value="@equipa">@equipa.GetDescription()</option>
+                }
+            </select>
+        </div>
+        <div class = "esp">
+        </div>
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="funcionarios" />
+            <Botao Nome="Registar"/>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Funcionario novoFuncionario { get; set; } = new();
+
+    private async Task RegistarFuncionario()
+    {
+        Funcionario funcionario = new Funcionario
+            {
+                Nome = novoFuncionario.Nome,
+                Email = novoFuncionario.Email,
+                Telefone = novoFuncionario.Telefone,
+                Senha = novoFuncionario.Senha,
+                Equipa = novoFuncionario.Equipa,
+                Conta_Ativa = true
+            };
+        await ln.PutFuncionario(funcionario);
+
+        novoFuncionario = new Funcionario();
+
+        NavigationManager.NavigateTo("/funcionarios");
+    }
+}

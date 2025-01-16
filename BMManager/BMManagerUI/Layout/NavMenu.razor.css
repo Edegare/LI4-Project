@@ -1,0 +1,13 @@
+﻿.d-flex {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #161B33;
+    /*border-bottom: 3px solid black;  Linha verde */
+}

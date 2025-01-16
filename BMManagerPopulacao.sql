@@ -1,0 +1,96 @@
+USE BMManager
+GO
+
+INSERT INTO Funcionario
+           (Nome,
+			Email,
+			Telefone,
+			Senha,
+			Equipa,
+			Conta_Ativa)
+     VALUES
+           ('Anabela Silva',
+			'1@bmmanager.pt',
+			'930000000',
+			'senha1',
+			'Administracao',
+			1),
+           ('Bela Rodrigues',
+			'2@bmmanager.pt',
+			'920000000',
+			'senha2',
+			'Encomendas',
+			1),
+           ('Isabela Costa',
+			'3@bmmanager.pt',
+			'910000000',
+			'senha3',
+			'Modelacao',
+			1),
+           ('João Belo',
+			'4@bmmanager.pt',
+			'940000000',
+			'senha4',
+			'Montagem',
+			1),
+           ('Florbela Lopes',
+			'5@bmmanager.pt',
+			'950000000',
+			'senha5',
+			'Armazem',
+			1),
+           ('João Feio',
+			'nome6@bmmanager.pt',
+			'960000000',
+			'senha6',
+			'Recursos_humanos',
+			1)
+INSERT INTO Material
+           (Nome,
+			Quantidade,
+			Imagem)
+     VALUES
+           ('Nome1',
+			'5',
+			CONVERT(varbinary(max),'imagem1')),
+           ('Nome2',
+			'0',
+			CONVERT(varbinary(max),'imagem2')),
+           ('Nome3',
+			'3',
+			CONVERT(varbinary(max),'imagem3')),
+           ('Nome4',
+			'2',
+			CONVERT(varbinary(max),'imagem4')),
+           ('Nome5',
+			'4',
+			CONVERT(varbinary(max),'imagem5')),
+           ('Nome6',
+			'5',
+			CONVERT(varbinary(max),'imagem6'))
+INSERT INTO Movel
+           (Nome,
+			Quantidade,
+			Imagem)
+     VALUES
+           ('Nome1',
+			'5',
+			CONVERT(varbinary(max),'imagem1')),
+           ('Nome2',
+			'0',
+			CONVERT(varbinary(max),'imagem2')),
+           ('Nome3',
+			'3',
+			CONVERT(varbinary(max),'imagem3')),
+           ('Nome4',
+			'2',
+			CONVERT(varbinary(max),'imagem4')),
+           ('Nome5',
+			'4',
+			CONVERT(varbinary(max),'imagem5')),
+           ('Nome6',
+			'5',
+			CONVERT(varbinary(max),'imagem6'))
+GO
+
+
