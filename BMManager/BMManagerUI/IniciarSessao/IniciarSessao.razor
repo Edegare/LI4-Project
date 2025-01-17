@@ -1,4 +1,5 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 @using BMManagerLN
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
@@ -30,8 +31,8 @@
 
     private async void Autenticacao()
     {
-//        autenticacaoSucesso = await ln.AutenticarUtilizador(codigo, senha);
-        autenticacaoSucesso = true; //trocar
+        autenticacaoSucesso = await ln.AutenticarUtilizador(codigo, senha);
+//        autenticacaoSucesso = true; //trocar
         if (autenticacaoSucesso)
         {
             _url = "menuinicial";
