@@ -6,7 +6,7 @@
 }
 else if (Metodo.HasDelegate)
 {
-    <button type="button" @onclick=Metodo>@Nome</button>
+    <button class="button" @onclick=Metodo>@Nome</button>
 }
 else
 {
@@ -15,10 +15,10 @@ else
 
 @code {
     [Parameter]
-    public string Nome { get; set; } // Texto do botão
+    public string? Nome { get; set; } // Texto do botão
 
     [Parameter]
-    public string Url { get; set; } // URL de navegação (se fornecida, o botão vira um link)
+    public string? Url { get; set; } // URL de navegação (se fornecida, o botão vira um link)
 
     [Parameter]
     public EventCallback Metodo { get; set; }
