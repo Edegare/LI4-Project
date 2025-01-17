@@ -51,7 +51,7 @@
         {
             await ln.PutMovel(movel);
             int proxima_etapa = -1;
-            for (int i = movelTemp.NovoMovelEtapas.Count; i >=0; i--){
+            for (int i = movelTemp.NovoMovelEtapas.Count-1; i >=0; i--){
                 int num = movelTemp.NovoMovelEtapas.ElementAt(i).Key;
                 byte[] imagem = movelTemp.NovoMovelEtapas.ElementAt(i).Value.Item1;
                 List<(int, int)> materiais = movelTemp.NovoMovelEtapas.ElementAt(i).Value.Item3;
