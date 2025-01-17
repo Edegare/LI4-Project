@@ -14,7 +14,17 @@ namespace BMManager.BMManagerCD
         {
         }
 
+        public DbSet<Encomenda> Encomenda { get; set; } = default!;
+
         public DbSet<Funcionario> Funcionario { get; set; } = default!;
+
+        public DbSet<Material> Material { get; set; } = default!;
+
+        public DbSet<Montagem> Montagem { get; set; } = default!;
+
+        public DbSet<Movel> Movel { get; set; } = default!;
+
+        public DbSet<Etapa> Etapa { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +53,9 @@ namespace BMManager.BMManagerCD
 
 
             //Material
+            modelBuilder.Entity<Material>().HasKey(m => m.Numero);
+            modelBuilder.Entity<Material>().Property(m => m.Numero).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Material>().Property(m => m.Quantidade).HasDefaultValue(0);
 
 
             //Montagem

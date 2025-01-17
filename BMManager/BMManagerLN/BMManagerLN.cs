@@ -61,7 +61,7 @@ namespace BMManagerLN
         {
             return subMoveis.GetEtapas();
         }
-        public Task<List<Etapa>> GetEtapa(int codEtapa)
+        public Task<Etapa> GetEtapa(int codEtapa)
         {
             return subMoveis.GetEtapa(codEtapa);
         }

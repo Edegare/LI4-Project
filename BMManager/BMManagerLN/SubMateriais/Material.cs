@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BMManagerLN.SubMateriais
 {
     public class Material
     {
+        [Key]
         public int Numero { get; set; }
+
+        [Required(ErrorMessage = "Tem que selecionar um nome")]
+        [StringLength(75, ErrorMessage = "Nome tem mais de 75 caracteres")]
         public String Nome { get; set; }
+
         public int Quantidade { get; set; } = 0;
+
+        [Required(ErrorMessage = "Tem que selecionar uma imagem")]
+        //falta ver se é uma imagem
         public byte[] Imagem { get; set; } = new byte[8294400]; //ver tipo
     }
 }
