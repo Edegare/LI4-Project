@@ -19,6 +19,7 @@ namespace BMManagerLN
 
         //Métodos SubMoveis
         Task<List<Movel>> GetMoveis();
+        Task PutMovel(Movel movel);
         Task<List<Etapa>> GetEtapas();
         Task<Etapa> GetEtapa(int codEtapa);
         Task PutEtapa(Etapa etapa);
