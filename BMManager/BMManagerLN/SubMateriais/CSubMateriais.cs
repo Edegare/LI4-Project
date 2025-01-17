@@ -15,7 +15,9 @@ namespace BMManagerLN.SubMateriais
         // Métodos SubMateriais
         public async Task<List<Material>> GetMateriais()
         {
-            return await _context.Material.ToListAsync();
+            Task<List<Material>> materiais = _context.Material.ToListAsync();
+            return await materiais;
+//            return await _context.Material.ToListAsync();
         }
 
         public async Task PutMaterial(Material material)

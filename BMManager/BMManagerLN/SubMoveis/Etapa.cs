@@ -10,7 +10,7 @@ namespace BMManagerLN.SubMoveis
 
         [Required(ErrorMessage = "Tem que selecionar uma imagem")]
         //falta ver se é uma imagem
-        public byte[] Imagem { get; set; }
+        public byte[]? Imagem { get; set; } //tirar nulo
 
 //        [Required(ErrorMessage = "Tem que selecionar o numero da etapa")]
         public int Numero { get; set; }

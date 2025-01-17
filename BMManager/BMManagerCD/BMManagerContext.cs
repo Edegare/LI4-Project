@@ -53,6 +53,7 @@ namespace BMManager.BMManagerCD
             modelBuilder.Entity<Material>().HasKey(m => m.Numero);
             modelBuilder.Entity<Material>().Property(m => m.Numero).ValueGeneratedOnAdd();
             modelBuilder.Entity<Material>().Property(m => m.Quantidade).HasDefaultValue(0);
+            modelBuilder.Entity<Material>().Property(m => m.Imagem).IsRequired(false); //alterar depois
 
 
             //Montagem
@@ -62,13 +63,15 @@ namespace BMManager.BMManagerCD
             modelBuilder.Entity<Movel>().HasKey(m => m.Numero);
             modelBuilder.Entity<Movel>().Property(m => m.Numero).ValueGeneratedOnAdd();
             modelBuilder.Entity<Movel>().Property(m => m.Quantidade).HasDefaultValue(0);
+            modelBuilder.Entity<Movel>().Property(m => m.Imagem).IsRequired(false); //alterar depois
 
             //Etapa
             modelBuilder.Entity<Etapa>().HasKey(e => e.Codigo_Etapa);
             modelBuilder.Entity<Etapa>().Property(e => e.Codigo_Etapa).ValueGeneratedOnAdd();
             modelBuilder.Entity<Etapa>().Property(e => e.Numero).HasDefaultValue(1).IsRequired();
-            modelBuilder.Entity<Etapa>().Property(e => e.Proxima_Etapa).IsRequired();
+            modelBuilder.Entity<Etapa>().Property(e => e.Proxima_Etapa).HasDefaultValue(-1).IsRequired();
             modelBuilder.Entity<Etapa>().Property(e => e.Movel).IsRequired();
+            modelBuilder.Entity<Etapa>().Property(m => m.Imagem).IsRequired(false); //alterar depois
 
 
         }

@@ -55,7 +55,7 @@ namespace BMManagerLN
         //Métodos SubMoveis
         public Task<List<Movel>> GetMoveis()
         {
-            return null;
+            return subMoveis.GetMoveis();
         }
         public Task<List<Etapa>> GetEtapas()
         {

@@ -17,7 +17,7 @@ namespace BMManagerLN.SubMoveis
         // Métodos SubMoveis
         public async Task<List<Movel>> GetMoveis()
         {
-            return null;
+            return await _context.Movel.ToListAsync();
         }
 
         public async Task PutMovel(Movel movel)

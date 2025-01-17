@@ -6,10 +6,9 @@
 <Titulo Nome="Móveis" NomeBotao="Registar" UrlBotao="moveis/registar"/>
 
 <div class="Tabela">
-    <h1>Etapas para testar</h1>
-    @if (_etapas == null)
+    @if (_moveis == null)
     {
-        <p>A carregar etapas ...</p>
+        <p>A carregar moveis ...</p>
     }
     else
     {
@@ -19,25 +18,21 @@
                 <tr>
                     <!-- Linha do cabeçalho -->
                     <!-- Header do cabeçalho -->
-                    <th>Código</th>
-                    <th>Numero</th>
-                    <th>Proxima Etapa</th>
-                    <th>Movel</th>
-                    <th>Quantidade Materiais</th>
+                    <th>Número</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
                 </tr>
             </thead>
             <tbody class="TabelaCorpo">
                 <!-- Corpo da tabela -->
-                @foreach (var etapa in _etapas)
+                @foreach (var movel in _moveis)
                 {
                     <tr>
                         <!-- Linha da tabela -->
                         <!-- Data em cada linha da tabela -->
-                        <td>@etapa.Codigo_Etapa</td>
-                        <td>@etapa.Numero</td>
-                        <td>@etapa.Proxima_Etapa</td>
-                        <td>@etapa.Movel</td>
-                        <td>@etapa.Materiais_Necessarios.Count()</td>
+                        <td>@movel.Numero</td>
+                        <td>@movel.Nome</td>
+                        <td>@movel.Quantidade</td>
                         <!-- Falta Visualizar e Modificar -->
                     </tr>
                 }
@@ -52,7 +47,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //        _moveis = await ln.GetMoveis();
-        _etapas = await ln.GetEtapas();
+        _moveis = await ln.GetMoveis();
+//        _etapas = await ln.GetEtapas();
     }
 }
