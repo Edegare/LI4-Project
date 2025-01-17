@@ -1,0 +1,47 @@
+@typeparam TItem
+
+<div class="Tabela">
+    @if (Items == null) {
+        <p>A carregar dados ...</p>
+    }
+    else {
+        <table>
+            <thead class="TabelaCabecalho">
+                 <tr>
+                    @foreach (string nome in Headers) {
+                        <th>@nome</th>
+                    }
+                </tr>
+            </thead>
+            <tbody class="TabelaCorpo">
+                @foreach (var item in Items)
+                {
+                    <tr>
+                        @foreach (var column in Columns)
+                        {
+                            <td>@column(item)</td>
+                        }
+                        @foreach (var par in Botoes) {
+                            <td><Texto Nome="@par.Item1" Url = "@par.Item2" /></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+        
+
+@code {
+    [Parameter]
+    public List<string> Headers { get; set; } = new List<string>(); // O texto a ser exibido
+
+    [Parameter]
+    public List<TItem> Items { get; set; } = new();
+
+    [Parameter]
+    public List<Func<TItem, object>> Columns { get; set; } = new();
+
+    [Parameter]
+    public List<(string, string)> Botoes { get; set; } = new();
+}
