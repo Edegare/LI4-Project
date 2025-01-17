@@ -50,20 +50,34 @@
         try
         {
             await ln.PutMovel(movel);
-            foreach (var entry in movelTemp.NovoMovelEtapas)
-            {
-                int num = entry.Key;
-                byte[] imagem = entry.Value.Item1;
-                List<(int, int)> materiais = entry.Value.Item3;
-                Etapa etapa = new Etapa
-                    {
-                        Imagem = imagem,
-                        Numero = num,
-                        Movel = movel.Numero,
-                        Materiais_Necessarios = materiais
-                    };
+            int proxima_etapa = -1;
+            for (int i = movelTemp.NovoMovelEtapas.Count; i >=0; i--){
+                int num = movelTemp.NovoMovelEtapas.ElementAt(i).Key;
+                byte[] imagem = movelTemp.NovoMovelEtapas.ElementAt(i).Value.Item1;
+                List<(int, int)> materiais = movelTemp.NovoMovelEtapas.ElementAt(i).Value.Item3;
+                Etapa etapa;
+                if(proxima_etapa==-1){
+                    etapa = new Etapa
+                        {
+                            Imagem = imagem,
+                            Numero = num,
+                            Movel = movel.Numero,
+                            Materiais_Necessarios = materiais,
+                        };
+                }
+                else{
+                    etapa = new Etapa
+                        {
+                            Imagem = imagem,
+                            Numero = num,
+                            Movel = movel.Numero,
+                            Materiais_Necessarios = materiais,
+                            Proxima_Etapa = proxima_etapa
+                        };
+                }
                 await ln.PutEtapa(etapa);
                 movel.Etapas_Montagem.Add(num, etapa.Codigo_Etapa);
+                proxima_etapa = etapa.Codigo_Etapa;
             }
             movelTemp = new MovelTemp();
 
