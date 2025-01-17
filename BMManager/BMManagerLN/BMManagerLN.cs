@@ -1,10 +1,10 @@
 ﻿using BMManager.BMManagerCD;
-using BMManager.BMManagerUI.Funcionarios;
 using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMateriais;
 using BMManagerLN.SubMontagens;
 using BMManagerLN.SubMoveis;
+using BMManagerLN.Exceptions;
 
 namespace BMManagerLN
 {
@@ -13,7 +13,7 @@ namespace BMManagerLN
 
         //Subsistemas
         private APICSubFuncionarios subFuncionarios;
-        //        private APICSubMontagens subMontagens;
+        private APICSubMontagens subMontagens;
         private APICSubMoveis subMoveis;
         private APICSubMateriais subMateriais;
         //        private APICSubEncomendas subEncomendas;
@@ -22,7 +22,7 @@ namespace BMManagerLN
         public BMManagerLN(BMManagerContext db)
         {
             subFuncionarios = new CSubFuncionarios(db);
-            //            subMontagens = new CSubMontagens(db);
+            subMontagens = new CSubMontagens(db);
             subMoveis = new CSubMoveis(db);
             subMateriais = new CSubMateriais(db);
             //            subEncomendas = new CSubEncomendas(db);
@@ -49,7 +49,26 @@ namespace BMManagerLN
         //Métodos SubMontagens
         public Task<List<Montagem>> GetMontagens()
         {
-            return null;
+            return subMontagens.GetMontagens();
+        }
+
+        public async Task NovaMontagem(int codMovel, int codFuncionario)
+        {
+            Movel movel = await subMoveis.GetMovel(codMovel);
+
+            bool materiaisSuficientes = true; //alterar para método que verifica
+            //verificar se existem materiais suficientes para primeira etapa ou todas
+            if (!materiaisSuficientes)
+            {
+                throw new MateriaisInsuficientesException("MateriaisInsoficientes");
+            }
+
+            Montagem montagem = new Montagem();
+            montagem.Movel = codMovel;
+            montagem.Etapa = movel.Etapas_Montagem[1];
+            montagem.Data_Inicial = DateTime.Now;
+
+            await subMontagens.PutMontagem(montagem);
         }
 
         //Métodos SubMoveis

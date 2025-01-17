@@ -21,6 +21,11 @@ namespace BMManagerLN.SubMoveis
             return await _context.Movel.ToListAsync();
         }
 
+        public async Task<Movel> GetMovel(int codMovel)
+        {
+            return await _context.Movel.FindAsync(codMovel);
+        }
+
         public async Task PutMovel(Movel movel)
         {
             await _context.Movel.AddAsync(movel);

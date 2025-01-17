@@ -20,7 +20,7 @@ namespace BMManager.BMManagerCD
 
         public DbSet<Material> Material { get; set; } = default!;
 
-//        public DbSet<Montagem> Montagem { get; set; } = default!;
+        public DbSet<Montagem> Montagem { get; set; } = default!;
 
         public DbSet<Movel> Movel { get; set; } = default!;
 
@@ -57,6 +57,20 @@ namespace BMManager.BMManagerCD
 
 
             //Montagem
+            modelBuilder.Entity<Montagem>().HasKey(m => m.Numero);
+            modelBuilder.Entity<Montagem>().Property(m => m.Numero).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Montagem>().Property(m => m.Data_Inicial).IsRequired(true);
+            modelBuilder.Entity<Montagem>().Property(m => m.Data_Final).IsRequired(false);
+            modelBuilder.Entity<Montagem>().Property(m => m.Duracao).HasDefaultValue(TimeSpan.Zero);
+            modelBuilder.Entity<Montagem>().Property(m => m.Estado)
+                                                .HasConversion(e => e.ToString(),
+                                                               e => (Estado)Enum.Parse(typeof(Estado), e))
+                                                .IsRequired();
+            modelBuilder.Entity<Montagem>().Property(m => m.Etapa_Concluida).HasDefaultValue(false).IsRequired(true);
+            modelBuilder.Entity<Montagem>().Property(m => m.Estado).HasDefaultValue(Estado.Em_Progresso).IsRequired(true);
+            modelBuilder.Entity<Montagem>().Property(m => m.Movel).IsRequired(true);
+            modelBuilder.Entity<Montagem>().Property(m => m.Etapa).IsRequired(true);
+            modelBuilder.Entity<Montagem>().Property(m => m.Encomenda).IsRequired(false);
 
 
             //Movel

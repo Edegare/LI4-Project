@@ -15,6 +15,7 @@ namespace BMManagerLN
 
         //Métodos SubMontagens
         Task<List<Montagem>> GetMontagens();
+        Task NovaMontagem(int codMovel, int codFuncionario);
 
 
         //Métodos SubMoveis
