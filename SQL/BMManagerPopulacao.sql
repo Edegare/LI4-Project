@@ -43,7 +43,7 @@ INSERT INTO Funcionario
 			'nome6@bmmanager.pt',
 			'960000000',
 			'senha6',
-			'Recursos_humanos',
+			'Recursos_Humanos',
 			1)
 INSERT INTO Material
            (Nome,
