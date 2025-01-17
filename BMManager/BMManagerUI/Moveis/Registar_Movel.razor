@@ -45,23 +45,34 @@
             {
                 Nome = movelTemp.NovoMovelNome,
                 Imagem = movelTemp.NovoMovelImagem,
+                Quantidade = 0
             };
-        await ln.PutMovel(movel);
-        foreach (var entry in movelTemp.NovoMovelEtapas){
-            int num = entry.Key;
-            byte[] imagem = entry.Value.Item1;
-            List<(int, int)> materiais = entry.Value.Item3;
-            Etapa etapa = new Etapa {
-                    Imagem = imagem,
-                    Numero = num,
-                    Movel = movel.Numero,
-                    Materiais_Necessarios = materiais
-                };
-            await ln.PutEtapa(etapa);
-            movel.Etapas_Montagem.Add(num, etapa.Codigo_Etapa);
-        }
-        movelTemp = new MovelTemp();
+        try
+        {
+            await ln.PutMovel(movel);
+            foreach (var entry in movelTemp.NovoMovelEtapas)
+            {
+                int num = entry.Key;
+                byte[] imagem = entry.Value.Item1;
+                List<(int, int)> materiais = entry.Value.Item3;
+                Etapa etapa = new Etapa
+                    {
+                        Imagem = imagem,
+                        Numero = num,
+                        Movel = movel.Numero,
+                        Materiais_Necessarios = materiais
+                    };
+                await ln.PutEtapa(etapa);
+                movel.Etapas_Montagem.Add(num, etapa.Codigo_Etapa);
+            }
+            movelTemp = new MovelTemp();
 
-        NavigationManager.NavigateTo("/moveis");
+            NavigationManager.NavigateTo("/moveis");
+        }
+        catch (Exception ex)
+        {
+            // Tratar exceções, como falha na API, e exibir mensagem de erro se necessário
+            Console.WriteLine("Erro ao registrar móvel: " + ex.Message);
+        }
     }
 }
