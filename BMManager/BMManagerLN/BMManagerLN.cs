@@ -1,4 +1,5 @@
 ﻿using BMManager.BMManagerCD;
+using BMManager.BMManagerUI.Funcionarios;
 using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMateriais;
@@ -13,8 +14,8 @@ namespace BMManagerLN
         //Subsistemas
         private APICSubFuncionarios subFuncionarios;
         //        private APICSubMontagens subMontagens;
-        //        private APICSubMoveis subMoveis;
-        //        private APICSubMateriais subMateriais;
+        private APICSubMoveis subMoveis;
+        private APICSubMateriais subMateriais;
         //        private APICSubEncomendas subEncomendas;
 
         //Construtor
@@ -22,8 +23,8 @@ namespace BMManagerLN
         {
             subFuncionarios = new CSubFuncionarios(db);
             //            subMontagens = new CSubMontagens(db);
-            //            subMoveis = new CSubMoveis(db);
-            //            subMateriais = new CSubMateriais(db);
+            subMoveis = new CSubMoveis(db);
+            subMateriais = new CSubMateriais(db);
             //            subEncomendas = new CSubEncomendas(db);
         }
 
@@ -58,27 +59,27 @@ namespace BMManagerLN
         }
         public Task<List<Etapa>> GetEtapas()
         {
-            return null;
+            return subMoveis.GetEtapas();
         }
         public Task<List<Etapa>> GetEtapa(int codEtapa)
         {
-            return null;
+            return subMoveis.GetEtapa(codEtapa);
         }
 
         public Task PutEtapa(Etapa etapa)
         {
-            return null;
+            return subMoveis.PutEtapa(etapa);
         }
 
         //Métodos SubMateriais
         public Task<List<Material>> GetMateriais()
         {
-            return null;
+            return subMateriais.GetMateriais();
         }
 
         public Task PutMaterial(Material material)
         {
-            return null;
+            return subMateriais.PutMaterial(material);
         }
 
         //Métodos SubEncomendas
