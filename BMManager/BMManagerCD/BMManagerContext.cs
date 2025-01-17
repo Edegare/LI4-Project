@@ -14,13 +14,13 @@ namespace BMManager.BMManagerCD
         {
         }
 
-        public DbSet<Encomenda> Encomenda { get; set; } = default!;
+//        public DbSet<Encomenda> Encomenda { get; set; } = default!;
 
         public DbSet<Funcionario> Funcionario { get; set; } = default!;
 
         public DbSet<Material> Material { get; set; } = default!;
 
-        public DbSet<Montagem> Montagem { get; set; } = default!;
+//        public DbSet<Montagem> Montagem { get; set; } = default!;
 
         public DbSet<Movel> Movel { get; set; } = default!;
 
@@ -33,14 +33,11 @@ namespace BMManager.BMManagerCD
             //Encomenda
 
 
+
             //Funcionario
             // Configuração da chave primária
-            modelBuilder.Entity<Funcionario>()
-                .HasKey(f => f.Codigo_Utilizador);
-
-            modelBuilder.Entity<Funcionario>()
-                .Property(f => f.Codigo_Utilizador)
-                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Funcionario>().HasKey(f => f.Codigo_Utilizador);
+            modelBuilder.Entity<Funcionario>().Property(f => f.Codigo_Utilizador).ValueGeneratedOnAdd();
 
             // Configuração do enum Equipa para armazenar como string (ou inteiro)
             modelBuilder.Entity<Funcionario>()
@@ -62,6 +59,16 @@ namespace BMManager.BMManagerCD
 
 
             //Movel
+            modelBuilder.Entity<Movel>().HasKey(m => m.Numero);
+            modelBuilder.Entity<Movel>().Property(m => m.Numero).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Movel>().Property(m => m.Quantidade).HasDefaultValue(0);
+
+            //Etapa
+            modelBuilder.Entity<Etapa>().HasKey(e => e.Codigo_Etapa);
+            modelBuilder.Entity<Etapa>().Property(e => e.Codigo_Etapa).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Etapa>().Property(e => e.Numero).HasDefaultValue(1).IsRequired();
+            modelBuilder.Entity<Etapa>().Property(e => e.Proxima_Etapa).IsRequired();
+            modelBuilder.Entity<Etapa>().Property(e => e.Movel).IsRequired();
 
 
         }
