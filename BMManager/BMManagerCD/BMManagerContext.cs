@@ -20,6 +20,10 @@ namespace BMManager.BMManagerCD
         {
             base.OnModelCreating(modelBuilder);
 
+            //Encomenda
+
+
+            //Funcionario
             // Configuração da chave primária
             modelBuilder.Entity<Funcionario>()
                 .HasKey(f => f.Codigo_Utilizador);
@@ -36,6 +40,17 @@ namespace BMManager.BMManagerCD
                     e => (Equipa)Enum.Parse(typeof(Equipa), e) // Converter de volta para o enum
                 )
                 .IsRequired();
+
+
+            //Material
+
+
+            //Montagem
+
+
+            //Movel
+
+
         }
     }
 }
