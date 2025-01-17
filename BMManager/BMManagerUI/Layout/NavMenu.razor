@@ -1,5 +1,4 @@
-﻿@using BMManager.BMManagerUI.Features
-@inject NavigationManager NavigationManager
+﻿@inject NavigationManager NavigationManager
 
 <nav class="navbar mb-2 shadow">
     <div class="d-flex align-items-center justify-content-between w-100">
@@ -15,15 +14,27 @@
                     <Menu Nome="BMManager" Url="/menuinicial" />
                 }
             </a>
-            <!--@if (_url != "")-->
-            <!--{-->
+            @if (_url != "")
+            {
                 <a class="navbar-brand ms-3">
                     <Menu Nome="Funcionários" Url="funcionarios" />
                 </a>
-            <!--}-->
+                <a class="navbar-brand ms-3">
+                    <Menu Nome="Montagens" Url="montagens" />
+                </a>
+                <a class="navbar-brand ms-3">
+                    <Menu Nome="Móveis" Url="moveis" />
+                </a>
+                <a class="navbar-brand ms-3">
+                    <Menu Nome="Materiais" Url="materiais" />
+                </a>
+                <a class="navbar-brand ms-3">
+                    <Menu Nome="Encomendas" Url="encomendas" />
+                </a>
+            }
             </div>
-        <!--@if (_url != "") -->
-        <!--{-->
+            @if (_url != "")
+            {
                 <!-- Itens à direita -->
                 <div class="d-flex align-items-center">
                     <a class="navbar-brand ms-3">
@@ -33,7 +44,7 @@
                         <Menu Nome="Terminar sessão" Url="terminarsessao" />
                     </a>
                 </div>
-        <!--}-->
+            }
     </div>
 </nav>
 

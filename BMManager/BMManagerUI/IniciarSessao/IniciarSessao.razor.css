@@ -1,0 +1,19 @@
+﻿.IniciarSessao {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.CodigoSenha {
+    margin-top: 5%;
+}
+
+.Senha {
+    margin-top: 2%;
+}
+
+.Botao {
+    display: flex;
+    justify-content: end;
+}

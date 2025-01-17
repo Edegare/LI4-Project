@@ -1,5 +1,9 @@
 ﻿using BMManager.BMManagerCD;
+using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
+using BMManagerLN.SubMateriais;
+using BMManagerLN.SubMontagens;
+using BMManagerLN.SubMoveis;
 
 namespace BMManagerLN
 {
@@ -9,8 +13,8 @@ namespace BMManagerLN
         //Subsistemas
         private APICSubFuncionarios subFuncionarios;
         //        private APICSubMontagens subMontagens;
-        //private APICSubMoveis subMoveis;
-        //private APICSubMateriais subMateriais;
+        //        private APICSubMoveis subMoveis;
+        //        private APICSubMateriais subMateriais;
         //        private APICSubEncomendas subEncomendas;
 
         //Construtor
@@ -18,8 +22,8 @@ namespace BMManagerLN
         {
             subFuncionarios = new CSubFuncionarios(db);
             //            subMontagens = new CSubMontagens(db);
-            //subMoveis = new CSubMoveis(db);
-            //subMateriais = new CSubMateriais(db);
+            //            subMoveis = new CSubMoveis(db);
+            //            subMateriais = new CSubMateriais(db);
             //            subEncomendas = new CSubEncomendas(db);
         }
 
@@ -42,45 +46,45 @@ namespace BMManagerLN
         }
 
         //Métodos SubMontagens
-        //public Task<List<Montagem>> GetMontagens()
-        //{
-        //    return null;
-        //}
+        public Task<List<Montagem>> GetMontagens()
+        {
+            return null;
+        }
 
-        ////Métodos SubMoveis
-        //public Task<List<Movel>> GetMoveis()
-        //{
-        //    return null;
-        //}
-        //public Task<List<Etapa>> GetEtapas()
-        //{
-        //    return subMoveis.GetEtapas();
-        //}
-        //public Task<List<Etapa>> GetEtapa(int codEtapa)
-        //{
-        //    return subMoveis.GetEtapa(codEtapa);
-        //}
+        //Métodos SubMoveis
+        public Task<List<Movel>> GetMoveis()
+        {
+            return null;
+        }
+        public Task<List<Etapa>> GetEtapas()
+        {
+            return null;
+        }
+        public Task<List<Etapa>> GetEtapa(int codEtapa)
+        {
+            return null;
+        }
 
-        //public Task PutEtapa(Etapa etapa)
-        //{
-        //    return subMoveis.PutEtapa(etapa);
-        //}
+        public Task PutEtapa(Etapa etapa)
+        {
+            return null;
+        }
 
-        ////Métodos SubMateriais
-        //public Task<List<Material>> GetMateriais()
-        //{
-        //    return subMateriais.GetMateriais();
-        //}
+        //Métodos SubMateriais
+        public Task<List<Material>> GetMateriais()
+        {
+            return null;
+        }
 
-        //public Task PutMaterial(Material material)
-        //{
-        //    return subMateriais.PutMaterial(material);
-        //}
+        public Task PutMaterial(Material material)
+        {
+            return null;
+        }
 
-        ////Métodos SubEncomendas
-        //public Task<List<Encomenda>> GetEncomendas()
-        //{
-        //    return null;
-        //}
+        //Métodos SubEncomendas
+        public Task<List<Encomenda>> GetEncomendas()
+        {
+            return null;
+        }
     }
 }

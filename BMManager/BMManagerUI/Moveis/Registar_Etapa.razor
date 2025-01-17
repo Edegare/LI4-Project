@@ -1,0 +1,67 @@
+﻿@page "/moveis/adicionar_etapa"
+@using BMManagerLN
+@using BMManagerLN.SubMoveis
+@inject APIBMManagerLN ln
+
+<Titulo Nome="Adicionar etapa" />
+
+<div class="InformacoesRegisto">
+    <EditForm Model="@novaEtapa" OnValidSubmit="@RegistarEtapa">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div>
+            <h4>Imagem</h4>
+            <InputFile id="nome" @bind-Value="@novaEtapa.Imagem" />
+        </div>
+        <div>
+            <h4>Materiais</h4>
+            <InputNumber id="nome" @bind-Value="@novoMaterialId" />
+            <InputNumber id="nome" @bind-Value="@novoMaterialQuantidade" />
+            <Botao Nome="Adicionar material" Metodo="AdicionarMaterial"></Botao>
+
+        </div>
+
+        <div>
+            <ul>
+                @foreach ((int idMaterial, int quantidade) in novaEtapa.Materiais_Necessarios)
+                {
+                    <li>@idMaterial @quantidade</li>
+                }
+            </ul>
+        </div>
+        <div class="esp">
+        </div>
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="moveis" />
+            <Botao Nome="Registar" />
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private Etapa novaEtapa = new Etapa();
+
+    private async Task RegistarEtapa()
+    {
+        Etapa etapa = new Etapa
+            {
+                Movel = 1, //alterar
+                Numero = 1, //alterar
+                Imagem = novaEtapa.Imagem,
+//                Materiais_Necessarios = novaEtapa.Materiais
+            };
+        await ln.PutEtapa(etapa);
+
+        novaEtapa = new Etapa();
+    }
+    private int novoMaterialId;
+    private int novoMaterialQuantidade;
+
+    private void AdicionarMaterial()
+    {
+        novaEtapa.Materiais_Necessarios.Add((novoMaterialId, novoMaterialQuantidade));
+        novoMaterialId = 0;
+        novoMaterialQuantidade = 0;
+    }
+
+}

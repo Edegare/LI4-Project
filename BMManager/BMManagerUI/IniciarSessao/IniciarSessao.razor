@@ -1,0 +1,45 @@
+﻿@page "/"
+@using BMManagerLN
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Iniciar sessão" />
+
+<div class="IniciarSessao">
+    <div class="CodigoSenha">
+        <div class="Codigo">
+            <p>Código de funcionário</p>
+            <input @bind="codigo"/>
+        </div>
+        <div class="Senha">
+            <p>Senha</p>
+            <input type="password" @bind="senha"/>
+        </div>
+    </div>
+
+    <div class="Botao" @onclick="Autenticacao">
+        <Botao Nome="Entrar"/>
+    </div>
+</div>
+
+@code {
+    private string codigo = "";
+    private string senha = "";
+    private string _url = "";
+    private bool autenticacaoSucesso = false;
+
+    private async void Autenticacao()
+    {
+//        autenticacaoSucesso = await ln.AutenticarUtilizador(codigo, senha);
+        autenticacaoSucesso = true; //trocar
+        if (autenticacaoSucesso)
+        {
+            _url = "menuinicial";
+        }
+        else
+        {
+            _url = "";
+        }
+        NavigationManager.NavigateTo(_url);
+    }
+}

@@ -1,0 +1,16 @@
+﻿@page "/terminarsessao"
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Terminar Sessão" />
+
+<div class="TerminarSessao">
+    <h1>Sessão terminada com sucesso</h1>
+</div>
+
+@code {
+    protected override async void OnInitialized()
+    {
+        await Task.Delay(1000);
+        NavigationManager.NavigateTo("/");
+    }
+}

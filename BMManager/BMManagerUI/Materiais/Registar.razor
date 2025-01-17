@@ -1,0 +1,48 @@
+﻿@page "/materiais/registar"
+@using BMManagerLN
+@using BMManagerLN.SubMateriais
+@inject APIBMManagerLN ln
+
+<Titulo Nome="Registar novo material" />
+
+<div class="InformacoesRegisto">
+    <EditForm Model="@novoMaterial" OnValidSubmit="@RegistarMaterial">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div>
+             <h4>Nome</h4>
+            <InputText id="nome" @bind-Value="@novoMaterial.Nome" />
+        </div>
+        <div>
+            <h4>Quantidade</h4>
+            <InputNumber id="nome" @bind-Value="@novoMaterial.Quantidade" />
+        </div>
+        <div>
+            <h4>Imagem</h4>
+            <InputFile id="nome" @bind-Value="@novoMaterial.Imagem" />
+        </div>
+         <div class = "esp">
+        </div>
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="materiais" />
+            <Botao Nome="Registar"/>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private Material novoMaterial = new Material();
+
+    private async Task RegistarMaterial()
+    {
+        Material material = new Material
+        {
+            Nome = novoMaterial.Nome,
+            Quantidade = novoMaterial.Quantidade,
+            Imagem = novoMaterial.Imagem
+        };
+        await ln.PutMaterial(material);
+
+        novoMaterial = new Material();
+    }
+}

@@ -1,0 +1,51 @@
+﻿@page "/materiais"
+@using BMManagerLN
+@using BMManagerLN.SubMateriais
+@inject APIBMManagerLN ln
+
+<Titulo Nome="Materiais" NomeBotao="Registar" UrlBotao="materiais/registar" />
+
+<div class="Tabela">
+    @if (_materiais == null)
+    {
+        <p>A carregar materiais ...</p>
+    }
+    else
+    {
+        <table>
+            <thead class="TabelaCabecalho">
+                <!-- Cabeçalho da tabela -->
+                <tr>
+                    <!-- Linha do cabeçalho -->
+                    <!-- Header do cabeçalho -->
+                    <th>Número</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody class="TabelaCorpo">
+                <!-- Corpo da tabela -->
+                @foreach (var material in _materiais)
+                {
+                    <tr>
+                        <!-- Linha da tabela -->
+                        <!-- Data em cada linha da tabela -->
+                        <td>@material.Numero</td>
+                        <td>@material.Nome</td>
+                        <td>@material.Quantidade</td>
+                        <!-- Falta Visualizar e Modificar -->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private List<Material> _materiais;
+
+    protected override async Task OnInitializedAsync()
+    {
+//        _materiais = await ln.GetMateriais(); //trocar para método da lógica de negócio
+    }
+}

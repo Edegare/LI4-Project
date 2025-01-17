@@ -1,0 +1,15 @@
+﻿@page "/encomendas"
+@using BMManagerLN
+@using BMManagerLN.SubEncomendas
+@inject APIBMManagerLN ln
+
+<Titulo Nome="Encomendas" NomeBotao="Registar" UrlBotao="encomendas/registar"/>
+
+@code {
+    private List<Encomenda> _encomendas;
+
+    protected override async Task OnInitializedAsync()
+    {
+//        _encomendas = await ln.GetEncomendas();
+    }
+}

@@ -1,0 +1,15 @@
+﻿@page "/montagens"
+@using BMManagerLN
+@using BMManagerLN.SubMontagens
+@inject APIBMManagerLN ln
+
+<Titulo Nome="Montagens" NomeBotao="Iniciar" UrlBotao="montagens/registar"/>
+
+@code {
+    private List<Montagem> _montagens;
+
+    protected override async Task OnInitializedAsync()
+    {
+//        _montagens = await ln.GetMontagens();
+    }
+}
