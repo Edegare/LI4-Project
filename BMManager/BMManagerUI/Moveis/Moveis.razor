@@ -3,12 +3,12 @@
 @using BMManagerLN.SubMoveis
 @inject APIBMManagerLN ln
 
-<Titulo Nome="Móveis" NomeBotao="Registar" UrlBotao="moveis/registar"/>
+<Titulo Nome="Móveis" NomeBotao="Registar" UrlBotao="moveis/registar" />
 
 <div class="Tabela">
     @if (_moveis == null)
     {
-        <p>A carregar moveis ...</p>
+        <p>A carregar móveis ...</p>
     }
     else
     {
@@ -33,6 +33,12 @@
                         <td>@movel.Numero</td>
                         <td>@movel.Nome</td>
                         <td>@movel.Quantidade</td>
+                        <td>
+                            <Texto Nome = "Visualizar" Url = "moveis/visualizar"/>
+                        </td>
+                        <td>
+                            <Texto Nome = "Modificar" Url = "moveis/modificar"/>
+                        </td>
                         <!-- Falta Visualizar e Modificar -->
                     </tr>
                 }
@@ -42,12 +48,10 @@
 </div>
 
 @code {
-    private List<Movel> _moveis;
-    private List<Etapa> _etapas;
+    private List<Movel>? _moveis;
 
     protected override async Task OnInitializedAsync()
     {
-        _moveis = await ln.GetMoveis();
-//        _etapas = await ln.GetEtapas();
+        _moveis = await ln.GetMoveis(); //trocar para método da lógica de negócio
     }
 }

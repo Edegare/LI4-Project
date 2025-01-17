@@ -13,6 +13,7 @@ namespace BMManagerLN.SubMoveis
         public String Nome { get; set; }
 
         public int Quantidade { get; set; } = 0;
+<<<<<<< HEAD
 
         [Required(ErrorMessage = "Tem que selecionar uma imagem")]
         //falta ver se é uma imagem
@@ -20,5 +21,9 @@ namespace BMManagerLN.SubMoveis
 
         [NotMapped]
         public Dictionary<int, Etapa> Etapas_Montagem { get; set; } = new Dictionary<int, Etapa>(); //
+=======
+        public byte[] Imagem { get; set; }
+        public Dictionary<int, int> Etapas_Montagem { get; set; } = new Dictionary<int, int>(); //
+>>>>>>> 01d059c (Registar móvel)
     }
 }

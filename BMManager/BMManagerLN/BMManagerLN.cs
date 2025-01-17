@@ -57,6 +57,12 @@ namespace BMManagerLN
         {
             return subMoveis.GetMoveis();
         }
+
+        public Task PutMovel(Movel movel)
+        {
+            return subMoveis.PutMovel(movel);
+        }
+
         public Task<List<Etapa>> GetEtapas()
         {
             return subMoveis.GetEtapas();

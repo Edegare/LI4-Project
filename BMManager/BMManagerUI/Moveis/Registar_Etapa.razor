@@ -1,7 +1,9 @@
-﻿@page "/moveis/adicionar_etapa"
+﻿@page "/moveis/registar/adicionar_etapa"
 @using BMManagerLN
 @using BMManagerLN.SubMoveis
 @inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@inject MovelTemp movelTemp
 
 <Titulo Nome="Adicionar etapa" />
 
@@ -45,14 +47,13 @@
     {
         Etapa etapa = new Etapa
             {
-                Movel = 1, //alterar
-                Numero = 1, //alterar
+                Movel = movelTemp.NovoMovel.Numero,
+                Numero = movelTemp.EtapasRegistadas+1,
                 Imagem = novaEtapa.Imagem,
-//                Materiais_Necessarios = novaEtapa.Materiais
+                Materiais_Necessarios = novaEtapa.Materiais_Necessarios
             };
-        await ln.PutEtapa(etapa);
-
-        novaEtapa = new Etapa();
+        NavigationManager.NavigateTo("/moveis/registar");
+        //await ln.PutEtapa(etapa);
     }
     private int novoMaterialId;
     private int novoMaterialQuantidade;

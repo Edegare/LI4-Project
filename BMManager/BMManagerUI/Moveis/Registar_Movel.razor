@@ -1,0 +1,55 @@
+﻿@page "/moveis/registar"
+@using BMManagerLN
+@using BMManagerLN.SubMoveis
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@inject MovelTemp movelTemp
+
+<Titulo Nome="Registar Móvel" />
+
+<div class="InformacoesRegisto">
+    <EditForm Model="@movelTemp.NovoMovel" OnValidSubmit="@RegistarMovel" FormName="registarMovel" Enhance>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class = "linha">
+            <h4>Nome</h4>
+            <InputText id="nome" @bind-Value="@movelTemp.NovoMovel.Nome" />
+        </div>
+        <div class="linha">
+            <h4>Imagem</h4>
+            <InputFile id="imagem" @bind-Value="@movelTemp.NovoMovel.Imagem" />
+        </div>
+        <div class="linha">
+            <h4>Etapas</h4>
+            <Botao Nome="Adicionar" Metodo=AdicionarEtapa></Botao>
+        </div>
+        <div class = "esp">
+        </div>
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="moveis" />
+            <Botao Nome="Registar"/>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private async Task RegistarMovel()
+    {
+        Movel movel = new Movel
+            {
+                Nome = movelTemp.NovoMovel.Nome,
+                Imagem = movelTemp.NovoMovel.Imagem,
+                Etapas_Montagem = movelTemp.NovoMovel.Etapas_Montagem
+            };
+        await ln.PutMovel(movel);
+
+        movelTemp.NovoMovel = new Movel();
+
+        NavigationManager.NavigateTo("/moveis");
+    }
+
+    private async Task AdicionarEtapa()
+    {
+        NavigationManager.NavigateTo("/moveis/registar/adicionar_etapa");
+    }
+}

@@ -1,0 +1,59 @@
+﻿@* @page "/moveis"
+@using BMManagerLN
+@using BMManagerLN.SubMoveis
+@inject APIBMManagerLN ln
+
+<Titulo Nome="Móveis" NomeBotao="Registar" UrlBotao="moveis/registar"/>
+
+<div class="Tabela">
+    <h1>Etapas para testar</h1>
+    @if (_etapas == null)
+    {
+        <p>A carregar etapas ...</p>
+    }
+    else
+    {
+        <table>
+            <thead class="TabelaCabecalho">
+                <!-- Cabeçalho da tabela -->
+                <tr>
+                    <!-- Linha do cabeçalho -->
+                    <!-- Header do cabeçalho -->
+                    <th>Código</th>
+                    <th>Numero</th>
+                    <th>Proxima Etapa</th>
+                    <th>Movel</th>
+                    <th>Quantidade Materiais</th>
+                </tr>
+            </thead>
+            <tbody class="TabelaCorpo">
+                <!-- Corpo da tabela -->
+                @foreach (var etapa in _etapas)
+                {
+                    <tr>
+                        <!-- Linha da tabela -->
+                        <!-- Data em cada linha da tabela -->
+                        <td>@etapa.Codigo_Etapa</td>
+                        <td>@etapa.Numero</td>
+                        <td>@etapa.Proxima_Etapa</td>
+                        <td>@etapa.Movel</td>
+                        <td>@etapa.Materiais_Necessarios.Count()</td>
+                        <!-- Falta Visualizar e Modificar -->
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@code {
+    private List<Movel> _moveis;
+    private List<Etapa> _etapas;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //        _moveis = await ln.GetMoveis();
+//        _etapas = await ln.GetEtapas();
+    }
+}
+ *@

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
 using BMManagerLN.SubMateriais;
 using BMManagerLN.SubFuncionarios;
+using Azure;
 
 namespace BMManagerLN.SubMoveis
 {
@@ -22,7 +23,12 @@ namespace BMManagerLN.SubMoveis
 
         public async Task PutMovel(Movel movel)
         {
+<<<<<<< HEAD
             return;
+=======
+            await _context.Movel.AddAsync(movel);
+            await _context.SaveChangesAsync();
+>>>>>>> 01d059c (Registar móvel)
         }
         public async Task<List<Etapa>> GetEtapas()
         {
