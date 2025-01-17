@@ -4,50 +4,17 @@
 @inject APIBMManagerLN ln
 
 <Titulo Nome="Móveis" NomeBotao="Registar" UrlBotao="moveis/registar" />
-
-<div class="Tabela">
-    @if (_moveis == null)
-    {
-        <p>A carregar móveis ...</p>
-    }
-    else
-    {
-        <table>
-            <thead class="TabelaCabecalho">
-                <!-- Cabeçalho da tabela -->
-                <tr>
-                    <!-- Linha do cabeçalho -->
-                    <!-- Header do cabeçalho -->
-                    <th>Número</th>
-                    <th>Nome</th>
-                    <th>Quantidade</th>
-                </tr>
-            </thead>
-            <tbody class="TabelaCorpo">
-                <!-- Corpo da tabela -->
-                @foreach (var movel in _moveis)
-                {
-                    <tr>
-                        <!-- Linha da tabela -->
-                        <!-- Data em cada linha da tabela -->
-                        <td>@movel.Numero</td>
-                        <td>@movel.Nome</td>
-                        <td>@movel.Quantidade</td>
-                        <td>
-                            <Texto Nome = "Visualizar" Url = "moveis/visualizar"/>
-                        </td>
-                        <td>
-                            <Texto Nome = "Modificar" Url = "moveis/modificar"/>
-                        </td>
-                        <!-- Falta Visualizar e Modificar -->
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-</div>
+<Tabela TItem="Movel" Headers="@s" Items="@_moveis" Columns="@c" Botoes= "@b"/>
 
 @code {
+    List<string> s = new List<string> { "Número", "Nome", "Quantidade" };
+    List<Func<Movel, object>> c = new List<Func<Movel, object>> {
+                    f => f.Numero,
+                    f => f.Nome,
+                    f => f.Quantidade};
+    List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
+                    ("Visualizar", "funcionarios/visualizar"),
+                    ("Modificar", "funcionarios/visualizar")};
     private List<Movel>? _moveis;
 
     protected override async Task OnInitializedAsync()

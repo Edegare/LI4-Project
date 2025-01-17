@@ -4,45 +4,18 @@
 @inject APIBMManagerLN ln
 
 <Titulo Nome="Materiais" NomeBotao="Registar" UrlBotao="materiais/registar" />
-
-<div class="Tabela">
-    @if (_materiais == null)
-    {
-        <p>A carregar materiais ...</p>
-    }
-    else
-    {
-        <table>
-            <thead class="TabelaCabecalho">
-                <!-- Cabeçalho da tabela -->
-                <tr>
-                    <!-- Linha do cabeçalho -->
-                    <!-- Header do cabeçalho -->
-                    <th>Número</th>
-                    <th>Nome</th>
-                    <th>Quantidade</th>
-                </tr>
-            </thead>
-            <tbody class="TabelaCorpo">
-                <!-- Corpo da tabela -->
-                @foreach (var material in _materiais)
-                {
-                    <tr>
-                        <!-- Linha da tabela -->
-                        <!-- Data em cada linha da tabela -->
-                        <td>@material.Numero</td>
-                        <td>@material.Nome</td>
-                        <td>@material.Quantidade</td>
-                        <!-- Falta Visualizar e Modificar -->
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-</div>
+<Tabela TItem="Material" Headers="@s" Items="@_materiais" Columns="@c" Botoes= "@b"/>
 
 @code {
     private List<Material> _materiais;
+    List<string> s = new List<string> { "Número", "Nome", "Quantidade" };
+    List<Func<Material, object>> c = new List<Func<Material, object>> {
+                    f => f.Numero,
+                    f => f.Nome,
+                    f => f.Quantidade};
+    List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
+                    ("Visualizar", "funcionarios/visualizar"),
+                    ("Alterar", "funcionarios/visualizar")};
 
     protected override async Task OnInitializedAsync()
     {
