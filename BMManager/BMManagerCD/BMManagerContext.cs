@@ -1,5 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
+using BMManagerLN.SubMateriais;
+using BMManagerLN.SubMontagens;
+using BMManagerLN.SubMoveis;
 
 namespace BMManager.BMManagerCD
 {
