@@ -83,7 +83,7 @@ namespace BMManager.BMManagerCD
             modelBuilder.Entity<Etapa>().HasKey(e => e.Codigo_Etapa);
             modelBuilder.Entity<Etapa>().Property(e => e.Codigo_Etapa).ValueGeneratedOnAdd();
             modelBuilder.Entity<Etapa>().Property(e => e.Numero).HasDefaultValue(1).IsRequired();
-            modelBuilder.Entity<Etapa>().Property(e => e.Proxima_Etapa).HasDefaultValue(-1).IsRequired();
+            modelBuilder.Entity<Etapa>().Property(e => e.Proxima_Etapa).IsRequired(false);
             modelBuilder.Entity<Etapa>().Property(e => e.Movel).IsRequired();
             modelBuilder.Entity<Etapa>().Property(m => m.Imagem).IsRequired(false); //alterar depois
 

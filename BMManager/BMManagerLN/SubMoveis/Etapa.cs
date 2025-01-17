@@ -15,8 +15,8 @@ namespace BMManagerLN.SubMoveis
 //        [Required(ErrorMessage = "Tem que selecionar o numero da etapa")]
         public int Numero { get; set; }
 
-//        [Required(ErrorMessage = "Tem que selecionar uma próxima etapa")]
-        public int Proxima_Etapa { get; set; } = -1;
+        //        [Required(ErrorMessage = "Tem que selecionar uma próxima etapa")]
+        public int? Proxima_Etapa { get; set; }
 
 //        [Required(ErrorMessage = "Tem que selecionar um móvel")]
         public int Movel { get; set; }
