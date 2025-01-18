@@ -22,7 +22,8 @@
                             <td>@column(item)</td>
                         }
                         @foreach (var par in Botoes) {
-                            <td><Texto Nome="@par.Item1" Url = "@par.Item2" /></td>
+                            var url = $"{@par.Item2}/{Columns[0](item)}";
+                            <td><Texto Nome="@par.Item1" Url = "@url" /></td>
                         }
                     </tr>
                 }

@@ -36,6 +36,11 @@ namespace BMManagerLN
             return subFuncionarios.GetFuncionarios();
         }
 
+        public Task<Funcionario> GetFuncionario(int codFuncionario)
+        {
+            return subFuncionarios.GetFuncionario(codFuncionario);
+        }
+
         public Task PutFuncionario(Funcionario funcionario)
         {
             return subFuncionarios.PutFuncionario(funcionario);
