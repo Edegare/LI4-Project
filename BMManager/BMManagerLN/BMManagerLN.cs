@@ -16,7 +16,7 @@ namespace BMManagerLN
         private APICSubMontagens subMontagens;
         private APICSubMoveis subMoveis;
         private APICSubMateriais subMateriais;
-        //        private APICSubEncomendas subEncomendas;
+        private APICSubEncomendas subEncomendas;
 
         //Construtor
         public BMManagerLN(BMManagerContext db)
@@ -25,7 +25,7 @@ namespace BMManagerLN
             subMontagens = new CSubMontagens(db);
             subMoveis = new CSubMoveis(db);
             subMateriais = new CSubMateriais(db);
-            //            subEncomendas = new CSubEncomendas(db);
+            subEncomendas = new CSubEncomendas(db);
         }
 
         //Métodos da lógica de negócio
@@ -110,7 +110,15 @@ namespace BMManagerLN
         //Métodos SubEncomendas
         public Task<List<Encomenda>> GetEncomendas()
         {
-            return null;
+            return subEncomendas.GetEncomendas();
+        }
+        public Task<Encomenda> GetEncomenda(int codEncomenda)
+        {
+            return subEncomendas.GetEncomenda(codEncomenda);
+        }
+        public Task PutEncomenda(Encomenda encomenda)
+        {
+            return subEncomendas.PutEncomenda(encomenda);
         }
     }
 }

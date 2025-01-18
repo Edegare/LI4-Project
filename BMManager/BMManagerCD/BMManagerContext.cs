@@ -14,7 +14,7 @@ namespace BMManager.BMManagerCD
         {
         }
 
-//        public DbSet<Encomenda> Encomenda { get; set; } = default!;
+        public DbSet<Encomenda> Encomenda { get; set; } = default!;
 
         public DbSet<Funcionario> Funcionario { get; set; } = default!;
 
@@ -31,12 +31,15 @@ namespace BMManager.BMManagerCD
             base.OnModelCreating(modelBuilder);
 
             //Encomenda
+            modelBuilder.Entity<Encomenda>().HasKey(m => m.Numero);
+            modelBuilder.Entity<Encomenda>().Property(m => m.Numero).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Encomenda>().Property(m => m.Data_Prevista).IsRequired(true);
+            modelBuilder.Entity<Encomenda>().Property(m => m.Data_Real).IsRequired(false);
+            modelBuilder.Entity<Encomenda>().Property(m => m.Concluida).HasDefaultValue(true);
 
-
-
-            //Funcionario
-            // Configuração da chave primária
-            modelBuilder.Entity<Funcionario>().HasKey(f => f.Codigo_Utilizador);
+        //Funcionario
+        // Configuração da chave primária
+        modelBuilder.Entity<Funcionario>().HasKey(f => f.Codigo_Utilizador);
             modelBuilder.Entity<Funcionario>().Property(f => f.Codigo_Utilizador).ValueGeneratedOnAdd();
 
             // Configuração do enum Equipa para armazenar como string (ou inteiro)

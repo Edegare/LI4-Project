@@ -33,5 +33,7 @@ namespace BMManagerLN
 
         //Métodos SubEncomendas
         Task<List<Encomenda>> GetEncomendas();
+        Task<Encomenda> GetEncomenda(int codEncomenda);
+        Task PutEncomenda(Encomenda encomenda);
     }
 }

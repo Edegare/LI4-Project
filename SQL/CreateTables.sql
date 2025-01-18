@@ -29,8 +29,8 @@ IF OBJECT_ID('Encomenda', 'U') IS NOT NULL
 CREATE TABLE Encomenda (
     Numero INT IDENTITY(1,1) PRIMARY KEY,
     Cliente VARCHAR(75) NOT NULL,
-    Data_Prevista DATETIME NOT NULL,
-    Data_Real DATETIME,
+    Data_Prevista DATE NOT NULL,
+    Data_Real DATE,
     Concluida BIT NOT NULL
 );
 
