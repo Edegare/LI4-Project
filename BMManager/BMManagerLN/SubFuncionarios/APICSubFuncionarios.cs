@@ -8,5 +8,6 @@ namespace BMManagerLN.SubFuncionarios
         Task<Funcionario> GetFuncionario(int codFuncionario);
         Task PutFuncionario(Funcionario funcionario);
         Task<FuncionarioDTO?> AutenticarUtilizador(string codigo, string senha);
+        Task<List<Funcionario>> FuncionariosParticipamMontagem(int codMontagem);
     }
 }

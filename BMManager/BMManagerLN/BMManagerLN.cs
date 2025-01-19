@@ -7,6 +7,9 @@ using BMManagerLN.SubMateriais;
 using BMManagerLN.SubMontagens;
 using BMManagerLN.SubMoveis;
 using BMManagerLN.Exceptions;
+using Newtonsoft.Json.Linq;
+using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace BMManagerLN
 {
@@ -53,10 +56,20 @@ namespace BMManagerLN
             return subFuncionarios.AutenticarUtilizador(codigo, senha);
         }
 
+        public async Task<List<Funcionario>> FuncionariosParticipamMontagem(int codMontagem)
+        {
+            return await subFuncionarios.FuncionariosParticipamMontagem(codMontagem);
+        }
+
         //Métodos SubMontagens
         public Task<List<Montagem>> GetMontagens()
         {
             return subMontagens.GetMontagens();
+        }
+
+        public Task<Montagem> GetMontagem(int codMontagem)
+        {
+            return subMontagens.GetMontagem(codMontagem);
         }
 
         public async Task NovaMontagem(int codMovel, int codFuncionario)
@@ -78,10 +91,40 @@ namespace BMManagerLN
             await subMontagens.PutMontagem(montagem);
         }
 
+        public async Task<Dictionary<Material, int>> MateriaisUtilizadosMontagem(int codMontagem)
+        {
+            Montagem montagem = await subMontagens.GetMontagem(codMontagem);
+            Etapa etapaAtual = await subMoveis.GetEtapa(montagem.Etapa);
+            Func<Etapa, bool> condicao;
+            if (montagem.Etapa_Concluida) condicao = e => e.Movel == codMontagem & e.Numero < etapaAtual.Numero;
+            else condicao = e => e.Movel == codMontagem & e.Numero <= etapaAtual.Numero;
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
+            int[] codEtapas = etapas.Values.Select(e => e.Codigo_Etapa).ToArray();
+            return await subMateriais.GetMateriaisEtapas(codEtapas);
+        }
+
+        public async Task<Dictionary<Material, int>> MateriaisPorUtilizarMontagem(int codMontagem)
+        {
+            Montagem montagem = await subMontagens.GetMontagem(codMontagem);
+            Etapa etapaAtual = await subMoveis.GetEtapa(montagem.Etapa);
+            Func<Etapa, bool> condicao;
+            if (montagem.Etapa_Concluida) condicao = e => e.Movel == codMontagem & e.Numero > etapaAtual.Numero;
+            else condicao = e => e.Movel == codMontagem & e.Numero >= etapaAtual.Numero;
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
+            int[] codEtapas = etapas.Values.Select(e => e.Codigo_Etapa).ToArray();
+            return await subMateriais.GetMateriaisEtapas(codEtapas);
+        }
+
+
         //Métodos SubMoveis
         public Task<List<Movel>> GetMoveis()
         {
             return subMoveis.GetMoveis();
+        }
+
+        public Task<Movel> GetMovel(int codMovel)
+        {
+            return subMoveis.GetMovel(codMovel);
         }
 
         public Task PutMovel(Movel movel)
@@ -96,6 +139,11 @@ namespace BMManagerLN
         public Task<Etapa> GetEtapa(int codEtapa)
         {
             return subMoveis.GetEtapa(codEtapa);
+        }
+
+        public Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel)
+        {
+            return subMoveis.GetEtapasMovel(codMovel);
         }
 
         public Task PutEtapa(Etapa etapa)
@@ -132,5 +180,14 @@ namespace BMManagerLN
         {
             return subEncomendas.PutEncomenda(encomenda);
         }
+
+        //Métodos Auxiliares
+        public string GetDescricao(Enum valor)
+        {
+            var campo = valor.GetType().GetField(valor.ToString());
+            var descricao = (DescriptionAttribute)Attribute.GetCustomAttribute(campo, typeof(DescriptionAttribute));
+            return descricao != null ? descricao.Description : valor.ToString();
+        }
+
     }
 }

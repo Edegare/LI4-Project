@@ -42,6 +42,15 @@ namespace BMManagerLN.SubMoveis
                                  .FirstOrDefaultAsync(f => f.Codigo_Etapa == codEtapa);
         }
 
+        public async Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel)
+        {
+            return await _context.Etapa.Where(e => e.Movel == codMovel).ToDictionaryAsync(e => e.Codigo_Etapa);
+        }
+
+        public async Task<Dictionary<int, Etapa>> GetEtapasMovelCondicao(Func<Etapa,bool> condicao)
+        {
+            return _context.Etapa.AsEnumerable().Where(e => condicao(e)).ToDictionary(e => e.Codigo_Etapa);
+        }
 
         public async Task PutEtapa(Etapa etapa)
         {

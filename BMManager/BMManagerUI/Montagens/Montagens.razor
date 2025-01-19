@@ -11,16 +11,16 @@
     List<string> s = new List<string> { "Número", "Móvel", "Estado", "Etapa", "Duração", "Data Inicial", "Data final" };
     List<Func<Montagem, object>> c = new List<Func<Montagem, object>> {
                     m => m.Numero,
-                    m => m.Numero,
+                    m => m.Movel,
                     m => m.Estado,
-                    m => m.Numero,
+                    m => m.Etapa,
                     m => m.Duracao,
                     m => m.Data_Inicial,
                     m => m.Data_Final};
     List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
-                    ("Visualizar", "funcionarios/visualizar"),
-                    ("Cancelar", "funcionarios/visualizar"),
-                    ("Continuar","funcionarios/visualizar")};
+                    ("Visualizar", "montagens/visualizar"),
+                    ("Cancelar", "montagens/cancelar"),
+                    ("Continuar","montagens/continuar")};
 
     protected override async Task OnInitializedAsync()
     {

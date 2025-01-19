@@ -44,5 +44,7 @@ namespace BMManagerLN.SubMontagens
         [NotMapped]
         public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>(); //
 
+        [NotMapped]
+        public List<Etapa> Etapas { get; set; } = new List<Etapa>();
     }
 }

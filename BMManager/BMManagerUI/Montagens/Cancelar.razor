@@ -1,0 +1,18 @@
+﻿@page "/montagens/cancelar"
+@using BMManagerLN
+@using BMManagerLN.SubMontagens
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Cancelar Montagem" />
+
+<div class="Cancelar">
+    <div class="Botao">
+        <Botao Nome="Voltar" Url="montagens" />
+    </div>
+</div>
+
+@code {
+    private string _codMontagem;
+    private Montagem _montagem;
+}

@@ -1,0 +1,97 @@
+﻿@page "/montagens/visualizar/{_codMontagem:int}"
+@using BMManagerLN
+@using BMManagerLN.SubMontagens
+@using BMManagerLN.SubMoveis
+@using BMManagerLN.SubMateriais
+@using BMManagerLN.SubFuncionarios
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Visualizar Montagem" />
+
+<div class="Visualizar">
+    @if (_montagem == null || _movel == null || _etapas == null || _materiaisUtilizados == null || _materiaisPorUtilizar == null || _funcionarios == null)
+    {
+        <p>A carregar montagem ...</p>
+    }
+    else
+    {
+        <div class="Montagem">
+            <div class="Informacoes">
+                <p>Número<span>@_montagem.Numero</span></p>
+                <p>Móvel<span>@_movel.Nome</span></p>
+                <p>Número<span>@_montagem.Movel</span></p>
+                <p>Estado<span>@ln.GetDescricao(_montagem.Estado)</span></p>
+                <p>Data Início<span>@_montagem.Data_Inicial</span></p>
+                <p>Etapa<span>@_etapas[_montagem.Etapa].Numero / @_etapas.Count</span></p>
+                <p>Data Fim<span>@_montagem.Data_Final</span></p>
+                <p>Encomanda<span>@_montagem.Encomenda</span></p>
+                <p>Duração<span>@_montagem.Duracao</span></p>
+                <div class="CaixaInformacoes">
+                    <p>Materiais utilizados</p>
+                    <div class="CaixaUtilizados">
+                        <span>Código</span>
+                        <span>Nome</span>
+                        <span>Quantidade</span>
+                        @foreach (KeyValuePair<Material, int> m in _materiaisUtilizados)
+                        {
+                            <span>@m.Key.Numero</span>
+                            <span>@m.Key.Nome</span>
+                            <span>@m.Value</span>
+                        }
+                    </div>
+                </div>
+                <div class="CaixaInformacoes">
+                    <p>Materiais necessários</p>
+                    <div class="CaixaPorUtilizar">
+                        <span>Código</span>
+                        <span>Nome</span>
+                        <span>Quantidade</span>
+                        @foreach (KeyValuePair<Material, int> m in _materiaisPorUtilizar)
+                        {
+                            <span>@m.Key.Numero</span>
+                            <span>@m.Key.Nome</span>
+                            <span>@m.Value</span>
+                        }
+                    </div>
+                </div>
+            <div class="CaixaInformacoes">
+                    <p>Funcionários</p>
+                    <div class="CaixaFuncionarios">
+                        <span>Código</span>
+                        <span>Nome</span>
+                        @foreach (Funcionario f in _funcionarios)
+                        {
+                            <span>@f.Codigo_Utilizador</span>
+                            <span>@f.Nome</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="Botao">
+        <Botao Nome="Voltar" Url="montagens" />
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int _codMontagem { get; set; }
+    private Montagem? _montagem;
+    private Movel? _movel;
+    private Dictionary<int,Etapa>? _etapas;
+    private Dictionary<Material,int>? _materiaisUtilizados;
+    private Dictionary<Material, int>? _materiaisPorUtilizar;
+    private List<Funcionario>? _funcionarios;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _montagem = await ln.GetMontagem(_codMontagem);
+        _movel = await ln.GetMovel(_montagem.Movel);
+        _etapas = await ln.GetEtapasMovel(_montagem.Movel);
+        _materiaisUtilizados = await ln.MateriaisUtilizadosMontagem(_codMontagem);
+        _materiaisPorUtilizar = await ln.MateriaisPorUtilizarMontagem(_codMontagem);
+        _funcionarios = await ln.FuncionariosParticipamMontagem(_codMontagem);
+    }
+}

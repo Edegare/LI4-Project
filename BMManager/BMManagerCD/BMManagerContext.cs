@@ -4,7 +4,7 @@ using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMateriais;
 using BMManagerLN.SubMontagens;
 using BMManagerLN.SubMoveis;
-
+using System.Linq.Expressions;
 namespace BMManager.BMManagerCD
 {
     public class BMManagerContext : DbContext
@@ -25,6 +25,9 @@ namespace BMManager.BMManagerCD
         public DbSet<Movel> Movel { get; set; } = default!;
 
         public DbSet<Etapa> Etapa { get; set; } = default!;
+
+        public DbSet<Etapa_Precisa_Material> Etapa_Precisa_Material { get; set; } = default!;
+        public DbSet<Funcionario_Participa_Montagem> Funcionario_Participa_Montagem { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -90,7 +93,20 @@ namespace BMManager.BMManagerCD
             modelBuilder.Entity<Etapa>().Property(e => e.Movel).IsRequired();
             modelBuilder.Entity<Etapa>().Property(m => m.Imagem).IsRequired(false); //alterar depois
 
+            //Etapa_Precisa_Material
+            modelBuilder.Entity<Etapa_Precisa_Material>().HasKey(e => new { e.Etapa, e.Material });
+            modelBuilder.Entity<Etapa_Precisa_Material>().Property(e => e.Quantidade).HasDefaultValue(0).IsRequired(true);
 
+            //Funcionario_Participa_Montagem
+            modelBuilder.Entity<Funcionario_Participa_Montagem>().HasKey(f => new { f.Montagem, f.Funcionario });
+        }
+
+        public async Task<List<T>> ObterDadosPorCondicaoAsync<T>(
+            Expression<Func<T, bool>> condicao) where T : class
+        {
+            var query = this.Set<T>().Where(condicao);
+
+            return await query.ToListAsync();
         }
     }
 }

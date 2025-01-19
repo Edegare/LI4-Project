@@ -45,5 +45,17 @@ namespace BMManagerLN.SubFuncionarios
             }
             return null;
         }
+
+        public async Task<List<Funcionario>> FuncionariosParticipamMontagem(int codMontagem)
+        {
+            List<Funcionario_Participa_Montagem> funcionariosParticipamMontagem = await _context.Funcionario_Participa_Montagem.Where(f => f.Montagem == codMontagem).ToListAsync();
+            List<Funcionario> funcionarios = new List<Funcionario>();
+            foreach (Funcionario_Participa_Montagem fpm in funcionariosParticipamMontagem)
+            {
+                Funcionario funcionario = await GetFuncionario(fpm.Funcionario);
+                funcionarios.Add(funcionario);
+            }
+            return funcionarios;
+        }
     }
 }
