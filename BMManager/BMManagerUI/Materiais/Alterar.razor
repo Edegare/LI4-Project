@@ -1,0 +1,63 @@
+@page "/materiais/alterar/{id:int}"
+@rendermode InteractiveServer
+@using BMManagerLN
+@using BMManagerLN.SubMateriais
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Alterar quantidade de material" />
+@if (material == null) {
+    <h4> Wait </h4>
+}
+else {
+    <div class="InformacoesRegisto">
+        <EditForm Model="@novaQuantidade" OnValidSubmit="@AlterarQuantidadeMaterial" FormName="AlterarQuantidade">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div>
+                <h4>Quantidade</h4>
+                <InputNumber id="quantidade" @bind-Value="@deltaQuantidade" />
+            </div>
+            <div class="linha">
+                <select @bind="@opcao">
+                    <option value="0">Aumentar</option>
+                    <option value="1">Diminuir</option>
+                    <option value="2">Alterar</option>
+                </select>
+            </div>
+            <div class="esp">
+            </div>
+            <div class="Botoes">
+                <Botao Nome="Voltar" Url="materiais" />
+                <Botao Nome="Alterar" />
+            </div>
+        </EditForm>
+    </div>
+}   
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Material material;
+    private int deltaQuantidade;
+    private int opcao = 0; //0 aumentar quantidade, 1 diminuir, 2 alterar
+    private int novaQuantidade;
+    protected override async Task OnInitializedAsync()
+    {
+        material = await ln.GetMaterial(Id);
+    }
+    private async Task AlterarQuantidadeMaterial()
+    {
+        if (opcao == 0){
+            novaQuantidade = material.Quantidade + deltaQuantidade;
+        }
+        else if(opcao == 1){
+            novaQuantidade = material.Quantidade - deltaQuantidade;
+        }
+        else{
+            novaQuantidade = deltaQuantidade;
+        }
+        await ln.AlterarQuantidadeMaterial(material.Numero, novaQuantidade);
+        NavigationManager.NavigateTo("/materiais");
+    }
+}

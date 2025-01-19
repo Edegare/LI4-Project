@@ -38,6 +38,7 @@ namespace BMManagerLN
         Task<List<Material>> GetMateriais();
         Task<Material> GetMaterial(int codMaterial);
         Task PutMaterial(Material material);
+        Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade);
 
 
         //Métodos SubEncomendas

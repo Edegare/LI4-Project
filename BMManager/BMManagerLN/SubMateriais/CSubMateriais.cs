@@ -62,5 +62,18 @@ namespace BMManagerLN.SubMateriais
             }
             return materiais;
         }
+        public async Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade)
+        {
+            Material mat = await _context.Material.FindAsync(codMaterial);
+            if (mat != null)
+            {
+                mat.Quantidade = novaQuantidade;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Material não encontrado.");
+            }
+        }
     }
 }

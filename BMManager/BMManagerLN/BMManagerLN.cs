@@ -168,6 +168,11 @@ namespace BMManagerLN
             return subMateriais.PutMaterial(material);
         }
 
+        public Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade)
+        {
+            return subMateriais.AlterarQuantidadeMaterial(codMaterial, novaQuantidade);
+        }
+
         //Métodos SubEncomendas
         public Task<List<Encomenda>> GetEncomendas()
         {
