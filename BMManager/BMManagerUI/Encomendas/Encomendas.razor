@@ -4,12 +4,25 @@
 @inject APIBMManagerLN ln
 
 <Titulo Nome="Encomendas" NomeBotao="Registar" UrlBotao="encomendas/registar"/>
+<Tabela TItem="Encomenda" Headers="@s" Items="@_encomendas" Columns="@c" Botoes= "@b"/>
 
 @code {
     private List<Encomenda> _encomendas;
+    List<string> s = new List<string> { "Número", "Cliente", "Estado", "Data Prevista", "Data Real", "Montagens associadas" };
+    List<Func<Encomenda, object>> c = new List<Func<Encomenda, object>> {
+                    f => f.Numero,
+                    f => f.Cliente,
+                    f => f.Concluida,
+                  //  f => f.Moveis_Pedidos,
+                    f => f.Data_Prevista,
+                    f => f.Data_Real };
+               // f => f.Montagens_Associadas
+    List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
+                    ("Visualizar", "encomendas/visualizar"),
+                    ("Adicionar", "encomendas/adicionar")};
 
     protected override async Task OnInitializedAsync()
     {
-//        _encomendas = await ln.GetEncomendas();
+        _encomendas = await ln.GetEncomendas();
     }
 }

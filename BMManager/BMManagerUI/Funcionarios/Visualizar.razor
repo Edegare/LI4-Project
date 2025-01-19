@@ -1,0 +1,57 @@
+@page "/funcionarios/visualizar/{id:int}"
+@using BMManagerLN
+@using BMManagerLN.SubFuncionarios
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Visualizar funcionário" />
+@if (funcionario == null) {
+    <h4> Wait </h4>
+}
+else {
+    <div class="InformacoesRegisto">
+        <div class = "linha">
+            <h4>Nome</h4> 
+            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.Nome</div>
+        </div>
+        <div class = "linha">
+            <h4>Código</h4>
+            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.Codigo_Utilizador</div>
+        </div>
+        <div class = "linha">
+            <h4>Equipa</h4>
+            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.GetEquipaName()</div>
+        </div>
+        <div class = "linha">
+            <h4>Email</h4>
+            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.Email</div>
+        </div>
+        <div class = "linha">
+            <h4>Telefone </h4>
+            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.Telefone</div>
+        </div>
+        <div class = "linha">
+            <h4>Ativo</h4>
+            @if (funcionario.Conta_Ativa == true) {
+                <div style="display: inline-block; white-space: nowrap; align-items: center;">Sim</div>
+            }
+            else {
+                <div style="display: inline-block; white-space: nowrap; align-items: center;">Não</div>
+            }
+        </div>
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="funcionarios" />
+        </div>
+    </div>
+}   
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Funcionario funcionario;
+    protected override async Task OnInitializedAsync()
+    {
+        funcionario = await ln.GetFuncionario(Id); //trocar para método da lógica de negócio
+    }
+}

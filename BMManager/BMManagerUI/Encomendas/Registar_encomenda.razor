@@ -1,0 +1,74 @@
+﻿@page "/encomendas/registar"
+@rendermode InteractiveServer
+@using BMManagerLN
+@using BMManagerLN.SubEncomendas
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Registar nova encomenda" />
+
+<div class="InformacoesRegisto">
+    <EditForm Model="@novaEncomenda" OnValidSubmit="@RegistarEncomenda">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div>
+             <h4>Cliente</h4>
+            <InputText id="cliente" @bind-Value="@novaEncomenda.Cliente" />
+        </div>
+        <div>
+            <h4>Data Prevista</h4>
+            <InputDate id="data" @bind-Value="@novaEncomenda.Data_Prevista" />
+        </div>
+        <div>
+            <h4>Móveis</h4>
+            <InputNumber id="id" @bind-Value="@novoMovelId" />
+            <InputNumber id="quantidade" @bind-Value="@novoMovelQuantidade" />
+            <button type="button" @onclick="AdicionarMovel">Adicionar</button>
+
+        </div>
+
+        <div>
+            <ul>
+                @foreach ((int idMovel, int quantidade) in moveis)
+                {
+                    <li>@idMovel @quantidade</li>
+                }
+            </ul>
+        </div>
+         <div class = "esp">
+        </div>
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="encomendas" />
+            <Botao Nome="Registar"/>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private Encomenda novaEncomenda = new Encomenda();
+    private List<(int, int)> moveis = new List<(int, int)>();
+
+    private async Task RegistarEncomenda()
+    {
+        Encomenda encomenda = new Encomenda
+        {
+            Cliente = novaEncomenda.Cliente,
+            Data_Prevista = novaEncomenda.Data_Prevista,
+            Moveis_Pedidos = moveis
+        };
+        await ln.PutEncomenda(encomenda);
+
+        novaEncomenda = new Encomenda();
+
+        NavigationManager.NavigateTo("/encomendas");
+    }
+    private int novoMovelId;
+    private int novoMovelQuantidade;
+
+    private void AdicionarMovel()
+    {
+        moveis.Add((novoMovelId, novoMovelQuantidade));
+        novoMovelId = 0;
+        novoMovelQuantidade = 0;
+    }
+}

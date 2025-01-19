@@ -1,0 +1,48 @@
+@page "/alterarsenha"
+@rendermode InteractiveServer
+
+<Titulo Nome="Alterar senha" />
+
+<div class="IniciarSessao">
+    <div class="CodigoSenha">
+        <div class="Codigo">
+            <h4>Confirme a senha atual</h4>
+            <input type="password" @bind="codigo"/>
+        </div>
+        <div class="Senha">
+            <h4>Nova senha</h4>
+            <input type="password" @bind="senha"/>
+        </div>
+        <div class="Senha">
+            <h4>Confirme a nova senha</h4>
+            <input type="password" @bind="nsenha"/>
+        </div>
+    </div>
+
+    <div class="Botao" @onclick="Autenticacao">
+        <Botao Nome="Alterar"/>
+    </div>
+</div>
+
+@code {
+    private string codigo = "";
+    private string senha = "";
+    private string nsenha = "";
+    private string _url = "";
+    private bool autenticacaoSucesso = false;
+
+    private async void Autenticacao()
+    {
+//        autenticacaoSucesso = await ln.AutenticarUtilizador(codigo, senha);
+        autenticacaoSucesso = true; //trocar
+        if (autenticacaoSucesso)
+        {
+            _url = "menuinicial";
+        }
+        else
+        {
+            _url = "";
+        }
+        //NavigationManager.NavigateTo(_url);
+    }
+}

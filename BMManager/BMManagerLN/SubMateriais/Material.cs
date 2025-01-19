@@ -15,6 +15,6 @@ namespace BMManagerLN.SubMateriais
 
         [Required(ErrorMessage = "Tem que selecionar uma imagem")]
         //falta ver se é uma imagem
-        public byte[] Imagem { get; set; } = new byte[8294400]; //ver tipo
+        public byte[]? Imagem { get; set; } = new byte[8294400]; //tirar nulo
     }
 }

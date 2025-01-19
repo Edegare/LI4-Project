@@ -191,9 +191,9 @@ END;
 DECLARE @Montagem INT = 1;
 WHILE @Montagem <= 50
 BEGIN
-    INSERT INTO [dbo].[Montagem] ([Data_Inicial], [Estado], [Etapa_Concluida], [Movel], [Etapa], [Encomenda]) 
+    INSERT INTO [dbo].[Montagem] ([Data_Inicial], [Duracao], [Estado], [Etapa_Concluida], [Movel], [Etapa], [Encomenda]) 
     VALUES 
-        ('2025-01-01', 'Em_Progresso', 0, 1, @Montagem, @Montagem);
+        ('2025-01-01', '00:00:00', 'Em_Progresso', 0, 1, @Montagem, @Montagem);
     SET @Montagem = @Montagem + 1;
 END;
 

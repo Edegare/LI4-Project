@@ -3,13 +3,27 @@
 @using BMManagerLN.SubMontagens
 @inject APIBMManagerLN ln
 
-<Titulo Nome="Montagens" NomeBotao="Iniciar" UrlBotao="montagens/registar"/>
+<Titulo Nome="Montagens" NomeBotao="Iniciar" UrlBotao="montagens/iniciar"/>
+<Tabela TItem="Montagem" Headers="@s" Items="@_montagens" Columns="@c" Botoes= "@b"/>
 
 @code {
-    private List<Montagem> _montagens;
+    private List<Montagem>? _montagens;
+    List<string> s = new List<string> { "Número", "Móvel", "Estado", "Etapa", "Duração", "Data Inicial", "Data final" };
+    List<Func<Montagem, object>> c = new List<Func<Montagem, object>> {
+                    m => m.Numero,
+                    m => m.Numero,
+                    m => m.Estado,
+                    m => m.Numero,
+                    m => m.Duracao,
+                    m => m.Data_Inicial,
+                    m => m.Data_Final};
+    List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
+                    ("Visualizar", "funcionarios/visualizar"),
+                    ("Cancelar", "funcionarios/visualizar"),
+                    ("Continuar","funcionarios/visualizar")};
 
     protected override async Task OnInitializedAsync()
     {
-//        _montagens = await ln.GetMontagens();
+        _montagens = await ln.GetMontagens();
     }
 }

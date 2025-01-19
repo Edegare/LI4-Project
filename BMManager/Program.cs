@@ -16,6 +16,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+
 builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddAuthentication(Constants.AuthScheme)
@@ -34,6 +35,9 @@ builder.Services.AddAuthentication(Constants.AuthScheme)
         options.SlidingExpiration = true;
 
     });
+
+
+builder.Services.AddSingleton<MovelTemp>();
 
 
 builder.Services.AddScoped<APIBMManagerLN, BMManagerLN.BMManagerLN>();

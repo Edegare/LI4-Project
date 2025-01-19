@@ -1,21 +1,3 @@
-﻿.top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-}
-
-.Titulo {
-    font-weight: bold;
-}
-
-.linha {
-    border: 0;
-    border-top: 2px solid black;
-    margin-top: 15px;
-    margin-bottom: 0px;
-}
-
 .Tabela {
 }
 

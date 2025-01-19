@@ -1,0 +1,92 @@
+﻿@page "/moveis/registar"
+@rendermode InteractiveServer
+@using BMManagerLN
+@using BMManagerLN.SubMoveis
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@inject MovelTemp movelTemp
+
+<Titulo Nome="Registar Móvel" />
+
+<div class="InformacoesRegisto">
+    <EditForm Model="@movelTemp" OnValidSubmit="@RegistarMovel" FormName="registarMovel" Enhance>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class = "linha">
+            <h4>Nome</h4>
+            <InputText id="nome" @bind-Value="@movelTemp.NovoMovelNome" />
+        </div>
+        <div class="linha">
+            <h4>Imagem</h4>
+            <InputFile id="imagem" @bind-Value="@movelTemp.NovoMovelImagem" />
+        </div>
+        <div class="linha">
+            <h4>Etapas</h4>
+            <button type="button" @onclick="AdicionarEtapa">Adicionar</button>
+            <p>Etapas: @movelTemp.EtapasRegistadas</p>
+        </div>
+        <div class = "esp">
+        </div>
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="moveis" />
+            <Botao Nome="Registar"/>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    private async Task AdicionarEtapa()
+    {
+        NavigationManager.NavigateTo("/moveis/registar/adicionar_etapa");
+    }
+    private async Task RegistarMovel()
+    {
+        Movel movel = new Movel
+            {
+                Nome = movelTemp.NovoMovelNome,
+                Imagem = movelTemp.NovoMovelImagem,
+                Quantidade = 0
+            };
+        try
+        {
+            await ln.PutMovel(movel);
+            int proxima_etapa = -1;
+            for (int i = movelTemp.NovoMovelEtapas.Count-1; i >=0; i--){
+                int num = movelTemp.NovoMovelEtapas.ElementAt(i).Key;
+                byte[] imagem = movelTemp.NovoMovelEtapas.ElementAt(i).Value.Item1;
+                List<(int, int)> materiais = movelTemp.NovoMovelEtapas.ElementAt(i).Value.Item3;
+                Etapa etapa;
+                if(proxima_etapa==-1){
+                    etapa = new Etapa
+                        {
+                            Imagem = imagem,
+                            Numero = num,
+                            Movel = movel.Numero,
+                            Materiais_Necessarios = materiais,
+                        };
+                }
+                else{
+                    etapa = new Etapa
+                        {
+                            Imagem = imagem,
+                            Numero = num,
+                            Movel = movel.Numero,
+                            Materiais_Necessarios = materiais,
+                            Proxima_Etapa = proxima_etapa
+                        };
+                }
+                await ln.PutEtapa(etapa);
+                movel.Etapas_Montagem.Add(num, etapa.Codigo_Etapa);
+                proxima_etapa = etapa.Codigo_Etapa;
+            }
+            movelTemp = new MovelTemp();
+
+            NavigationManager.NavigateTo("/moveis");
+        }
+        catch (Exception ex)
+        {
+            // Tratar exceções, como falha na API, e exibir mensagem de erro se necessário
+            Console.WriteLine("Erro ao registrar móvel: " + ex.Message);
+        }
+    }
+}

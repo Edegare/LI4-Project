@@ -4,51 +4,18 @@
 @inject APIBMManagerLN ln
 
 <Titulo Nome="Funcionários" NomeBotao="Registar" UrlBotao="funcionarios/registar" />
-
-<div class="Tabela">
-    @if (_funcionarios == null)
-    {
-        <p>A carregar funcionários ...</p>
-    }
-    else
-    {
-        <table>
-            <thead class="TabelaCabecalho">
-                <!-- Cabeçalho da tabela -->
-                <tr>
-                    <!-- Linha do cabeçalho -->
-                    <!-- Header do cabeçalho -->
-                    <th>Código</th>
-                    <th>Nome</th>
-                    <th>Equipa</th>
-                </tr>
-            </thead>
-            <tbody class="TabelaCorpo">
-                <!-- Corpo da tabela -->
-                @foreach (var funcionario in _funcionarios)
-                {
-                    <tr>
-                        <!-- Linha da tabela -->
-                        <!-- Data em cada linha da tabela -->
-                        <td>@funcionario.Codigo_Utilizador</td>
-                        <td>@funcionario.Nome</td>
-                        <td>@funcionario.GetEquipaName()</td>
-                        <td>
-                            <Texto Nome = "Visualizar" Url = "funcionarios/visualizar"/>
-                        </td>
-                        <td>
-                            <Texto Nome = "Modificar" Url = "funcionarios/visualizar"/>
-                        </td>
-                        <!-- Falta Visualizar e Modificar -->
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-</div>
+<Tabela TItem="Funcionario" Headers="@s" Items="@_funcionarios" Columns="@c" Botoes= "@b"/>
 
 @code {
+    List<string> s = new List<string> { "Código", "Nome", "Equipa" };
+    List<Func<Funcionario, object>> c = new List<Func<Funcionario, object>> {
+                    f => f.Codigo_Utilizador,
+                    f => f.Nome,
+                    f => f.GetEquipaName()};
     private List<Funcionario>? _funcionarios;
+    List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
+                    ("Visualizar", "funcionarios/visualizar"),
+                    ("Modificar", "funcionarios/modificar")};
 
     protected override async Task OnInitializedAsync()
     {

@@ -29,8 +29,8 @@ IF OBJECT_ID('Encomenda', 'U') IS NOT NULL
 CREATE TABLE Encomenda (
     Numero INT IDENTITY(1,1) PRIMARY KEY,
     Cliente VARCHAR(75) NOT NULL,
-    Data_Prevista DATETIME NOT NULL,
-    Data_Real DATETIME,
+    Data_Prevista DATE NOT NULL,
+    Data_Real DATE,
     Concluida BIT NOT NULL
 );
 
@@ -41,7 +41,7 @@ IF OBJECT_ID('Movel', 'U') IS NOT NULL
 CREATE TABLE Movel (
     Numero INT IDENTITY(1,1) PRIMARY KEY,
     Nome VARCHAR(75) NOT NULL,
-    Quantidade INT NOT NULL,
+    Quantidade INT NOT NULL DEFAULT 0,
     Imagem VARBINARY(MAX)
 );
 

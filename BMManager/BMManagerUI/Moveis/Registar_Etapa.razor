@@ -1,29 +1,32 @@
-﻿@page "/moveis/adicionar_etapa"
+﻿@page "/moveis/registar/adicionar_etapa"
+@rendermode InteractiveServer
 @using BMManagerLN
 @using BMManagerLN.SubMoveis
 @inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@inject MovelTemp movelTemp
 
 <Titulo Nome="Adicionar etapa" />
 
 <div class="InformacoesRegisto">
-    <EditForm Model="@novaEtapa" OnValidSubmit="@RegistarEtapa">
+    <EditForm Model="@movelTemp" OnValidSubmit="@RegistarEtapa">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div>
             <h4>Imagem</h4>
-            <InputFile id="nome" @bind-Value="@novaEtapa.Imagem" />
+            <InputFile id="nome" @bind-Value="@imagem" />
         </div>
         <div>
             <h4>Materiais</h4>
             <InputNumber id="nome" @bind-Value="@novoMaterialId" />
             <InputNumber id="nome" @bind-Value="@novoMaterialQuantidade" />
-            <Botao Nome="Adicionar material" Metodo="AdicionarMaterial"></Botao>
+            <button type="button" @onclick="AdicionarMaterial">Adicionar</button>
 
         </div>
 
         <div>
             <ul>
-                @foreach ((int idMaterial, int quantidade) in novaEtapa.Materiais_Necessarios)
+                @foreach ((int idMaterial, int quantidade) in materiais)
                 {
                     <li>@idMaterial @quantidade</li>
                 }
@@ -32,34 +35,28 @@
         <div class="esp">
         </div>
         <div class="Botoes">
-            <Botao Nome="Voltar" Url="moveis" />
+            <Botao Nome="Voltar" Url="moveis/registar" />
             <Botao Nome="Registar" />
         </div>
     </EditForm>
 </div>
 
 @code {
-    private Etapa novaEtapa = new Etapa();
+    private byte[] imagem = new byte[829440];
+    private List<(int,int)> materiais = new List<(int,int)>();
 
     private async Task RegistarEtapa()
     {
-        Etapa etapa = new Etapa
-            {
-                Movel = 1, //alterar
-                Numero = 1, //alterar
-                Imagem = novaEtapa.Imagem,
-//                Materiais_Necessarios = novaEtapa.Materiais
-            };
-        await ln.PutEtapa(etapa);
-
-        novaEtapa = new Etapa();
+        movelTemp.EtapasRegistadas += 1;
+        movelTemp.NovoMovelEtapas.Add((movelTemp.EtapasRegistadas + 1), (imagem, (movelTemp.EtapasRegistadas + 1), materiais));
+        NavigationManager.NavigateTo("/moveis/registar");
     }
     private int novoMaterialId;
     private int novoMaterialQuantidade;
 
     private void AdicionarMaterial()
     {
-        novaEtapa.Materiais_Necessarios.Add((novoMaterialId, novoMaterialQuantidade));
+        materiais.Add((novoMaterialId, novoMaterialQuantidade));
         novoMaterialId = 0;
         novoMaterialQuantidade = 0;
     }
