@@ -10,11 +10,11 @@
     <EditForm Model="@novoMaterial" OnValidSubmit="@RegistarMaterial">
         <DataAnnotationsValidator />
         <ValidationSummary />
-        <div>
+        <div class = "linha">
             <h4>Nome</h4>
             <InputText id="nome" @bind-Value="@novoMaterial.Nome" />
         </div>
-        <div>
+        <div  class = "linha">
             <h4>Imagem</h4>
             <InputFile id="imagem" OnChange="@UploadImagem" @bind-Value="@imagem" />
         </div>

@@ -27,6 +27,12 @@
     white-space: nowrap;
 }
 
+.inf {
+    display: inline-block;
+    white-space: nowrap;
+    align-items: center;
+}
+
 .linha h4 {
     width: 100px; /* Define uma largura fixa para o primeiro elemento */
     margin: 0; /* Remove a margem padrão do <h4> */

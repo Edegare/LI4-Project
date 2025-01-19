@@ -12,34 +12,37 @@ else {
     <div class="InformacoesRegisto">
         <div class = "linha">
             <h4>Nome</h4> 
-            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.Nome</div>
+            <div class = "inf">@funcionario.Nome</div>
         </div>
         <div class = "linha">
             <h4>Código</h4>
-            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.Codigo_Utilizador</div>
+            <div class = "inf">@funcionario.Codigo_Utilizador</div>
         </div>
         <div class = "linha">
             <h4>Equipa</h4>
-            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.GetEquipaName()</div>
+            <div class = "inf">@funcionario.GetEquipaName()</div>
         </div>
         <div class = "linha">
             <h4>Email</h4>
-            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.Email</div>
+            <div class = "inf">@funcionario.Email</div>
         </div>
         <div class = "linha">
             <h4>Telefone </h4>
-            <div style="display: inline-block; white-space: nowrap; align-items: center;">@funcionario.Telefone</div>
+            <div class = "inf">@funcionario.Telefone</div>
         </div>
         <div class = "linha">
             <h4>Ativo</h4>
             @if (funcionario.Conta_Ativa == true) {
-                <div style="display: inline-block; white-space: nowrap; align-items: center;">Sim</div>
+                <div class = "inf">Sim</div>
             }
             else {
-                <div style="display: inline-block; white-space: nowrap; align-items: center;">Não</div>
+                <div class = "inf">Não</div>
             }
         </div>
+        <div class = "esp">
+        </div>
         <div class="Botoes">
+            <div> </div>
             <Botao Nome="Voltar" Url="funcionarios" />
         </div>
     </div>
