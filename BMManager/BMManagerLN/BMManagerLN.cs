@@ -109,6 +109,11 @@ namespace BMManagerLN
             return subMateriais.GetMateriais();
         }
 
+        public Task<Material> GetMaterial(int codMaterial)
+        {
+            return subMateriais.GetMaterial(codMaterial);
+        }
+
         public Task PutMaterial(Material material)
         {
             return subMateriais.PutMaterial(material);

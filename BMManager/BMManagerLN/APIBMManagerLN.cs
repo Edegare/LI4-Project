@@ -30,6 +30,7 @@ namespace BMManagerLN
 
         //Métodos SubMateriais
         Task<List<Material>> GetMateriais();
+        Task<Material> GetMaterial(int codMaterial);
         Task PutMaterial(Material material);
 
 

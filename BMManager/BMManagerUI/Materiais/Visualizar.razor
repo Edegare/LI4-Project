@@ -1,0 +1,38 @@
+@page "/materiais/visualizar/{id:int}"
+@using BMManagerLN
+@using BMManagerLN.SubMateriais
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Visualizar material" />
+@if (material == null) {
+    <h4> Wait </h4>
+}
+else {
+    <div class="InformacoesRegisto">
+        <div class = "linha">
+            <h4>Número</h4> 
+            <div style="display: inline-block; white-space: nowrap; align-items: center;">@material.Numero</div>
+            <h4>Nome</h4>
+            <div style="display: inline-block; white-space: nowrap; align-items: center;">@material.Nome</div>
+        </div>
+        <div class = "linha">
+            <h4>Quantidade</h4>
+            <div style="display: inline-block; white-space: nowrap; align-items: center;">@material.Quantidade</div>
+        </div>
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="materiais" />
+        </div>
+    </div>
+}   
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Material material;
+    protected override async Task OnInitializedAsync()
+    {
+        material = await ln.GetMaterial(Id); //trocar para método da lógica de negócio
+    }
+}
