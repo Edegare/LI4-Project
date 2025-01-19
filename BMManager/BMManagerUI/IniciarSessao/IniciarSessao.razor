@@ -10,12 +10,12 @@
         <DataAnnotationsValidator />
         <div class="CodigoSenha">
             <div class="Codigo">
-                <p>Codigo</p>
+                <h4>Código</h4>
                 <InputText @bind-Value="Model.Codigo" />
                 <ValidationMessage For="()=> Model.Codigo" />
             </div>
             <div class="Senha">
-                <p>Senha</p>
+                <h4>Senha</h4>
                 <InputText type="password" @bind-Value="Model.Password" />
                 <ValidationMessage For="()=> Model.Password" />
             </div>
