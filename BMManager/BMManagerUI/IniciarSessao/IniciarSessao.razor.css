@@ -13,7 +13,26 @@
     margin-top: 2%;
 }
 
+.Lembrar {
+    margin-top: 2%;
+}
+
 .Botao {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end; 
+    margin-top: 1rem; 
 }
+
+.Erro {
+    margin-top: 2%;
+    color: red;
+    font-size: 0.9em;
+    height: 1.5em; 
+    display: flex;
+    align-items: center;
+    visibility: hidden; 
+}
+
+    .Erro:has(p) {
+        visibility: visible; 
+    }

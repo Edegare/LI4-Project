@@ -1,4 +1,5 @@
-﻿
+﻿using BMManager;
+
 namespace BMManagerLN.SubFuncionarios
 {
     public interface APICSubFuncionarios
@@ -6,6 +7,6 @@ namespace BMManagerLN.SubFuncionarios
         Task<List<Funcionario>> GetFuncionarios();
         Task<Funcionario> GetFuncionario(int codFuncionario);
         Task PutFuncionario(Funcionario funcionario);
-        Task<bool> AutenticarUtilizador(string codigo, string senha);
+        Task<FuncionarioDTO?> AutenticarUtilizador(string codigo, string senha);
     }
 }

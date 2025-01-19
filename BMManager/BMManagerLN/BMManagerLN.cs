@@ -1,4 +1,6 @@
-﻿using BMManager.BMManagerCD;
+using BMManager;
+using BMManager.BMManagerCD;
+using BMManager.BMManagerUI.Funcionarios;
 using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMateriais;
@@ -46,7 +48,7 @@ namespace BMManagerLN
             return subFuncionarios.PutFuncionario(funcionario);
         }
 
-        public Task<bool> AutenticarUtilizador(string codigo, string senha)
+        public Task<FuncionarioDTO?> AutenticarUtilizador(string codigo, string senha)
         {
             return subFuncionarios.AutenticarUtilizador(codigo, senha);
         }

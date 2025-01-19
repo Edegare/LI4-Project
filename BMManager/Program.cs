@@ -2,6 +2,7 @@ using BMManager.BMManagerUI;
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
 using BMManagerLN;
+using BMManager;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<BMManagerContext>(options =>
@@ -15,7 +16,29 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+
+builder.Services.AddCascadingAuthenticationState();
+
+builder.Services.AddAuthentication(Constants.AuthScheme)
+    .AddCookie(Constants.AuthScheme, options =>
+    {
+        options.Cookie.Name = Constants.AuthCookie;
+        options.LoginPath = "/";
+        options.AccessDeniedPath = "/acessonegado";
+        options.LogoutPath = "/terminarsessao";
+
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.SameSite = SameSiteMode.Strict;
+
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+        options.SlidingExpiration = true;
+
+    });
+
+
 builder.Services.AddSingleton<MovelTemp>();
+
 
 builder.Services.AddScoped<APIBMManagerLN, BMManagerLN.BMManagerLN>();
 
@@ -33,6 +56,10 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseAuthentication().
+    UseAuthorization();
+
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
