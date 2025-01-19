@@ -32,7 +32,7 @@
                 <option value="">Selecione uma equipa</option>
                 @foreach (Equipa equipa in Enum.GetValues(typeof(Equipa)))
                 {
-                    <option value="@equipa">@equipa.GetDescription()</option>
+                    <option value="@equipa">@ln.GetDescricao(equipa)</option>
                 }
             </select>
         </div>

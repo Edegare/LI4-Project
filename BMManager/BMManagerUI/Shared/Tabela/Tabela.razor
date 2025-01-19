@@ -1,4 +1,5 @@
 @typeparam TItem
+@inject APIBMManagerLN ln
 
 <div class="Tabela">
     @if (Items == null) {
@@ -19,7 +20,13 @@
                     <tr>
                         @foreach (var column in Columns)
                         {
-                            <td>@(column(item) ?? "-")</td>
+                            var value = @column(item);
+                            if (value is Enum) {
+                                <td>@(ln.GetDescricao((Enum)value))</td>
+                            }
+                            else {
+                                <td>@(value ?? "-")</td>
+                            }
                         }
                         @foreach (var par in Botoes) {
                             var url = $"{@par.Item2}/{Columns[0](item)}";

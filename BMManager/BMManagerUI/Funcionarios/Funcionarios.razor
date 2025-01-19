@@ -11,7 +11,7 @@
     List<Func<Funcionario, object>> c = new List<Func<Funcionario, object>> {
                     f => f.Codigo_Utilizador,
                     f => f.Nome,
-                    f => f.GetEquipaName()};
+                    f => f.Equipa};
     private List<Funcionario>? _funcionarios;
     List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
                     ("Visualizar", "funcionarios/visualizar"),

@@ -42,16 +42,5 @@ namespace BMManagerLN.SubFuncionarios
         public Equipa Equipa { get; set; }
 
         public bool Conta_Ativa { get; set; } = true;
-
-        public string GetEquipaName() => Equipa.GetDescription();
-    }
-    public static class EquipaExtensions
-    {
-        public static string GetDescription(this Equipa equipa)
-        {
-            var field = equipa.GetType().GetField(equipa.ToString());
-            var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
-            return attribute?.Description ?? equipa.ToString();
-        }
     }
 }
