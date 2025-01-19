@@ -12,7 +12,7 @@
     List<Func<Encomenda, object>> c = new List<Func<Encomenda, object>> {
                     f => f.Numero,
                     f => f.Cliente,
-                    f => f.Concluida,
+                    f => (object) (f.Concluida ? "Concluída" : "Em Progresso"),
                   //  f => f.Moveis_Pedidos,
                     f => f.Data_Prevista,
                     f => f.Data_Real,
