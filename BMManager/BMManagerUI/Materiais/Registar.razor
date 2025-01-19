@@ -21,12 +21,12 @@
         @if (!string.IsNullOrEmpty(imagem))
         {
             <div>
-                <img src="@imagem" alt="Imagem" width="200" />
+                <img src=@imagem/>
             </div>
         }
         else
         {
-            <p>Por favor, selecione uma imagem válida.</p>
+            <p>Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp</p>
         }
         <div class = "esp">
         </div>

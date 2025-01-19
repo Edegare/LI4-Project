@@ -47,5 +47,7 @@ namespace BMManagerLN
 
         //Métodos Auxiliares
         string GetDescricao(Enum valor);
+
+        public string ByteArrayParaImagem(byte[] bytes);
     }
 }

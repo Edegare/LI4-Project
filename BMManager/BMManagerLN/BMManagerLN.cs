@@ -10,6 +10,7 @@ using BMManagerLN.Exceptions;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.Timeouts;
 
 namespace BMManagerLN
 {
@@ -189,5 +190,15 @@ namespace BMManagerLN
             return descricao != null ? descricao.Description : valor.ToString();
         }
 
+        public string ByteArrayParaImagem(byte[] bytes)
+        {
+            string tipo;
+            if (bytes[0] == 0xFF && bytes[1] == 0xD8 && bytes[2] == 0xFF) tipo = "image/jpeg";
+            else if (bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47) tipo = "image/png";
+            else if (bytes[0] == 0x47 && bytes[1] == 0x49 && bytes[2] == 0x46) tipo = "image/gif";
+            else if (bytes[0] == 0x42 && bytes[1] == 0x4D) tipo = "image/bmp";
+            else tipo = "image/webp";
+            return $"data:{tipo};base64,{Convert.ToBase64String(bytes)}";
+        }
     }
 }
