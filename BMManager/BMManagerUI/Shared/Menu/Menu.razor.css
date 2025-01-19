@@ -5,6 +5,6 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+a:not(.no-hover):hover {
     color: #8253ee; /* Muda para uma cor diferente ao passar o rato */
 }

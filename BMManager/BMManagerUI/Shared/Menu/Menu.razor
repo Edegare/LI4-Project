@@ -1,6 +1,13 @@
-<a href="@Url">
-    @Nome
-</a>
+@if (Url == null) {
+    <a class = "no-hover">
+        @Nome
+    </a>
+}
+else {
+    <a href="@Url">
+        @Nome
+    </a>
+}
 
 @code {
     [Parameter]
