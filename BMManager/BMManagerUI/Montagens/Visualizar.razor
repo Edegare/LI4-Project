@@ -24,8 +24,8 @@
                 <p>Estado<span>@ln.GetDescricao(_montagem.Estado)</span></p>
                 <p>Data Início<span>@_montagem.Data_Inicial</span></p>
                 <p>Etapa<span>@_etapas[_montagem.Etapa].Numero / @_etapas.Count</span></p>
-                <p>Data Fim<span>@_montagem.Data_Final</span></p>
-                <p>Encomanda<span>@_montagem.Encomenda</span></p>
+                <p>Data Fim<span>@(_montagem.Data_Final != null ? _montagem.Data_Final : "-")</span></p>
+                <p>Encomenda<span>@(_montagem.Encomenda != null ? _montagem.Encomenda : "-")</span></p>
                 <p>Duração<span>@_montagem.Duracao</span></p>
                 <div class="CaixaInformacoes">
                     <p>Materiais utilizados</p>
