@@ -1,4 +1,5 @@
-﻿using BMManagerLN.SubEncomendas;
+﻿using BMManager;
+using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMateriais;
 using BMManagerLN.SubMontagens;
@@ -11,7 +12,7 @@ namespace BMManagerLN
         //Métodos SubFuncionários
         Task<List<Funcionario>> GetFuncionarios();
         Task PutFuncionario(Funcionario funcionario);
-        Task<bool> AutenticarUtilizador(string codigo, string senha);
+        Task<FuncionarioDTO?> AutenticarUtilizador(string codigo, string senha);
 
         //Métodos SubMontagens
         Task<List<Montagem>> GetMontagens();

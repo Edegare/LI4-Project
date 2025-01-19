@@ -8,9 +8,18 @@
 </div>
 
 @code {
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; } = default!;
+
     protected override async Task OnInitializedAsync()
     {
+        // Desconectar o usuário
+        await HttpContext.SignOutAsync(Constants.AuthScheme);
+
+        // Esperar um momento para exibir a mensagem
         await Task.Delay(1000);
+
+        // Redirecionar para a página inicial
         NavigationManager.NavigateTo("/");
     }
 }

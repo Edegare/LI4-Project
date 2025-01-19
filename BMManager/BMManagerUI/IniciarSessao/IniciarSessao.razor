@@ -1,46 +1,101 @@
 ﻿@page "/"
-@rendermode InteractiveServer
-@using BMManagerLN
-@inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
+@inject APIBMManagerLN ln
 
 <Titulo Nome="Iniciar sessão" />
 
 <div class="IniciarSessao">
-    <div class="CodigoSenha">
-        <div class="Codigo">
-            <p>Código de funcionário</p>
-            <input @bind="codigo"/>
+    <EditForm Model="Model" method="Post" OnValidSubmit="Autenticacao" FormName="@LoginForm">
+        <DataAnnotationsValidator />
+        <div class="CodigoSenha">
+            <div class="Codigo">
+                <p>Codigo</p>
+                <InputText @bind-Value="Model.Codigo" />
+                <ValidationMessage For="()=> Model.Codigo" />
+            </div>
+            <div class="Senha">
+                <p>Senha</p>
+                <InputText type="password" @bind-Value="Model.Password" />
+                <ValidationMessage For="()=> Model.Password" />
+            </div>
+            <div class="Lembrar">
+                <InputCheckbox @bind-Value="Model.Lembrar" class="form-check-input" />
+                Lembrar conta
+            </div>
+            <div class="Erro">
+                <p>@messagemErro</p>
+            </div>
         </div>
-        <div class="Senha">
-            <p>Senha</p>
-            <input type="password" @bind="senha"/>
+        <div class="Botao" @onclick="Autenticacao">
+            <Botao Nome="Entrar" />
         </div>
-    </div>
-
-    <div class="Botao" @onclick="Autenticacao">
-        <Botao Nome="Entrar"/>
-    </div>
+    </EditForm>
 </div>
 
 @code {
-    private string codigo = "";
-    private string senha = "";
-    private string _url = "";
+
+    public string messagemErro = "";
     private bool autenticacaoSucesso = false;
 
-    private async void Autenticacao()
+    private const string LoginForm = "login-form";
+
+    [SupplyParameterFromForm(FormName = LoginForm)]
+    private LoginModel Model { get; set; } = new();
+
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; } = default!;
+
+    private string _url = "";
+
+    protected override async Task OnInitializedAsync()
     {
-//        autenticacaoSucesso = await ln.AutenticarUtilizador(codigo, senha);
-        autenticacaoSucesso = true; //trocar
-        if (autenticacaoSucesso)
+        if (HttpContext.User.Identity is { IsAuthenticated: true })
         {
-            _url = "menuinicial";
+            NavigationManager.NavigateTo("menuinicial");
+        }
+
+    }
+
+    private async Task Autenticacao()
+    {
+        messagemErro = "";
+        FuncionarioDTO funcionario = await ln.AutenticarUtilizador(Model.Codigo, Model.Password);
+        if (funcionario != null)
+        {
+            
+            var claims = funcionario.ToClaims();
+            var identity = new ClaimsIdentity(claims, Constants.AuthScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = Model.Lembrar
+                };
+
+            await HttpContext.SignInAsync(Constants.AuthScheme, principal, authProperties);
+
+            
+            NavigationManager.NavigateTo("menuinicial");
         }
         else
         {
-            _url = "";
+            
+            messagemErro = "Credenciais Inválidas! Tente Novamente.";
+            Model.Codigo = string.Empty;
+            Model.Password = string.Empty;
+            StateHasChanged(); 
         }
-        NavigationManager.NavigateTo(_url);
+    }
+
+    class LoginModel
+    {
+        [Required(ErrorMessage = "O código de utilizador é obrigatório!")]
+        public string Codigo { get; set; } = "";
+
+        [Required(ErrorMessage = "A senha é obrigatória!")]
+        public string Password { get; set; } = "";
+
+        [Display(Name = "Lembrar conta?")]
+        public bool Lembrar { get; set; }
     }
 }

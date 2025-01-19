@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
+using BMManager;
 
 namespace BMManagerLN.SubFuncionarios
 {
@@ -22,7 +23,7 @@ namespace BMManagerLN.SubFuncionarios
         public async Task<Funcionario> GetFuncionario(int codFuncionario)
         {
             return await _context.Funcionario
-                                 .FirstOrDefaultAsync(f => f.Codigo_Utilizador == codFuncionario);
+                                 .FindAsync(codFuncionario);
         }
 
         public async Task PutFuncionario(Funcionario funcionario)
@@ -31,20 +32,18 @@ namespace BMManagerLN.SubFuncionarios
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> AutenticarUtilizador(string codigo, string senha)
+        public async Task<FuncionarioDTO?> AutenticarUtilizador(string codigo, string senha)
         {
             if (int.TryParse(codigo, out int codFuncionario))
             {
-                var funcionario = await _context.Funcionario
-                                                .FirstOrDefaultAsync(f => f.Codigo_Utilizador == codFuncionario);
+                var funcionario = await _context.Funcionario.FindAsync(codFuncionario);
 
                 if (funcionario != null && funcionario.Senha == senha)
                 {
-                    return true;
+                    return new FuncionarioDTO(funcionario.Codigo_Utilizador, funcionario.Nome, funcionario.Equipa.ToString());
                 }
             }
-
-            return false;
+            return null;
         }
     }
 }
