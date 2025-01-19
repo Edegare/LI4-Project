@@ -1,7 +1,12 @@
-﻿.Botao {
+﻿.Visualizar {
+    padding-bottom: 5px;
+}
+
+.Botao {
     width: 100%;
     display: flex;
     justify-content: start;
+    margin-bottom: 16px;
 }
 
 .Informacoes {
