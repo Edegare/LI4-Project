@@ -15,10 +15,6 @@
             <InputText id="nome" @bind-Value="@novoMaterial.Nome" />
         </div>
         <div>
-            <h4>Quantidade</h4>
-            <InputNumber id="quantidade" @bind-Value="@novoMaterial.Quantidade" />
-        </div>
-        <div>
             <h4>Imagem</h4>
             <InputFile id="imagem" OnChange="@UploadImagem" @bind-Value="@imagem" />
         </div>
@@ -68,7 +64,6 @@
         Material material = new Material
         {
             Nome = novoMaterial.Nome,
-            Quantidade = novoMaterial.Quantidade,
             Imagem = novoMaterial.Imagem
         };
         await ln.PutMaterial(material);
