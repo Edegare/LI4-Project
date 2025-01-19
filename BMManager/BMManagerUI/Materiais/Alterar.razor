@@ -17,6 +17,10 @@ else {
             <div>
                 <h4>Quantidade</h4>
                 <InputNumber id="quantidade" @bind-Value="@deltaQuantidade" />
+                @if (!string.IsNullOrEmpty(erro))
+                {
+                    <p>@erro</p>
+                }
             </div>
             <div class="linha">
                 <select @bind="@opcao">
@@ -42,6 +46,7 @@ else {
     private int deltaQuantidade;
     private int opcao = 0; //0 aumentar quantidade, 1 diminuir, 2 alterar
     private int novaQuantidade;
+    private string erro = null;
     protected override async Task OnInitializedAsync()
     {
         material = await ln.GetMaterial(Id);
@@ -52,11 +57,26 @@ else {
             novaQuantidade = material.Quantidade + deltaQuantidade;
         }
         else if(opcao == 1){
-            novaQuantidade = material.Quantidade - deltaQuantidade;
+            if (deltaQuantidade>material.Quantidade){
+                deltaQuantidade = 0;
+                erro = "Não pode retirar uma quantidade maior do que a existente.";
+                return;
+            }
+            else{
+                novaQuantidade = material.Quantidade - deltaQuantidade;
+            }
         }
         else{
-            novaQuantidade = deltaQuantidade;
+            if(deltaQuantidade<0){
+                deltaQuantidade = 0;
+                erro = "A quantidade não pode ser negativa.";
+                return;
+            }
+            else{
+                novaQuantidade = deltaQuantidade;
+            }
         }
+        erro = null;
         await ln.AlterarQuantidadeMaterial(material.Numero, novaQuantidade);
         NavigationManager.NavigateTo("/materiais");
     }
