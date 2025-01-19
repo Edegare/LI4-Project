@@ -7,7 +7,6 @@
     color: #F1DAC4; /* Cor do texto */
     cursor: pointer; /* Cursor de clique */
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
 .button:hover {

@@ -19,7 +19,7 @@
                     <tr>
                         @foreach (var column in Columns)
                         {
-                            <td>@column(item)</td>
+                            <td>@(column(item) ?? "-")</td>
                         }
                         @foreach (var par in Botoes) {
                             var url = $"{@par.Item2}/{Columns[0](item)}";
