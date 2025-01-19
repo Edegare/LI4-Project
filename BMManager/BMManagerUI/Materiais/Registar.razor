@@ -1,4 +1,5 @@
 ﻿@page "/materiais/registar"
+@rendermode InteractiveServer
 @using BMManagerLN
 @using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
@@ -10,18 +11,28 @@
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div>
-             <h4>Nome</h4>
+            <h4>Nome</h4>
             <InputText id="nome" @bind-Value="@novoMaterial.Nome" />
         </div>
         <div>
             <h4>Quantidade</h4>
-            <InputNumber id="nome" @bind-Value="@novoMaterial.Quantidade" />
+            <InputNumber id="quantidade" @bind-Value="@novoMaterial.Quantidade" />
         </div>
         <div>
             <h4>Imagem</h4>
-            <InputFile id="nome" @bind-Value="@novoMaterial.Imagem" />
+            <InputFile id="imagem" OnChange="@UploadImagem" @bind-Value="@imagem" />
         </div>
-         <div class = "esp">
+        @if (!string.IsNullOrEmpty(imagem))
+        {
+            <div>
+                <img src="@imagem" alt="Imagem" width="200" />
+            </div>
+        }
+        else
+        {
+            <p>Por favor, selecione uma imagem válida.</p>
+        }
+        <div class = "esp">
         </div>
         <div class="Botoes">
             <Botao Nome="Voltar" Url="materiais" />
@@ -31,6 +42,25 @@
 </div>
 
 @code {
+    private string imagem;
+
+    private async Task UploadImagem(InputFileChangeEventArgs e)
+    {
+        var ficheiro = e.File;
+        if (ficheiro != null && (ficheiro.ContentType == "image/jpeg" || ficheiro.ContentType == "image/png" || ficheiro.ContentType == "image/gif" || ficheiro.ContentType == "image/bmp" || ficheiro.ContentType == "image/webp"))
+        {
+            var buffer = new byte[8294400];
+            await ficheiro.OpenReadStream().ReadAsync(buffer);
+
+            imagem = $"data:{ficheiro.ContentType};base64,{Convert.ToBase64String(buffer)}";
+            novoMaterial.Imagem = buffer;
+        }
+        else{
+            imagem = null;
+            novoMaterial.Imagem = null;
+        }
+    }
+
     private Material novoMaterial = new Material();
 
     private async Task RegistarMaterial()
