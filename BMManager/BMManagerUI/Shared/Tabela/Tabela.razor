@@ -1,4 +1,6 @@
 @typeparam TItem
+@using BMManagerLN.SubMoveis
+@using BMManagerLN
 @inject APIBMManagerLN ln
 
 <div class="Tabela">
@@ -25,7 +27,15 @@
                                 <td>@(ln.GetDescricao((Enum)value))</td>
                             }
                             else {
-                                <td>@(value ?? "-")</td>
+                                if (value is ValueTuple<int, int> tuple) {
+                                    var etapa = @Funcao1(@Items2,tuple.Item1);
+                                    var n_etapas = @Funcao2(@Items3,tuple.Item2);
+                                    var r = $"{@etapa}/{@n_etapas}";
+                                    <td>@r</td>
+                                }
+                                else {
+                                    <td>@(value ?? "-")</td>
+                                }
                             }
                         }
                         @foreach (var par in Botoes) {
@@ -52,4 +62,16 @@
 
     [Parameter]
     public List<(string, string)> Botoes { get; set; } = new();
+
+    [Parameter]
+    public List<Etapa> Items2 { get; set; } = new();
+
+    [Parameter]
+    public List<Movel> Items3 { get; set; } = new();
+
+    [Parameter]
+    public Func<List<Etapa>, int, int> Funcao1 { get; set; }
+
+    [Parameter]
+    public Func<List<Movel>, int, int> Funcao2 { get; set; }
 }

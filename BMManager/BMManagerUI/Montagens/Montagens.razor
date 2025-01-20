@@ -5,19 +5,25 @@
 @inject APIBMManagerLN ln
 
 <Titulo Nome="Montagens" NomeBotao="Iniciar" UrlBotao="montagens/iniciar"/>
-<Tabela TItem="Montagem" Headers="@s" Items="@_montagens" Columns="@c" Botoes= "@b"/>
+<Tabela TItem="Montagem" Headers="@s" Items="@_montagens" Columns="@c" Botoes= "@b" Items2="@_etapas" Items3="@_moveis" Funcao1 ="@f1" Funcao2 = "@f2"/>
 
 @code {
     private List<Montagem>? _montagens;
+    private List<Etapa>? _etapas;
+    private List<Movel>? _moveis;
     List<string> s = new List<string> { "Número", "Móvel", "Estado", "Etapa", "Duração", "Data Inicial", "Data final" };
     List<Func<Montagem, object>> c = new List<Func<Montagem, object>> {
                     m => m.Numero,
                     m => m.Movel,
                     m => m.Estado,
-                    m => m.Etapa,
+                    m => (m.Etapa,m.Movel),
                     m => m.Duracao,
                     m => m.Data_Inicial,
                     m => m.Data_Final};
+    Func<List<Etapa>, int, int> f1 = (mo, d2) =>
+        mo.FirstOrDefault(n => n.Codigo_Etapa == d2)?.Numero ?? 0;
+    Func<List<Movel>, int, int> f2 = (mo, d2) =>
+        mo.FirstOrDefault(n => n.Numero == d2)?.Etapas_Montagem.Count ?? -1;
     List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
                     ("Visualizar", "montagens/visualizar"),
                     ("Cancelar", "montagens/cancelar"),
@@ -26,5 +32,7 @@
     protected override async Task OnInitializedAsync()
     {
         _montagens = await ln.GetMontagens();
+        _etapas = await ln.GetEtapas();
+        _moveis = await ln.GetMoveis();
     }
 }
