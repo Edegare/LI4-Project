@@ -12,11 +12,16 @@
             <div class="Codigo">
                 <h4>Código</h4>
                 <InputText @bind-Value="Model.Codigo" />
+
+            </div>
+            <div class="Validation">
                 <ValidationMessage For="()=> Model.Codigo" />
             </div>
             <div class="Senha">
                 <h4>Senha</h4>
                 <InputText type="password" @bind-Value="Model.Password" />
+            </div>
+            <div class="Validation">
                 <ValidationMessage For="()=> Model.Password" />
             </div>
             <div class="Lembrar">

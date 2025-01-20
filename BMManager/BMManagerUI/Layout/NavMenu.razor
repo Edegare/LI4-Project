@@ -5,37 +5,39 @@
         <!-- Itens à esquerda -->
         <div class="d-flex align-items-center">
             <a class="navbar-brand">
-                @if (_url == "")
-                {
-                    <Menu Nome="BMManager" />
-                }
-                else
-                {
-                    <Menu Nome="BMManager" Url="/menuinicial" />
-                }
+                <AuthorizeView>
+                    <Authorized>
+                        <Menu Nome="BMManager" Url="/menuinicial" />  <!-- Autenticado -->
+                    </Authorized>
+                    <NotAuthorized>
+                        <Menu Nome="BMManager" /> <!-- Não autenticado -->
+                    </NotAuthorized>
+                </AuthorizeView>
             </a>
-            @if (_url != "")
-            {
-                <a class="navbar-brand ms-3">
-                    <Menu Nome="Funcionários" Url="funcionarios" />
-                </a>
-                <a class="navbar-brand ms-3">
-                    <Menu Nome="Montagens" Url="montagens" />
-                </a>
-                <a class="navbar-brand ms-3">
-                    <Menu Nome="Móveis" Url="moveis" />
-                </a>
-                <a class="navbar-brand ms-3">
-                    <Menu Nome="Materiais" Url="materiais" />
-                </a>
-                <a class="navbar-brand ms-3">
-                    <Menu Nome="Encomendas" Url="encomendas" />
-                </a>
-            }
-            </div>
-            @if (_url != "")
-            {
-                <!-- Itens à direita -->
+            <AuthorizeView>
+                <Authorized>
+                    <!-- Links de navegação apenas visíveis para usuários autenticados -->
+                    <a class="navbar-brand ms-3">
+                        <Menu Nome="Funcionários" Url="funcionarios" />
+                    </a>
+                    <a class="navbar-brand ms-3">
+                        <Menu Nome="Montagens" Url="montagens" />
+                    </a>
+                    <a class="navbar-brand ms-3">
+                        <Menu Nome="Móveis" Url="moveis" />
+                    </a>
+                    <a class="navbar-brand ms-3">
+                        <Menu Nome="Materiais" Url="materiais" />
+                    </a>
+                    <a class="navbar-brand ms-3">
+                        <Menu Nome="Encomendas" Url="encomendas" />
+                    </a>
+                </Authorized>
+            </AuthorizeView>
+        </div>
+        <AuthorizeView>
+            <Authorized>
+                <!-- Itens à direita visíveis apenas para usuários autenticados -->
                 <div class="d-flex align-items-center">
                     <a class="navbar-brand ms-3">
                         <Menu Nome="Alterar senha" Url="alterarsenha" />
@@ -44,7 +46,8 @@
                         <Menu Nome="Terminar sessão" Url="terminarsessao" />
                     </a>
                 </div>
-            }
+            </Authorized>
+        </AuthorizeView>
     </div>
 </nav>
 

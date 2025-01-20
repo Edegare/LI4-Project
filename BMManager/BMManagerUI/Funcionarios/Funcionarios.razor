@@ -2,6 +2,7 @@
 @using BMManagerLN
 @using BMManagerLN.SubFuncionarios
 @inject APIBMManagerLN ln
+@* @attribute [Authorize(Roles = "Administracao,Recursos_Humanos")] *@
 
 <Titulo Nome="Funcionários" NomeBotao="Registar" UrlBotao="funcionarios/registar" />
 <Tabela TItem="Funcionario" Headers="@s" Items="@_funcionarios" Columns="@c" Botoes= "@b"/>

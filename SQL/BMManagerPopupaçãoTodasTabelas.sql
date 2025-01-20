@@ -92,7 +92,7 @@ VALUES
 
 INSERT INTO Funcionario (Nome,Email,Telefone,Senha,Equipa,Conta_Ativa)
 VALUES
-	('Nome1','nome1@bmmanager.pt','930000000','senha1','Encomendas',1),
+	('admin','admin@bmmanager.pt','255355455','admin','Administracao',1),
 	('Nome2','nome2@bmmanager.pt','920000000','senha2','Modelacao',1);
 
 -- 8. Inserir Funcionario_Participa_Montagem

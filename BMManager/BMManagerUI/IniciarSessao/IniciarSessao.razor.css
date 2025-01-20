@@ -10,11 +10,11 @@
 }
 
 .Senha {
-    margin-top: 2%;
+    margin-top: 1%;
 }
 
 .Lembrar {
-    margin-top: 2%;
+    margin-top: 1%;
 }
 
 .Botao {
@@ -36,3 +36,12 @@
     .Erro:has(p) {
         visibility: visible; 
     }
+
+.Validation {
+    min-height: 25px;
+    font-size: 15px;
+    color: red;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+}
