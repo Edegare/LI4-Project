@@ -1,0 +1,44 @@
+﻿@page "/montagens/montar"
+@rendermode InteractiveServer
+@using BMManagerLN
+@using BMManagerLN.SubMontagens
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider asp
+
+<Titulo Nome="Iniciar Montagem" />
+
+<div class="InformacoesIniciar">
+    <EditForm EditContext="@_contexto" FormName="iniciarMontagem" Enhance>
+        <DataAnnotationsValidator />
+        <div class="linha">
+            <h4>Código</h4>
+            <InputNumber id="codigo" @bind-Value="@_codMovel" />
+            <ValidationMessage For="@(() => _codMovel)" />
+        </div>
+        @if (!_mostrarConfirmacao)
+        {
+            <div class="Botao">
+                <Botao Nome="Voltar" Url="montagens" />
+                <Botao Nome="Iniciar" />
+            </div>
+        }
+    </EditForm>
+</div>
+
+
+@code {
+    private int _codMovel;
+    private EditContext _contexto;
+    private ValidationMessageStore _mensagens;
+    private bool _mostrarConfirmacao = false;
+    private string? _codUtilizador;
+    private int _codFuncionario;
+
+    protected override async void OnInitialized()
+    {
+        var authState = await asp.GetAuthenticationStateAsync();
+        _codUtilizador = authState.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        int.TryParse(_codUtilizador, out _codFuncionario);
+    }
+}
