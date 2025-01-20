@@ -54,7 +54,7 @@ namespace BMManagerLN.SubMoveis
 
         public async Task<Dictionary<int, Etapa>> GetEtapasMovelCondicao(Func<Etapa,bool> condicao)
         {
-            return _context.Etapa.AsEnumerable().Where(e => condicao(e)).ToDictionary(e => e.Codigo_Etapa);
+            return _context.Etapa.AsEnumerable().Where(e => condicao(e)).ToDictionary(e => e.Numero);
         }
 
         public async Task PutEtapa(Etapa etapa)

@@ -73,31 +73,23 @@ namespace BMManagerLN
             return subMontagens.GetMontagem(codMontagem);
         }
 
-        public async Task<int> NovaMontagem(int codMovel, int codFuncionario)
+        public async Task<Montagem> NovaMontagem(int codMovel, int codFuncionario)
         {
             Movel movel = await subMoveis.GetMovel(codMovel);
-
-            Dictionary<int,Etapa> etapas = await subMoveis.GetEtapasMovel(codMovel);
-            Dictionary<Material, int> materiaisPrimeiraEtapa = await subMateriais.GetMateriaisEtapa(etapas[1].Codigo_Etapa);
-            bool materiaisSuficientesPrimeiraEtapa = MateriaisSuficientes(materiaisPrimeiraEtapa);
-            Dictionary<Material, int> materiais = await subMateriais.GetMateriaisEtapas(etapas.Values.Select(e => e.Codigo_Etapa).ToArray());
-            bool materiaisSuficientes = MateriaisSuficientes(materiais);
-            //verificar se existem materiais suficientes para primeira etapa ou todas
-            if (!materiaisSuficientesPrimeiraEtapa)
-            {
-                throw new MateriaisInsuficientesException("MateriaisInsuficientes");
-            }
+            Func<Etapa, bool> condicao = e => e.Movel == codMovel & e.Numero == 1;
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
 
             Montagem montagem = new Montagem();
             montagem.Movel = codMovel;
-            montagem.Etapa = movel.Etapas_Montagem[1];
+            montagem.Etapa = etapas[1].Codigo_Etapa;
+            montagem.Etapa_Concluida = false;
             montagem.Data_Inicial = DateTime.Now;
 
             await subMontagens.PutMontagem(montagem);
 
             await subFuncionarios.AssociaFuncionarioMontagem(codFuncionario, montagem.Numero);
 
-            return !materiaisSuficientesPrimeiraEtapa ? -1 : montagem.Numero;
+            return montagem;
         }
 
         public async Task<(int,int)> MateriaisSuficientesMontagem(int codMovel)

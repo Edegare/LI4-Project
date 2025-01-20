@@ -41,9 +41,9 @@ namespace BMManager.BMManagerCD
             modelBuilder.Entity<Encomenda>().Property(m => m.Data_Real).IsRequired(false);
             modelBuilder.Entity<Encomenda>().Property(m => m.Concluida).HasDefaultValue(true);
 
-        //Funcionario
-        // Configuração da chave primária
-        modelBuilder.Entity<Funcionario>().HasKey(f => f.Codigo_Utilizador);
+            //Funcionario
+            // Configuração da chave primária
+            modelBuilder.Entity<Funcionario>().HasKey(f => f.Codigo_Utilizador);
             modelBuilder.Entity<Funcionario>().Property(f => f.Codigo_Utilizador).ValueGeneratedOnAdd();
 
             // Configuração do enum Equipa para armazenar como string (ou inteiro)
@@ -68,7 +68,7 @@ namespace BMManager.BMManagerCD
             modelBuilder.Entity<Montagem>().Property(m => m.Numero).ValueGeneratedOnAdd();
             modelBuilder.Entity<Montagem>().Property(m => m.Data_Inicial).IsRequired(true);
             modelBuilder.Entity<Montagem>().Property(m => m.Data_Final).IsRequired(false);
-            modelBuilder.Entity<Montagem>().Property(m => m.Duracao).HasDefaultValue(TimeSpan.Zero);
+            modelBuilder.Entity<Montagem>().Property(m => m.Duracao).HasDefaultValue(TimeSpan.Zero).IsRequired(true);
             modelBuilder.Entity<Montagem>().Property(m => m.Estado)
                                                 .HasConversion(e => e.ToString(),
                                                                e => (Estado)Enum.Parse(typeof(Estado), e))

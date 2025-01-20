@@ -19,7 +19,7 @@ namespace BMManagerLN
         //Métodos SubMontagens
         Task<List<Montagem>> GetMontagens();
         Task<Montagem> GetMontagem(int codMontagem);
-        Task<int> NovaMontagem(int codMovel, int codFuncionario);
+        Task<Montagem> NovaMontagem(int codMovel, int codFuncionario);
         Task<(int, int)> MateriaisSuficientesMontagem(int codMovel);
         Task<Dictionary<Material, int>> MateriaisUtilizadosMontagem(int codMontagem);
         Task<Dictionary<Material, int>> MateriaisPorUtilizarMontagem(int codMontagem);
