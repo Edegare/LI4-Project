@@ -14,17 +14,4 @@
 
 
 @code {
-    private bool autenticado = false;
-
-    [CascadingParameter]
-    public HttpContext HttpContext { get; set; } = default!;
-
-    protected override async Task OnInitializedAsync()
-    {
-        if (HttpContext.User.Identity is { IsAuthenticated: true })
-        {
-            autenticado = true;
-        }
-
-    }
 }
