@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BMManagerLN.SubEncomendas
+namespace BMManagerLN.SubMoveis
 {
     public class Encomenda_Precisa_Movel
     {

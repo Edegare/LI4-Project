@@ -62,5 +62,39 @@ namespace BMManagerLN.SubMoveis
             await _context.Etapa.AddAsync(etapa);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Dictionary<Movel,int>> GetMoveisEncomenda(int codEncomenda)
+        {
+            Dictionary<int, int> codMoveisQuantidade = await _context.Encomenda_Precisa_Movel
+                                                                .Where(e => e.Encomenda == codEncomenda).ToDictionaryAsync(e => e.Movel, e => e.Quantidade);
+            Dictionary<Movel,int> moveisQuantidade = new Dictionary<Movel,int>();
+            foreach (KeyValuePair<int, int> movelQuantidade in codMoveisQuantidade)
+            {
+                Movel movel = await _context.Movel.FindAsync(movelQuantidade.Key);
+                moveisQuantidade.Add(movel, movelQuantidade.Value);
+            }
+            return moveisQuantidade;
+        }
+
+        public async Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda)
+        {
+            bool associado = _context.Encomenda_Precisa_Movel.Any(e => e.Movel == codMovel & e.Encomenda == codEncomenda);
+            if (!associado)
+            {
+                Encomenda_Precisa_Movel epm = new Encomenda_Precisa_Movel()
+                {
+                    Encomenda = codEncomenda,
+                    Movel = codMovel,
+                    Quantidade = quantidade
+                };
+                await _context.Encomenda_Precisa_Movel.AddAsync(epm);
+            }
+            else
+            {
+                Encomenda_Precisa_Movel epm = await _context.Encomenda_Precisa_Movel.FindAsync(codEncomenda, codMovel);
+                epm.Quantidade += quantidade;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

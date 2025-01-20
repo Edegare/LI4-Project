@@ -34,12 +34,15 @@ namespace BMManagerLN
         Task<Etapa> GetEtapa(int codEtapa);
         Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel);
         Task PutEtapa(Etapa etapa);
+        Task<Dictionary<Movel,int>> GetMoveisEncomenda(int codEncomenda);
+        Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda);
 
 
         //Métodos SubMateriais
         Task<List<Material>> GetMateriais();
         Task<Material> GetMaterial(int codMaterial);
         Task PutMaterial(Material material);
+        Task<Dictionary<Material, int>> GetMateriaisEtapa(int codEtapa);
         Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade);
 
 
@@ -47,7 +50,6 @@ namespace BMManagerLN
         Task<List<Encomenda>> GetEncomendas();
         Task<Encomenda> GetEncomenda(int codEncomenda);
         Task PutEncomenda(Encomenda encomenda);
-        Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda);
 
         //Métodos Auxiliares
         string GetDescricao(Enum valor);

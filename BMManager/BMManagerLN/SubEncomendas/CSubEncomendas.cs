@@ -31,26 +31,5 @@ namespace BMManagerLN.SubEncomendas
             await _context.Encomenda.AddAsync(encomenda);
             await _context.SaveChangesAsync();
         }
-
-        public async Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda)
-        {
-            bool associado = _context.Encomenda_Precisa_Movel.Any(e => e.Movel == codMovel & e.Encomenda == codEncomenda);
-            if (!associado)
-            {
-                Encomenda_Precisa_Movel epm = new Encomenda_Precisa_Movel()
-                {
-                    Encomenda = codEncomenda,
-                    Movel = codMovel,
-                    Quantidade = quantidade
-                };
-                await _context.Encomenda_Precisa_Movel.AddAsync(epm);
-            }
-            else
-            {
-                Encomenda_Precisa_Movel epm = await _context.Encomenda_Precisa_Movel.FindAsync(codEncomenda, codMovel);
-                epm.Quantidade += quantidade;
-                await _context.SaveChangesAsync();
-            }
-        }
     }
 }

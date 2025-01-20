@@ -188,6 +188,16 @@ namespace BMManagerLN
             return subMoveis.PutEtapa(etapa);
         }
 
+        public Task<Dictionary<Movel,int>> GetMoveisEncomenda(int codEncomenda)
+        {
+            return subMoveis.GetMoveisEncomenda(codEncomenda);
+        }
+
+        public Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda)
+        {
+            return subMoveis.AdicionaMovelEncomenda(codMovel, quantidade, codEncomenda);
+        }
+
         //Métodos SubMateriais
         public Task<List<Material>> GetMateriais()
         {
@@ -202,6 +212,11 @@ namespace BMManagerLN
         public Task PutMaterial(Material material)
         {
             return subMateriais.PutMaterial(material);
+        }
+
+        public Task<Dictionary<Material, int>> GetMateriaisEtapa(int codEtapa)
+        {
+            return subMateriais.GetMateriaisEtapa(codEtapa);
         }
 
         public Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade)
@@ -221,11 +236,6 @@ namespace BMManagerLN
         public Task PutEncomenda(Encomenda encomenda)
         {
             return subEncomendas.PutEncomenda(encomenda);
-        }
-
-        public Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda)
-        {
-            return subEncomendas.AdicionaMovelEncomenda(codMovel, quantidade, codEncomenda);
         }
 
         //Métodos Auxiliares

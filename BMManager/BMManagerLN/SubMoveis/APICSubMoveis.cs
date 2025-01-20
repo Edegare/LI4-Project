@@ -14,5 +14,7 @@ namespace BMManagerLN.SubMoveis
         Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel);
         Task<Dictionary<int, Etapa>> GetEtapasMovelCondicao(Func<Etapa,bool> condicao);
         Task PutEtapa(Etapa etapa);
+        Task<Dictionary<Movel, int>> GetMoveisEncomenda(int codEncomenda);
+        Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda);
     }
 }
