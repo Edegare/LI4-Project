@@ -88,6 +88,7 @@ namespace BMManagerLN.SubMoveis
                     Quantidade = quantidade
                 };
                 await _context.Encomenda_Precisa_Movel.AddAsync(epm);
+                await _context.SaveChangesAsync();
             }
             else
             {

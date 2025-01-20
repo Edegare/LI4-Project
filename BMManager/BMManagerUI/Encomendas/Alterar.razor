@@ -24,8 +24,12 @@ else {
                  @foreach ((int idMontagem, string movel) in montagens)
                     {
                         <li>@idMontagem @movel</li>
-                        <button type="button" @onclick="(() => AdicionarMontagemLista(idMontagem))">+</button>
-                        <button type="button" @onclick="(() => RemoverMontagemLista(idMontagem))">-</button>
+                        @if (adicionar.Contains(idMontagem)){
+                            <button type="button" @onclick="(() => RemoverMontagemLista(idMontagem))">-</button>
+                        }
+                        else{
+                            <button type="button" @onclick="(() => AdicionarMontagemLista(idMontagem))">+</button>
+                        }
                     }
                 </ul>
             </div>

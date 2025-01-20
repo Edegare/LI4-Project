@@ -166,10 +166,13 @@ namespace BMManagerLN
             m = await subMontagens.GetMontagens();
             foreach (Montagem mont in m)
             {
-                Movel mov = moveisNecessarios.Find(x => x.Numero == mont.Movel);
-                if (mov!=null)
+                if(mont.Encomenda==null && mont.Estado.Equals(Estado.Concluida))
                 {
-                    montagens.Add((mont.Numero, mov.Nome));
+                    Movel mov = moveisNecessarios.Find(x => x.Numero == mont.Movel);
+                    if (mov != null)
+                    {
+                        montagens.Add((mont.Numero, mov.Nome));
+                    }
                 }
             }
             return montagens;
