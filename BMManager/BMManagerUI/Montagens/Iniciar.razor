@@ -106,7 +106,7 @@
     private async void IniciarMontagem()
     {
         Montagem montagem = await ln.NovaMontagem(_codMovel, _codFuncionario);
-        NavigationManager.NavigateTo("/montagem/montar");
+        NavigationManager.NavigateTo($"/montagem/montar/{montagem.Numero}");
     }
 
     private void Continuar()

@@ -1,4 +1,4 @@
-﻿@page "/montagens/montar"
+﻿@page "/montagens/montar{_codMontagem:int}"
 @rendermode InteractiveServer
 @using BMManagerLN
 @using BMManagerLN.SubMontagens
@@ -28,6 +28,8 @@
 
 
 @code {
+    [Parameter]
+    public int _codMontagem { get; set; }
     private int _codMovel;
     private EditContext _contexto;
     private ValidationMessageStore _mensagens;
