@@ -147,6 +147,33 @@ namespace BMManagerLN
             return await subMateriais.GetMateriaisEtapas(codEtapas);
         }
 
+        public async Task AdicionarMontagensEncomenda(int codEncomenda, List<int> montagens)
+        {
+            foreach (int id in montagens)
+            {
+                await subMontagens.AssociarAEncomenda(id, codEncomenda);
+            }
+        }
+
+        public async Task<List<(int, string)>> GetMontagensNecessarias(int codEncomenda)
+        {
+            List<(int, string)> montagens = new List<(int, string)>();
+            List<Movel> moveisNecessarios;
+            Dictionary<Movel, int> res;
+            res = await subMoveis.GetMoveisEncomenda(codEncomenda);
+            moveisNecessarios = res.Keys.ToList();
+            List<Montagem> m;
+            m = await subMontagens.GetMontagens();
+            foreach (Montagem mont in m)
+            {
+                Movel mov = moveisNecessarios.Find(x => x.Numero == mont.Movel);
+                if (mov!=null)
+                {
+                    montagens.Add((mont.Numero, mov.Nome));
+                }
+            }
+            return montagens;
+        }
 
         //Métodos SubMoveis
         public Task<List<Movel>> GetMoveis()

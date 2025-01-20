@@ -23,6 +23,7 @@ namespace BMManagerLN
         Task<(int, int)> MateriaisSuficientesMontagem(int codMovel);
         Task<Dictionary<Material, int>> MateriaisUtilizadosMontagem(int codMontagem);
         Task<Dictionary<Material, int>> MateriaisPorUtilizarMontagem(int codMontagem);
+        Task AdicionarMontagensEncomenda(int codEncomenda, List<int> montagens);
 
 
         //Métodos SubMoveis
@@ -50,6 +51,7 @@ namespace BMManagerLN
         Task<List<Encomenda>> GetEncomendas();
         Task<Encomenda> GetEncomenda(int codEncomenda);
         Task PutEncomenda(Encomenda encomenda);
+        Task<List<(int, string)>> GetMontagensNecessarias(int codEncomenda);
 
         //Métodos Auxiliares
         string GetDescricao(Enum valor);

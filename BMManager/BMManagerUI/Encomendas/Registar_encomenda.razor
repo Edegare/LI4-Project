@@ -64,6 +64,9 @@
             Moveis_Pedidos = moveis
         };
         await ln.PutEncomenda(encomenda);
+        foreach ((int id, int quantidade) in moveis){
+            await ln.AdicionaMovelEncomenda(id, quantidade, encomenda.Numero);
+        }
 
         novaEncomenda = new Encomenda();
 

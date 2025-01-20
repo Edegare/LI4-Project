@@ -7,5 +7,6 @@ namespace BMManagerLN.SubMontagens
         Task<List<Montagem>> GetMontagens();
         Task<Montagem> GetMontagem(int codMontagem);
         Task PutMontagem(Montagem montagem);
+        Task AssociarAEncomenda(int codMontagem, int codEncomenda);
     }
 }

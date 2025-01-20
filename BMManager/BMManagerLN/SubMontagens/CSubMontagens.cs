@@ -30,5 +30,18 @@ namespace BMManagerLN.SubMontagens
             await _context.Montagem.AddAsync(montagem);
             await _context.SaveChangesAsync();
         }
+        public async Task AssociarAEncomenda(int codMontagem, int codEncomenda)
+        {
+            Montagem montagem = await _context.Montagem.FindAsync(codMontagem);
+            if (montagem != null)
+            {
+                montagem.Encomenda = codEncomenda;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Montagem não encontrada.");
+            }
+        }
     }
 }

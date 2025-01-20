@@ -1,0 +1,68 @@
+@page "/encomendas/adicionar_montagens/{id:int}"
+@rendermode InteractiveServer
+@using BMManagerLN
+@using BMManagerLN.SubEncomendas
+@using BMManagerLN.SubMontagens
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+
+<Titulo Nome="Adicionar montagens" />
+@if (encomenda == null) {
+    <h4> Wait </h4>
+}
+else {
+    <div class="InformacoesRegisto">
+        <EditForm Model="@adicionar" OnValidSubmit="@AdicionarMontagens" FormName="AdicionarMontagens">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div>
+                <p>Encomenda @Id</p>
+                <p>Montagens adicionadas @adicionar.Count</p>
+            </div>
+            <div>
+                <ul>
+                 @foreach ((int idMontagem, string movel) in montagens)
+                    {
+                        <li>@idMontagem @movel</li>
+                        <button type="button" @onclick="(() => AdicionarMontagemLista(idMontagem))">+</button>
+                        <button type="button" @onclick="(() => RemoverMontagemLista(idMontagem))">-</button>
+                    }
+                </ul>
+            </div>
+            <div class="esp">
+            </div>
+            <div class="Botoes">
+                <Botao Nome="Voltar" Url="encomendas" />
+                <Botao Nome="Adicionar" />
+            </div>
+        </EditForm>
+    </div>
+}   
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Encomenda encomenda;
+    private List<int> adicionar = new List<int>();
+    private List<(int, string)> montagens;
+
+    protected override async Task OnInitializedAsync()
+    {
+        encomenda = await ln.GetEncomenda(Id);
+        montagens = await ln.GetMontagensNecessarias(Id);
+    }
+    private void AdicionarMontagemLista(int id)
+    {
+        adicionar.Add(id);
+    }
+    private void RemoverMontagemLista(int m)
+    {
+        adicionar.Remove(m);
+    }
+    private async Task AdicionarMontagens()
+    {
+        await ln.AdicionarMontagensEncomenda(Id, adicionar);
+        NavigationManager.NavigateTo("/encomendas");
+    }
+
+}
