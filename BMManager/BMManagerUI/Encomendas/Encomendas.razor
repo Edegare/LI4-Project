@@ -25,5 +25,6 @@
     protected override async Task OnInitializedAsync()
     {
         _encomendas = await ln.GetEncomendas();
+        _encomendas = _encomendas.OrderBy(f => f.Data_Prevista).OrderBy(f => f.Concluida).ToList();
     }
 }

@@ -2,6 +2,7 @@
 @rendermode InteractiveServer
 @using BMManagerLN
 @using BMManagerLN.SubEncomendas
+@using BMManagerLN.SubMoveis
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
 
@@ -12,7 +13,7 @@
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div>
-             <h4>Cliente</h4>
+            <h4>Cliente</h4>
             <InputText id="cliente" @bind-Value="@novaEncomenda.Cliente" />
         </div>
         <div>
@@ -26,16 +27,20 @@
             <button type="button" @onclick="AdicionarMovel">Adicionar</button>
 
         </div>
-
+        @if (!string.IsNullOrEmpty(erro))
+        {
+            <p>@erro</p>
+        }
         <div>
             <ul>
-                @foreach ((int idMovel, int quantidade) in moveis)
-                {
-                    <li>@idMovel @quantidade</li>
+                @for(int i = 0; i<@moveis.Count; i++){
+                    int index = i;
+                    <li>@moveis.ElementAt(i).Item1  @nomesMoveis.ElementAt(i) @moveis.ElementAt(i).Item2</li>
+                    <button type="button" @onclick="(() => RemoverMovel(index))">-</button>
                 }
             </ul>
         </div>
-         <div class = "esp">
+        <div class = "esp">
         </div>
         <div class="Botoes">
             <Botao Nome="Voltar" Url="encomendas" />
@@ -47,6 +52,8 @@
 @code {
     private Encomenda novaEncomenda = new Encomenda();
     private List<(int, int)> moveis = new List<(int, int)>();
+    private List<string> nomesMoveis = new List<string>();
+    private string erro = "";
 
     private async Task RegistarEncomenda()
     {
@@ -64,11 +71,27 @@
     }
     private int novoMovelId;
     private int novoMovelQuantidade;
+    private Movel movel;
 
-    private void AdicionarMovel()
+    private async Task AdicionarMovel()
     {
-        moveis.Add((novoMovelId, novoMovelQuantidade));
-        novoMovelId = 0;
-        novoMovelQuantidade = 0;
+        movel = await ln.GetMovel(novoMovelId);
+        if(movel!=null){
+            moveis.Add((novoMovelId, novoMovelQuantidade));
+            nomesMoveis.Add(movel.Nome);
+            novoMovelId = 0;
+            novoMovelQuantidade = 0;
+            erro = ""; 
+        }
+        else{
+            erro = "Móvel não existe";
+            novoMovelId = 0;
+            novoMovelQuantidade = 0;
+        }
+    }
+    private void RemoverMovel(int i)
+    {
+        moveis.RemoveAt(i);
+        nomesMoveis.RemoveAt(i);
     }
 }
