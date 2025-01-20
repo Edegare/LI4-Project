@@ -9,17 +9,14 @@
 
 
 <div class="MontagemDeEtapa">
-    @if (_etapa == null)
+    @if (_etapa == null || _montagem == null)
     {
         <p>A carregar etapa ...</p>
     }
     else
     {
         <div class="Etapa">
-            <div class="ImagemEtapa">
-            </div>
-            <div class="MateriaisNecessarios">
-            </div>
+            <EtapaMontagem Etapa="@_etapa" />
             <div class="Botoes">
                 <Botao Nome="Sair" />
                 <Botao Nome="Terminar Etapa" />
@@ -32,9 +29,12 @@
 @code {
     [Parameter]
     public int _codMontagem { get; set; }
-    public Etapa? _etapa { get; set; }
+    private Montagem? _montagem;
+    private Etapa? _etapa;
 
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        _montagem = await ln.GetMontagem(_codMontagem);
+        _etapa = await ln.GetEtapa(_montagem.Etapa);
     }
 }

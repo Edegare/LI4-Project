@@ -1,11 +1,22 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
 <div class="page">
     <main>
-
-        <NavMenu />
+        @if (!EsconderMenu())
+        {
+            <NavMenu />
+        }
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
+
+@code {
+    private bool EsconderMenu()
+    {
+        var url = NavigationManager.Uri;
+        return url.Contains("/montar/");
+    }
+}

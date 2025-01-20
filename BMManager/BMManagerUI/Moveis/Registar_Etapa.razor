@@ -48,7 +48,7 @@
     private async Task RegistarEtapa()
     {
         movelTemp.EtapasRegistadas += 1;
-        movelTemp.NovoMovelEtapas.Add((movelTemp.EtapasRegistadas + 1), (imagem, (movelTemp.EtapasRegistadas + 1), materiais));
+        movelTemp.NovoMovelEtapas.Add(movelTemp.EtapasRegistadas, (imagem, movelTemp.EtapasRegistadas, materiais));
         NavigationManager.NavigateTo("/moveis/registar");
     }
     private int novoMaterialId;
