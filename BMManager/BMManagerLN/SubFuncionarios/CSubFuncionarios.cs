@@ -32,6 +32,20 @@ namespace BMManagerLN.SubFuncionarios
             await _context.SaveChangesAsync();
         }
 
+        public async Task AssociaFuncionarioMontagem(int codFuncionario, int codMontagem)
+        {
+            bool associado = _context.Funcionario_Participa_Montagem.Any(f => f.Montagem == codMontagem & f.Funcionario == codFuncionario);
+            if (!associado)
+            {
+                Funcionario_Participa_Montagem fpm = new Funcionario_Participa_Montagem()
+                    {
+                        Montagem = codMontagem,
+                        Funcionario = codFuncionario
+                    };
+                await _context.Funcionario_Participa_Montagem.AddAsync(fpm);
+            }
+        }
+
         public async Task<FuncionarioDTO?> AutenticarUtilizador(string codigo, string senha)
         {
             if (int.TryParse(codigo, out int codFuncionario))

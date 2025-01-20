@@ -27,6 +27,7 @@ namespace BMManager.BMManagerCD
         public DbSet<Etapa> Etapa { get; set; } = default!;
 
         public DbSet<Etapa_Precisa_Material> Etapa_Precisa_Material { get; set; } = default!;
+
         public DbSet<Funcionario_Participa_Montagem> Funcionario_Participa_Montagem { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

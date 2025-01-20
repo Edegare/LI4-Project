@@ -7,6 +7,7 @@ namespace BMManagerLN.SubMoveis
     {
         Task<List<Movel>> GetMoveis();
         Task<Movel> GetMovel(int codMovel);
+        bool MovelExiste(int codMovel);
         Task PutMovel(Movel moveis);
         Task<List<Etapa>> GetEtapas();
         Task<Etapa> GetEtapa(int codEtapa);

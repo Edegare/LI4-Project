@@ -1,20 +1,113 @@
 ﻿@page "/montagens/iniciar"
+@rendermode InteractiveServer
 @using BMManagerLN
 @using BMManagerLN.SubMontagens
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider asp
 
 <Titulo Nome="Iniciar Montagem" />
 
 <div class="InformacoesIniciar">
-    <InputText id="codigo" @bind-Value="@_codMovel" />
+    <EditForm OnValidSubmit="IniciarMontagem" EditContext="@_contexto" FormName="iniciarMontagem" Enhance>
+        <DataAnnotationsValidator />
+        <div class="linha">
+            <h4>Código</h4>
+            <InputNumber id="codigo" @bind-Value="@_codMovel" />
+            <ValidationMessage For="@(() => _codMovel)" />
+        </div>
+        <div class="Botao">
+            <Botao Nome="Voltar" Url="montagens" />
+            <Botao Nome="Iniciar" />
+        </div>
+    </EditForm>
 </div>
 
-@code {
-    private string _codMovel;
+@if (_mostrarConfirmacao)
+{
+    <div class="Confirmacao">
+        <p>Não existem materiais suficientes para todas as etapas</p>
+        <p>Deseja continuar mesmo assim?</p>
+        <Botao Nome="Sim" Metodo="Continuar"/>
+        <Botao Nome="Não" Metodo="Cancelar"/>
+    </div>
+}
 
-    private async Task IniciarMontagem()
+@code {
+    private int _codMovel;
+    private EditContext _contexto;
+    private ValidationMessageStore _mensagens;
+    private bool _mostrarConfirmacao = false;
+    private string? _codUtilizador;
+    private int _codFuncionario;
+
+    protected override async void OnInitialized()
+    {
+        var authState = await asp.GetAuthenticationStateAsync();
+        _codUtilizador = authState.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        int.TryParse(_codUtilizador, out _codFuncionario);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _contexto = new EditContext(_codMovel);
+        _mensagens = new ValidationMessageStore(_contexto);
+        _contexto.OnValidationRequested += ValidarAsync;
+        _contexto.OnFieldChanged += LimparMensagens;
+        await base.OnParametersSetAsync();
+    }
+
+    private void LimparMensagens(object? sender, FieldChangedEventArgs e)
+    {
+        _mensagens.Clear(e.FieldIdentifier);
+        _contexto.NotifyValidationStateChanged();
+    }
+
+    private async void ValidarAsync(object? sender, ValidationRequestedEventArgs e)
+    {
+        if (_codMovel <= 0)
+        {
+            _mensagens.Add(() => _codMovel, "O código deve ser um código válido");
+        }
+        else
+        {
+            if (!ln.MovelExiste(_codMovel))
+            {
+                _mensagens.Add(() => _codMovel, "O móvel não existe");
+            }
+            else
+            {
+                (int, int) materiaisSuficientes = await ln.MateriaisSuficientesMontagem(_codMovel);
+                int etapasComMateriais = materiaisSuficientes.Item1;
+                int totalEtapas = materiaisSuficientes.Item2;
+                _mensagens.Clear();
+                if (etapasComMateriais == 0)
+                {
+                    _mensagens.Add(() => _codMovel, "Não existem materiais suficientes para iniciar a montagem");
+                }
+                else if (etapasComMateriais < totalEtapas)
+                {
+                    _mensagens.Add(() => _codMovel, "Não existem materiais suficientes para todas as etapas");
+                    _mensagens.Add(() => _codMovel, $"Existem materiais suficientes para '{etapasComMateriais}' / '{totalEtapas}' etapas");
+                }
+                _contexto.NotifyValidationStateChanged();
+            }
+        }
+    }
+
+    private void IniciarMontagem(EditContext Contexto)
     {
         NavigationManager.NavigateTo("/montagem/montar");
+    }
+
+    private void Continuar()
+    {
+        _mostrarConfirmacao = false;
+        NavigationManager.NavigateTo("/montagem/montar");
+    }
+
+    private void Cancelar()
+    {
+        _mostrarConfirmacao = false;
     }
 }

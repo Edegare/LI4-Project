@@ -26,6 +26,11 @@ namespace BMManagerLN.SubMoveis
             return await _context.Movel.FindAsync(codMovel);
         }
 
+        public bool MovelExiste(int codMovel)
+        {
+            return _context.Movel.Any(m => m.Numero == codMovel);
+        }
+
         public async Task PutMovel(Movel movel)
         {
             await _context.Movel.AddAsync(movel);
@@ -44,7 +49,7 @@ namespace BMManagerLN.SubMoveis
 
         public async Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel)
         {
-            return await _context.Etapa.Where(e => e.Movel == codMovel).ToDictionaryAsync(e => e.Codigo_Etapa);
+            return await _context.Etapa.Where(e => e.Movel == codMovel).ToDictionaryAsync(e => e.Numero);
         }
 
         public async Task<Dictionary<int, Etapa>> GetEtapasMovelCondicao(Func<Etapa,bool> condicao)
