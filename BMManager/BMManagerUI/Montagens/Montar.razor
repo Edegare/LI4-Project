@@ -1,46 +1,40 @@
-﻿@page "/montagens/montar{_codMontagem:int}"
+﻿@page "/montagens/montar/{_codMontagem:int}"
 @rendermode InteractiveServer
 @using BMManagerLN
 @using BMManagerLN.SubMontagens
+@using BMManagerLN.SubMoveis
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider asp
 
-<Titulo Nome="Iniciar Montagem" />
 
-<div class="InformacoesIniciar">
-    <EditForm EditContext="@_contexto" FormName="iniciarMontagem" Enhance>
-        <DataAnnotationsValidator />
-        <div class="linha">
-            <h4>Código</h4>
-            <InputNumber id="codigo" @bind-Value="@_codMovel" />
-            <ValidationMessage For="@(() => _codMovel)" />
-        </div>
-        @if (!_mostrarConfirmacao)
-        {
-            <div class="Botao">
-                <Botao Nome="Voltar" Url="montagens" />
-                <Botao Nome="Iniciar" />
+<div class="MontagemDeEtapa">
+    @if (_etapa == null)
+    {
+        <p>A carregar etapa ...</p>
+    }
+    else
+    {
+        <div class="Etapa">
+            <div class="ImagemEtapa">
             </div>
-        }
-    </EditForm>
+            <div class="MateriaisNecessarios">
+            </div>
+            <div class="Botoes">
+                <Botao Nome="Sair" />
+                <Botao Nome="Terminar Etapa" />
+            </div>
+        </div>
+    }
 </div>
 
 
 @code {
     [Parameter]
     public int _codMontagem { get; set; }
-    private int _codMovel;
-    private EditContext _contexto;
-    private ValidationMessageStore _mensagens;
-    private bool _mostrarConfirmacao = false;
-    private string? _codUtilizador;
-    private int _codFuncionario;
+    public Etapa? _etapa { get; set; }
 
     protected override async void OnInitialized()
     {
-        var authState = await asp.GetAuthenticationStateAsync();
-        _codUtilizador = authState.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        int.TryParse(_codUtilizador, out _codFuncionario);
     }
 }
