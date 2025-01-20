@@ -9,24 +9,26 @@
 <Titulo Nome="Iniciar Montagem" />
 
 <div class="InformacoesIniciar">
-    <EditForm OnValidSubmit="IniciarMontagem" EditContext="@_contexto" FormName="iniciarMontagem" Enhance>
+    <EditForm EditContext="@_contexto" FormName="iniciarMontagem" Enhance>
         <DataAnnotationsValidator />
         <div class="linha">
             <h4>Código</h4>
             <InputNumber id="codigo" @bind-Value="@_codMovel" />
             <ValidationMessage For="@(() => _codMovel)" />
         </div>
-        <div class="Botao">
-            <Botao Nome="Voltar" Url="montagens" />
-            <Botao Nome="Iniciar" />
-        </div>
+        @if (!_mostrarConfirmacao)
+        {
+            <div class="Botao">
+                <Botao Nome="Voltar" Url="montagens" />
+                <Botao Nome="Iniciar" />
+            </div>
+        }
     </EditForm>
 </div>
 
 @if (_mostrarConfirmacao)
 {
     <div class="Confirmacao">
-        <p>Não existem materiais suficientes para todas as etapas</p>
         <p>Deseja continuar mesmo assim?</p>
         <Botao Nome="Sim" Metodo="Continuar"/>
         <Botao Nome="Não" Metodo="Cancelar"/>
@@ -88,14 +90,20 @@
                 else if (etapasComMateriais < totalEtapas)
                 {
                     _mensagens.Add(() => _codMovel, "Não existem materiais suficientes para todas as etapas");
-                    _mensagens.Add(() => _codMovel, $"Existem materiais suficientes para '{etapasComMateriais}' / '{totalEtapas}' etapas");
+                    _mensagens.Add(() => _codMovel, $"Existem materiais suficientes para {etapasComMateriais} / {totalEtapas} etapas");
+                    _mostrarConfirmacao = true;
+                    StateHasChanged();
                 }
-                _contexto.NotifyValidationStateChanged();
+                else
+                {
+                    IniciarMontagem();
+                }
             }
         }
+        _contexto.NotifyValidationStateChanged();
     }
 
-    private void IniciarMontagem(EditContext Contexto)
+    private void IniciarMontagem()
     {
         NavigationManager.NavigateTo("/montagem/montar");
     }
@@ -103,11 +111,13 @@
     private void Continuar()
     {
         _mostrarConfirmacao = false;
-        NavigationManager.NavigateTo("/montagem/montar");
+        IniciarMontagem();
     }
 
     private void Cancelar()
     {
         _mostrarConfirmacao = false;
+        _mensagens.Clear();
+        _contexto.NotifyValidationStateChanged();
     }
 }
