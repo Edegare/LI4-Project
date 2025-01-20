@@ -47,6 +47,7 @@ namespace BMManagerLN
         Task<List<Encomenda>> GetEncomendas();
         Task<Encomenda> GetEncomenda(int codEncomenda);
         Task PutEncomenda(Encomenda encomenda);
+        Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda);
 
         //Métodos Auxiliares
         string GetDescricao(Enum valor);

@@ -5,6 +5,7 @@ using BMManagerLN.SubMateriais;
 using BMManagerLN.SubMontagens;
 using BMManagerLN.SubMoveis;
 using System.Linq.Expressions;
+using BMManagerLN.SubEncomendas;
 namespace BMManager.BMManagerCD
 {
     public class BMManagerContext : DbContext
@@ -29,6 +30,8 @@ namespace BMManager.BMManagerCD
         public DbSet<Etapa_Precisa_Material> Etapa_Precisa_Material { get; set; } = default!;
 
         public DbSet<Funcionario_Participa_Montagem> Funcionario_Participa_Montagem { get; set; } = default!;
+
+        public DbSet<Encomenda_Precisa_Movel> Encomenda_Precisa_Movel { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -100,6 +103,10 @@ namespace BMManager.BMManagerCD
 
             //Funcionario_Participa_Montagem
             modelBuilder.Entity<Funcionario_Participa_Montagem>().HasKey(f => new { f.Montagem, f.Funcionario });
+
+            //Encomenda_Precisa_Movel
+            modelBuilder.Entity<Encomenda_Precisa_Movel>().HasKey(e => new { e.Encomenda, e.Movel });
+            modelBuilder.Entity<Encomenda_Precisa_Movel>().Property(e => e.Quantidade).HasDefaultValue(0).IsRequired(true);
         }
 
         public async Task<List<T>> ObterDadosPorCondicaoAsync<T>(

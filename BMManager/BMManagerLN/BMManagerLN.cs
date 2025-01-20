@@ -223,6 +223,11 @@ namespace BMManagerLN
             return subEncomendas.PutEncomenda(encomenda);
         }
 
+        public Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda)
+        {
+            return subEncomendas.AdicionaMovelEncomenda(codMovel, quantidade, codEncomenda);
+        }
+
         //Métodos Auxiliares
         public string GetDescricao(Enum valor)
         {
