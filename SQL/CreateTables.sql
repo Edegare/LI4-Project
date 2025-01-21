@@ -105,7 +105,7 @@ CREATE TABLE Montagem (
     Data_Inicial DATETIME NOT NULL,
     Data_Final DATETIME,
     Duracao TIME NOT NULL DEFAULT '00:00:00',
-    Estado VARCHAR(15) NOT NULL CHECK (Estado IN ('Pendente', 'Em_Progresso', 'Concluida')),
+    Estado VARCHAR(15) NOT NULL CHECK (Estado IN ('Em_Progresso', 'Concluida', 'Em_Pausa', 'Cancelada')),
     Etapa_Concluida BIT NOT NULL DEFAULT 0,
     Movel INT NOT NULL,
     Etapa INT NOT NULL,
