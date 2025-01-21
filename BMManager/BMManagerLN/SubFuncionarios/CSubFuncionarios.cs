@@ -72,7 +72,7 @@ namespace BMManagerLN.SubFuncionarios
 
                 if (funcionario != null && funcionario.Senha == senha)
                 {
-                    return new FuncionarioDTO(funcionario.Codigo_Utilizador, funcionario.Nome, funcionario.Equipa.ToString());
+                    return new FuncionarioDTO(funcionario.Codigo_Utilizador, funcionario.Nome, funcionario.Equipa.ToString(), funcionario.Conta_Ativa);
                 }
             }
             return null;

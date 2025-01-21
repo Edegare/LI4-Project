@@ -45,13 +45,11 @@
 .imagem-preview {
     margin-top: 10px;
     min-height: 300px;
-    width: 500px; 
-    height: 300px; 
-    border: 1px solid #ccc; 
+    width: 500px;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f9f9f9;
 }
 
     .imagem-preview img {
