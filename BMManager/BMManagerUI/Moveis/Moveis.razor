@@ -14,8 +14,7 @@
                     f => f.Nome,
                     f => f.Quantidade};
     List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
-                    ("Visualizar", "moveis/visualizar"),
-                    ("Modificar", "moveis/modificar")};
+                    ("Visualizar", "moveis/visualizar")};
     private List<Movel>? _moveis;
 
     protected override async Task OnInitializedAsync()

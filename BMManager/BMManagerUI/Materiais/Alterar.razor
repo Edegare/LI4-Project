@@ -17,7 +17,7 @@ else {
             <ValidationSummary />
             <div>
                 <h4>Quantidade</h4>
-                <InputNumber id="quantidade" @bind-Value="@deltaQuantidade" />
+                <InputNumber id="quantidade" @bind-Value="@deltaQuantidade" min="0" />
                 @if (!string.IsNullOrEmpty(erro))
                 {
                     <p>@erro</p>

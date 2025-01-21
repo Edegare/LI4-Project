@@ -50,7 +50,7 @@
                         <!-- Campo de ID do Material -->
                         <div class="input-container">
                             <div class="input">
-                                <InputNumber id="materialId" @bind-Value="@novoMaterialId" placeholder="ID Material" />
+                                <InputNumber id="materialId" @bind-Value="@novoMaterialId" placeholder="ID Material" min="0" />
                             </div>
                             @if (!string.IsNullOrEmpty(erroMaterial))
                             {
@@ -63,7 +63,7 @@
                         <!-- Campo de Quantidade -->
                         <div class="input-container">
                             <div class="input">
-                                <InputNumber id="materialQuantidade" @bind-Value="@novoMaterialQuantidade" placeholder="Quantidade" />
+                                <InputNumber id="materialQuantidade" @bind-Value="@novoMaterialQuantidade" placeholder="Quantidade" min="0" />
                             </div>
                             @if (!string.IsNullOrEmpty(erroQuantidade))
                             {

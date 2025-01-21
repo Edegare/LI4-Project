@@ -20,12 +20,12 @@
         </div>
         <div>
             <h4>Data Prevista</h4>
-            <InputDate id="data" @bind-Value="@novaEncomenda.Data_Prevista" />
+            <InputDate id="data" @bind-Value="@data" />
         </div>
         <div>
             <h4>Móveis</h4>
-            <InputNumber id="id" @bind-Value="@novoMovelId" />
-            <InputNumber id="quantidade" @bind-Value="@novoMovelQuantidade" />
+            <InputNumber id="id" @bind-Value="@novoMovelId" min="0"/>
+            <InputNumber id="quantidade" @bind-Value="@novoMovelQuantidade" min="0" />
             <button type="button" @onclick="AdicionarMovel">Adicionar</button>
 
         </div>
@@ -56,12 +56,13 @@
     private List<(int, int)> moveis = new List<(int, int)>();
     private List<string> nomesMoveis = new List<string>();
     private string erro = "";
+    private DateOnly data = DateOnly.FromDateTime(DateTime.Today);
     private async Task RegistarEncomenda()
     {
         Encomenda encomenda = new Encomenda
         {
             Cliente = novaEncomenda.Cliente,
-            Data_Prevista = novaEncomenda.Data_Prevista,
+            Data_Prevista = data,
             Moveis_Pedidos = moveis
         };
         await ln.PutEncomenda(encomenda);
