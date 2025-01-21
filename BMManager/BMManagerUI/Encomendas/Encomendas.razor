@@ -26,7 +26,8 @@
     Func<List<Montagem>, int, int> f1 = (mo, d2) =>
         mo.Count(n => n.Encomenda == d2);
     Func<List<Encomenda_Precisa_Movel>, int, int> f2 = (mo, d2) =>
-        mo.Count(n => n.Encomenda == d2);
+        mo.Where(n => n.Encomenda == d2)  
+          .Sum(n => n.Quantidade);
     List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
                     ("Visualizar", "encomendas/visualizar"),
                     ("Adicionar", "encomendas/adicionar_montagens")};
