@@ -6,6 +6,7 @@ namespace BMManagerLN.SubMoveis
     public interface APICSubMoveis
     {
         Task<List<Movel>> GetMoveis();
+        Task<List<Encomenda_Precisa_Movel>> GetEncomendaPrecisaMovel();
         Task<Movel> GetMovel(int codMovel);
         bool MovelExiste(int codMovel);
         Task PutMovel(Movel moveis);

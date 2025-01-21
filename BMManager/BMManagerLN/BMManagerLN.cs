@@ -184,6 +184,10 @@ namespace BMManagerLN
             return subMoveis.GetMoveis();
         }
 
+        public Task<List<Encomenda_Precisa_Movel>> GetEncomendaPrecisaMovel() {
+            return subMoveis.GetEncomendaPrecisaMovel();
+        }
+
         public Task<Movel> GetMovel(int codMovel)
         {
             return subMoveis.GetMovel(codMovel);

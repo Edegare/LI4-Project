@@ -15,10 +15,14 @@ namespace BMManagerLN.SubMoveis
             _context = context;
         }
 
-        // Métodos SubMoveis
+        // Mï¿½todos SubMoveis
         public async Task<List<Movel>> GetMoveis()
         {
             return await _context.Movel.ToListAsync();
+        }
+
+        public async Task<List<Encomenda_Precisa_Movel>> GetEncomendaPrecisaMovel() {
+            return await _context.Encomenda_Precisa_Movel.ToListAsync();
         }
 
         public async Task<Movel> GetMovel(int codMovel)
