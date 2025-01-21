@@ -7,12 +7,11 @@
 
 
 <Titulo Nome="Montagens" NomeBotao="Iniciar" UrlBotao="montagens/iniciar"/>
-<Tabela TItem="Montagem" Headers="@s" Items="@_montagens" Columns="@c" Botoes= "@b" Items2="@_etapas" Items3="@_moveis" Funcao1 ="@f1" Funcao2 = "@f2"/>
+<Tabela TItem="Montagem" Headers="@s" Items="@_montagens" Columns="@c" Botoes= "@b" TItem2 = "Etapa" TItem3 = "Etapa" Items2="@_etapas" Items3="@_etapas" Funcao1 ="@f1" Funcao2 = "@f2"/>
 
 @code {
     private List<Montagem>? _montagens;
     private List<Etapa>? _etapas;
-    private List<Movel>? _moveis;
     List<string> s = new List<string> { "Número", "Móvel", "Estado", "Etapa", "Duração", "Data Inicial", "Data final" };
     List<Func<Montagem, object>> c = new List<Func<Montagem, object>> {
                     m => m.Numero,
@@ -24,8 +23,8 @@
                     m => m.Data_Final};
     Func<List<Etapa>, int, int> f1 = (mo, d2) =>
         mo.FirstOrDefault(n => n.Codigo_Etapa == d2)?.Numero ?? 0;
-    Func<List<Movel>, int, int> f2 = (mo, d2) =>
-        mo.FirstOrDefault(n => n.Numero == d2)?.Etapas_Montagem.Count ?? -1;
+    Func<List<Etapa>, int, int> f2 = (mo, d2) =>
+        mo.Count(n => n.Movel == d2);
     List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
                     ("Visualizar", "montagens/visualizar"),
                     ("Cancelar", "montagens/cancelar"),
@@ -35,6 +34,5 @@
     {
         _montagens = await ln.GetMontagens();
         _etapas = await ln.GetEtapas();
-        _moveis = await ln.GetMoveis();
     }
 }

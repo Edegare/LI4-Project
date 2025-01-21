@@ -5,7 +5,7 @@
 @attribute [Authorize(Roles = "Administracao,Montagem,Armazem,Modelacao,Encomendas")]
 
 <Titulo Nome="Móveis" NomeBotao="Registar" UrlBotao="moveis/registar" />
-<Tabela TItem="Movel" Headers="@s" Items="@_moveis" Columns="@c" Botoes= "@b"/>
+<Tabela TItem="Movel" TItem2 = "object" TItem3 = "object" Headers="@s" Items="@_moveis" Columns="@c" Botoes= "@b"/>
 
 @code {
     List<string> s = new List<string> { "Número", "Nome", "Quantidade" };

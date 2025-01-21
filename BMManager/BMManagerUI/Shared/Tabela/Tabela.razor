@@ -1,4 +1,6 @@
 @typeparam TItem
+@typeparam TItem2
+@typeparam TItem3
 @using BMManagerLN.SubMoveis
 @using BMManagerLN
 @inject APIBMManagerLN ln
@@ -64,14 +66,14 @@
     public List<(string, string)> Botoes { get; set; } = new();
 
     [Parameter]
-    public List<Etapa> Items2 { get; set; } = new();
+    public List<TItem2> Items2 { get; set; } = new();
 
     [Parameter]
-    public List<Movel> Items3 { get; set; } = new();
+    public List<TItem3> Items3 { get; set; } = new();
 
     [Parameter]
-    public Func<List<Etapa>, int, int> Funcao1 { get; set; }
+    public Func<List<TItem2>, int, int> Funcao1 { get; set; }
 
     [Parameter]
-    public Func<List<Movel>, int, int> Funcao2 { get; set; }
+    public Func<List<TItem3>, int, int> Funcao2 { get; set; }
 }
