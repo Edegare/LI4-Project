@@ -1,0 +1,74 @@
+@page "/encomendas/visualizar/{id:int}"
+@using BMManagerLN.SubMoveis
+@using BMManagerLN
+@using BMManagerLN.SubEncomendas
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Encomendas,Armazem")]
+
+<Titulo Nome="Visualizar encomenda" />
+@if (encomenda == null) {
+    <h4> Wait </h4>
+}
+else {
+    <div class="InformacoesRegisto">
+        <div class = "linha">
+            <h4>Número</h4> 
+            <div class = "inf">@encomenda.Numero</div>
+        </div>
+        <div class = "linha">
+            <h4>Cliente</h4>
+            <div class = "inf">@encomenda.Cliente</div>
+        </div>
+        <div class="linha">
+            <h4>Data Prevista</h4>
+            <div class="inf">@encomenda.Data_Prevista</div>
+        </div>
+        <div class="linha">
+            <h4>Data Real</h4>
+            <div class="inf">@encomenda.Data_Real</div>
+        </div>
+        <div class="linha">
+            <h4>Estado</h4>
+            @if(encomenda.Concluida){
+                <p>Concluída</p>
+            }
+            else{
+                <p>Em progresso</p>
+            }
+        </div>
+        <div class="linha">
+            <h4>Móveis</h4>
+            @foreach((Movel movel, int quantidade) in moveis){
+                <p>@movel.Numero @movel.Nome @quantidade</p>
+            }
+        </div>
+        <div class="linha">
+            <h4>Montagens</h4>
+            @foreach ((int id, string nome) in montagens)
+            {
+                <p>@id @nome</p>
+            }
+        </div>
+        <div class = "esp">
+        </div>
+        <div class="Botoes">
+            <div> </div>
+            <Botao Nome="Voltar" Url="encomendas" />
+        </div>
+    </div>
+}   
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    private Encomenda encomenda;
+    private Dictionary<Movel, int> moveis;
+    private List<(int, string)> montagens;
+    protected override async Task OnInitializedAsync()
+    {
+        encomenda = await ln.GetEncomenda(Id);
+        moveis = await ln.GetMoveisEncomenda(Id);
+        montagens = await ln.GetMontagensEncomenda(Id);
+    }
+}

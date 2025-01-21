@@ -178,6 +178,23 @@ namespace BMManagerLN
             return montagens;
         }
 
+        public async Task<List<(int, string)>> GetMontagensEncomenda(int codEncomenda)
+        {
+            List<Montagem> montagens;
+            montagens = await subMontagens.GetMontagens();
+            List<(int, string)> res = new List<(int, string)>();
+            foreach (Montagem montagem in montagens)
+            {
+                if(montagem.Encomenda!=null && montagem.Encomenda == codEncomenda)
+                {
+                    Movel movel;
+                    movel = await subMoveis.GetMovel(montagem.Movel);
+                    res.Add((montagem.Numero, movel.Nome));
+                }
+            }
+            return res;
+        }
+
         //Métodos SubMoveis
         public Task<List<Movel>> GetMoveis()
         {
