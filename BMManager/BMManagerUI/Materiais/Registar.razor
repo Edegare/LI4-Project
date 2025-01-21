@@ -3,6 +3,7 @@
 @using BMManagerLN
 @using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
+@attribute [Authorize(Roles = "Administracao,Modelacao")]
 
 <Titulo Nome="Registar novo material" />
 

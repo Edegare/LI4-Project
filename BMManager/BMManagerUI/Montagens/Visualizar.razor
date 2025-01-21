@@ -6,6 +6,7 @@
 @using BMManagerLN.SubFuncionarios
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Montagem,Armazem,Recursos_Humanos")]
 
 <Titulo Nome="Visualizar Montagem" />
 

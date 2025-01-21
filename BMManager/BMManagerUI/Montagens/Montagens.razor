@@ -3,6 +3,8 @@
 @using BMManagerLN.SubMontagens
 @using BMManagerLN.SubMoveis
 @inject APIBMManagerLN ln
+@attribute [Authorize(Roles = "Administracao,Montagem,Armazem,Recursos_Humanos")]
+
 
 <Titulo Nome="Montagens" NomeBotao="Iniciar" UrlBotao="montagens/iniciar"/>
 <Tabela TItem="Montagem" Headers="@s" Items="@_montagens" Columns="@c" Botoes= "@b" Items2="@_etapas" Items3="@_moveis" Funcao1 ="@f1" Funcao2 = "@f2"/>

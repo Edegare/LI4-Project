@@ -2,6 +2,7 @@
 @using BMManagerLN
 @using BMManagerLN.SubMoveis
 @inject APIBMManagerLN ln
+@attribute [Authorize(Roles = "Administracao,Montagem,Armazem,Modelacao,Encomendas")]
 
 <Titulo Nome="Móveis" NomeBotao="Registar" UrlBotao="moveis/registar" />
 <Tabela TItem="Movel" Headers="@s" Items="@_moveis" Columns="@c" Botoes= "@b"/>

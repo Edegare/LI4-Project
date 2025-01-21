@@ -2,6 +2,7 @@
 @using BMManagerLN
 @using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
+@attribute [Authorize(Roles = "Administracao,Armazem,Modelacao,Montagem")]
 
 <Titulo Nome="Materiais" NomeBotao="Registar" UrlBotao="materiais/registar" />
 <Tabela TItem="Material" Headers="@s" Items="@_materiais" Columns="@c" Botoes= "@b"/>

@@ -5,6 +5,7 @@
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider asp
+@attribute [Authorize(Roles = "Administracao,Montagem")]
 
 <Titulo Nome="Iniciar Montagem" />
 
