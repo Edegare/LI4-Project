@@ -18,8 +18,8 @@
             }
             else
             {
-                //<img src="@_imagemEtapa" />
-                <img src="/imagens/Imagem.png" />
+                <img src="@_imagemEtapa" />
+                //<img src="/imagens/Imagem.png" />
             }
         </div>
         <div class="MateriaisNecessarios">
@@ -34,10 +34,10 @@
                 {
                     Material material = materialQuantidade.Key;
                     int quantidade = materialQuantidade.Value;
-                    //string imagem = ln.ByteArrayParaImagem(material.Imagem);
-                    //<img src="@imagem"/>
+                    string imagem = ln.ByteArrayParaImagem(material.Imagem);
+                    //<img src="/imagens/Imagem.png" />
                     <div class="Material">
-                        <img src="/imagens/Imagem.png" />
+                        <img src="@imagem" />
                         <span>X @quantidade</span>
                     </div>
                 }
