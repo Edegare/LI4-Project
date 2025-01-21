@@ -1,0 +1,31 @@
+﻿html, body {
+    margin: 0px;
+    height: 100%;
+}
+
+.MontagemDeEtapa {
+    width: 100%;
+    height: 90vh;
+}
+
+.Etapa {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    .Etapa .ImagemEtapaMontagem {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Etapa .Botoes {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }

@@ -3,41 +3,48 @@
 @using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
 
-@if (Etapa == null)
-{
-    <p>A carregar etapa ...</p>
-}
-else
-{
-    <div class="ImagemEtapa">
-        @if (_imagemEtapa == null)
-        {
-            <img src="/imagens/Imagem.png" />
-        }
-        else
-        {
-            <img src="@_imagemEtapa" />
-        }
-    </div>
-    <div class="MateriaisNecessarios">
-        @if (_materiais == null)
-        {
-            <img src="/imagens/Imagem.png" />
-            <p>A carregar materiais ...</p>
-        }
-        else
-        {
-            foreach (KeyValuePair<Material, int> materialQuantidade in _materiais)
+<div class="EtapaMontagem">
+    @if (Etapa == null)
+    {
+        <p>A carregar etapa ...</p>
+        <img src="/imagens/Imagem.png" />
+    }
+    else
+    {
+        <div class="ImagemEtapa">
+            @if (_imagemEtapa == null)
             {
-                Material material = materialQuantidade.Key;
-                int quantidade = materialQuantidade.Value;
-                string imagem = ln.ByteArrayParaImagem(material.Imagem);
-                <img src="@imagem"/>
-                <span>X @quantidade</span>
+                <img src="/imagens/Imagem.png" />
             }
-        }
-    </div>
-}
+            else
+            {
+                //<img src="@_imagemEtapa" />
+                <img src="/imagens/Imagem.png" />
+            }
+        </div>
+        <div class="MateriaisNecessarios">
+            @if (_materiais == null)
+            {
+                <img src="/imagens/Imagem.png" />
+                <p>A carregar materiais ...</p>
+            }
+            else
+            {
+                foreach (KeyValuePair<Material, int> materialQuantidade in _materiais)
+                {
+                    Material material = materialQuantidade.Key;
+                    int quantidade = materialQuantidade.Value;
+                    //string imagem = ln.ByteArrayParaImagem(material.Imagem);
+                    //<img src="@imagem"/>
+                    <div class="Material">
+                        <img src="/imagens/Imagem.png" />
+                        <span>X @quantidade</span>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>
 
 @code {
     [Parameter]

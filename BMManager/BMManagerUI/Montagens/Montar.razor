@@ -17,9 +17,11 @@
     else
     {
         <div class="Etapa">
-            <EtapaMontagem Etapa="@_etapa" />
+            <div class="ImagemEtapaMontagem">
+                <EtapaMontagem Etapa="@_etapa" />
+            </div>
             <div class="Botoes">
-                <Botao Nome="Sair" />
+                <Botao Nome="Sair" Url="montagens" /> <!-- Alterar para confirmação -->
                 <Botao Nome="Terminar Etapa" />
             </div>
         </div>
