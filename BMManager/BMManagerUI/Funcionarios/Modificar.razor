@@ -9,63 +9,63 @@
 <Titulo Nome="Modificar funcionário" />
 
 @if (novoFuncionario != null) {
-<div class="InformacoesRegisto">
-    <EditForm Model="@novoFuncionario" OnValidSubmit="@ModificarFuncionario" FormName="modificarFunc" Enhance>
-        <DataAnnotationsValidator />
+    <div class="InformacoesRegisto">
+        <EditForm Model="@novoFuncionario" OnValidSubmit="@ModificarFuncionario" FormName="modificarFunc" Enhance>
+            <DataAnnotationsValidator />
 
-        <div class="linha">
-            <h4>Nome</h4>
-            <InputText id="nome" @bind-Value="@novoFuncionario.Nome" />
-        </div>
-        <div class="Validation">
-            <ValidationMessage For="() => novoFuncionario.Nome" />
-        </div>
-        <div class="linha">
-            <h4>Email</h4>
-            <InputText id="email" @bind-Value="@novoFuncionario.Email" />
-        </div>
-        <div class="Validation">
-            <ValidationMessage For="() => novoFuncionario.Email" />
-        </div>
+            <div class="linha">
+                <h4>Nome</h4>
+                <InputText id="nome" @bind-Value="@novoFuncionario.Nome" />
+            </div>
+            <div class="Validation">
+                <ValidationMessage For="() => novoFuncionario.Nome" />
+            </div>
+            <div class="linha">
+                <h4>Email</h4>
+                <InputText id="email" @bind-Value="@novoFuncionario.Email" />
+            </div>
+            <div class="Validation">
+                <ValidationMessage For="() => novoFuncionario.Email" />
+            </div>
 
-        <div class="linha">
-            <h4>Senha</h4>
-            <InputText id="senha" type="password" @bind-Value="novoFuncionario.Senha"/>
-        </div>
-        <div class="Validation">
-            <ValidationMessage For="() => novoFuncionario.Senha" />
-        </div>
+            <div class="linha">
+                <h4>Senha</h4>
+                <InputText id="senha" type="password" @bind-Value="novoFuncionario.Senha"/>
+            </div>
+            <div class="Validation">
+                <ValidationMessage For="() => novoFuncionario.Senha" />
+            </div>
 
-        <div class="linha">
-            <h4>Telefone</h4>
-            <InputText id="telefone" @bind-Value="@novoFuncionario.Telefone" />
-        </div>
-        <div class="Validation">
-            <ValidationMessage For="() => novoFuncionario.Telefone" />
-        </div>
-        <div class="linha">
-            <h4>Equipa</h4>
-            <select @bind="novoFuncionario.Equipa">
-                @foreach (Equipa equipa in Enum.GetValues(typeof(Equipa)))
-                {
-                    <option value="@equipa">@ln.GetDescricao(equipa)</option>
-                }
-            </select>
-            <h4 style="margin-left: 20px;">Ativo</h4>
-            <select @bind="novoFuncionario.Conta_Ativa">
-                <option value="@true">Sim</option>
-                <option value="@false">Não</option>
-            </select>
-        </div>
+            <div class="linha">
+                <h4>Telefone</h4>
+                <InputText id="telefone" @bind-Value="@novoFuncionario.Telefone" />
+            </div>
+            <div class="Validation">
+                <ValidationMessage For="() => novoFuncionario.Telefone" />
+            </div>
+            <div class="linha">
+                <h4>Equipa</h4>
+                <select @bind="novoFuncionario.Equipa">
+                    @foreach (Equipa equipa in Enum.GetValues(typeof(Equipa)))
+                    {
+                        <option value="@equipa">@ln.GetDescricao(equipa)</option>
+                    }
+                </select>
+                <h4 style="margin-left: 20px;">Ativo</h4>
+                <select @bind="ativoString">
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+            </div>
 
-        <div class="esp"></div>
+            <div class="esp"></div>
 
-        <div class="Botoes">
-            <Botao Nome="Voltar" Url="funcionarios" />
-            <Botao Nome="Modificar" />
-        </div>
-    </EditForm>
-</div>
+            <div class="Botoes">
+                <Botao Nome="Voltar" Url="funcionarios" />
+                <Botao Nome="Modificar" />
+            </div>
+        </EditForm>
+    </div>
 }
 
 @code {
@@ -73,6 +73,11 @@
     public int Id { get; set; }
 
     private Funcionario novoFuncionario;
+    private string ativoString
+    {
+        get => novoFuncionario.Conta_Ativa ? "true" : "false";
+        set => novoFuncionario.Conta_Ativa = value == "true"; 
+    }
 
     protected override async Task OnInitializedAsync()
     {
