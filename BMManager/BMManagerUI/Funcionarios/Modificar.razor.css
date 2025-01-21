@@ -22,21 +22,25 @@
 .linha {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.inf {
-    display: inline-block;
-    white-space: nowrap;
-    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .linha h4 {
-    width: 125px; /* Define uma largura fixa para o primeiro elemento */
+    width: 100px; /* Define uma largura fixa para o primeiro elemento */
     margin: 0; /* Remove a margem padrão do <h4> */
 }
 
 .linha InputText {
     flex: 1; /* Permite que o campo de entrada se ajuste ao restante do espaço */
+}
+
+.Validation {
+    min-height: 25px;
+    font-size: 15px;
+    color: red;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 100px;
 }

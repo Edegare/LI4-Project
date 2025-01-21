@@ -46,15 +46,16 @@
         <div class="linha">
             <h4>Equipa</h4>
             <select @bind="novoFuncionario.Equipa">
-                <option value="">Selecione uma equipa</option>
                 @foreach (Equipa equipa in Enum.GetValues(typeof(Equipa)))
                 {
                     <option value="@equipa">@ln.GetDescricao(equipa)</option>
                 }
             </select>
-        </div>
-        <div class="Validation">
-            <ValidationMessage For="() => novoFuncionario.Equipa" />
+            <h4 style="margin-left: 20px;">Ativo</h4>
+            <select @bind="novoFuncionario.Conta_Ativa">
+                <option value="@true">Sim</option>
+                <option value="@false">Não</option>
+            </select>
         </div>
 
         <div class="esp"></div>
@@ -81,7 +82,7 @@
             Nome = funcionario.Nome,
             Email = funcionario.Email,
             Telefone = funcionario.Telefone,
-            Senha = funcionario.Senha,
+            Senha = "",
             Equipa = funcionario.Equipa,
             Conta_Ativa = funcionario.Conta_Ativa
         };
