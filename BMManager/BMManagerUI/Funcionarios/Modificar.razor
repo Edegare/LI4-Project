@@ -1,0 +1,94 @@
+@page "/funcionarios/modificar/{id:int}"
+@using BMManagerLN
+@using BMManagerLN.SubFuncionarios
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Recursos_Humanos")]
+
+<Titulo Nome="Modificar funcionário" />
+
+@if (novoFuncionario != null) {
+<div class="InformacoesRegisto">
+    <EditForm Model="@novoFuncionario" OnValidSubmit="@ModificarFuncionario" FormName="modificarFunc" Enhance>
+        <DataAnnotationsValidator />
+
+        <div class="linha">
+            <h4>Nome</h4>
+            <InputText id="nome" @bind-Value="@novoFuncionario.Nome" />
+        </div>
+        <div class="Validation">
+            <ValidationMessage For="() => novoFuncionario.Nome" />
+        </div>
+        <div class="linha">
+            <h4>Email</h4>
+            <InputText id="email" @bind-Value="@novoFuncionario.Email" />
+        </div>
+        <div class="Validation">
+            <ValidationMessage For="() => novoFuncionario.Email" />
+        </div>
+
+        <div class="linha">
+            <h4>Senha</h4>
+            <InputText id="senha" type="password" @bind-Value="novoFuncionario.Senha"/>
+        </div>
+        <div class="Validation">
+            <ValidationMessage For="() => novoFuncionario.Senha" />
+        </div>
+
+        <div class="linha">
+            <h4>Telefone</h4>
+            <InputText id="telefone" @bind-Value="@novoFuncionario.Telefone" />
+        </div>
+        <div class="Validation">
+            <ValidationMessage For="() => novoFuncionario.Telefone" />
+        </div>
+        <div class="linha">
+            <h4>Equipa</h4>
+            <select @bind="novoFuncionario.Equipa">
+                <option value="">Selecione uma equipa</option>
+                @foreach (Equipa equipa in Enum.GetValues(typeof(Equipa)))
+                {
+                    <option value="@equipa">@ln.GetDescricao(equipa)</option>
+                }
+            </select>
+        </div>
+        <div class="Validation">
+            <ValidationMessage For="() => novoFuncionario.Equipa" />
+        </div>
+
+        <div class="esp"></div>
+
+        <div class="Botoes">
+            <Botao Nome="Voltar" Url="funcionarios" />
+            <Botao Nome="Modificar" />
+        </div>
+    </EditForm>
+</div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Funcionario novoFuncionario;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Funcionario funcionario = await ln.GetFuncionario(Id); //trocar para método da lógica de negócio
+        novoFuncionario = new Funcionario
+        {
+            Nome = funcionario.Nome,
+            Email = funcionario.Email,
+            Telefone = funcionario.Telefone,
+            Senha = funcionario.Senha,
+            Equipa = funcionario.Equipa,
+            Conta_Ativa = funcionario.Conta_Ativa
+        };
+    }
+
+    private async Task ModificarFuncionario()
+    {
+        await ln.ModificarFuncionario(Id,novoFuncionario.Nome,novoFuncionario.Email,novoFuncionario.Senha,novoFuncionario.Telefone,novoFuncionario.Equipa,novoFuncionario.Conta_Ativa);
+        NavigationManager.NavigateTo("/funcionarios");
+    }
+}

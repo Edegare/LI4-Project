@@ -14,7 +14,7 @@ namespace BMManagerLN.SubFuncionarios
             _context = context;
         }
 
-        // Métodos SubFuncionários
+        // Mï¿½todos SubFuncionï¿½rios
         public async Task<List<Funcionario>> GetFuncionarios()
         {
             return await _context.Funcionario.ToListAsync();
@@ -30,6 +30,24 @@ namespace BMManagerLN.SubFuncionarios
         {
             await _context.Funcionario.AddAsync(funcionario);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task ModificarFuncionario (int codFuncionario, string nome, string email, string senha, string telefone, Equipa equipa, bool conta_ativa) {
+            Funcionario fun = await _context.Funcionario.FindAsync(codFuncionario);
+            if (fun != null)
+            {
+                fun.Nome = nome;
+                fun.Email = email;
+                fun.Senha = senha;
+                fun.Telefone = telefone;
+                fun.Equipa = equipa;
+                fun.Conta_Ativa = conta_ativa;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("FuncionÃ¡rio nÃ£o encontrado.");
+            }
         }
 
         public async Task AssociaFuncionarioMontagem(int codFuncionario, int codMontagem)
