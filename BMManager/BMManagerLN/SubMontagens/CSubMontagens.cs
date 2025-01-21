@@ -8,7 +8,17 @@ namespace BMManagerLN.SubMontagens
     public class CSubMontagens : APICSubMontagens
     {
         private readonly BMManagerContext _context;
-
+        public int OrdenarEstado(Estado estado)
+        {
+            switch (estado)
+            {
+                case Estado.Em_Pausa: return 1;
+                case Estado.Em_Progresso: return 2;
+                case Estado.Concluida: return 3;
+                case Estado.Cancelada: return 4;
+                default: return 0;
+            }
+        }
         public CSubMontagens(BMManagerContext context)
         {
             _context = context;

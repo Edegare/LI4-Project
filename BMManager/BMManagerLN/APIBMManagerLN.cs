@@ -18,6 +18,7 @@ namespace BMManagerLN
         Task<List<Funcionario>> FuncionariosParticipamMontagem(int codMontagem);
 
         //Métodos SubMontagens
+        int OrdenarEstado(Estado estado);
         Task<List<Montagem>> GetMontagens();
         Task<Montagem> GetMontagem(int codMontagem);
         Task<Montagem> NovaMontagem(int codMovel, int codFuncionario);

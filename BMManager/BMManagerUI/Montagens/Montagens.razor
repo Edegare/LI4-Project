@@ -33,6 +33,7 @@
     protected override async Task OnInitializedAsync()
     {
         _montagens = await ln.GetMontagens();
+        _montagens = _montagens.OrderBy(f => ln.OrdenarEstado(f.Estado)).ToList();
         _etapas = await ln.GetEtapas();
     }
 }

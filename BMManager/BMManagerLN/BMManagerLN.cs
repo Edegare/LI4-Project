@@ -69,6 +69,10 @@ namespace BMManagerLN
         }
 
         //Métodos SubMontagens
+        public int OrdenarEstado(Estado estado)
+        {
+            return subMontagens.OrdenarEstado(estado);
+        }
         public Task<List<Montagem>> GetMontagens()
         {
             return subMontagens.GetMontagens();
