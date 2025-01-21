@@ -26,7 +26,7 @@ else {
         </div>
         <div class="linha">
             <h4>Data Real</h4>
-            <div class="inf">@encomenda.Data_Real</div>
+            <div class="inf">@(encomenda.Data_Real?.ToString("dd/MM/yyyy") ?? "-")</div>
         </div>
         <div class="linha">
             <h4>Estado</h4>
