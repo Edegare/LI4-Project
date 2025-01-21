@@ -10,10 +10,19 @@
 else
 {
     <div class="ImagemEtapa">
+        @if (_imagemEtapa == null)
+        {
+            <img src="/imagens/Imagem.png" />
+        }
+        else
+        {
+            <img src="@_imagemEtapa" />
+        }
     </div>
     <div class="MateriaisNecessarios">
         @if (_materiais == null)
         {
+            <img src="/imagens/Imagem.png" />
             <p>A carregar materiais ...</p>
         }
         else
@@ -23,7 +32,7 @@ else
                 Material material = materialQuantidade.Key;
                 int quantidade = materialQuantidade.Value;
                 string imagem = ln.ByteArrayParaImagem(material.Imagem);
-                <img src="imagem"/>
+                <img src="@imagem"/>
                 <span>X @quantidade</span>
             }
         }
@@ -33,9 +42,11 @@ else
 @code {
     [Parameter]
     public Etapa Etapa { get; set; }
+    private string? _imagemEtapa;
     private Dictionary<Material, int>? _materiais;
     protected override async Task OnInitializedAsync()
     {
         _materiais = await ln.GetMateriaisEtapa(Etapa.Codigo_Etapa);
+        _imagemEtapa = ln.ByteArrayParaImagem(Etapa.Imagem);
     }
 }
