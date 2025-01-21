@@ -11,6 +11,8 @@ using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.Timeouts;
+using System.Collections.Generic;
+using Microsoft.Extensions.Internal;
 
 namespace BMManagerLN
 {
@@ -147,12 +149,42 @@ namespace BMManagerLN
             return await subMateriais.GetMateriaisEtapas(codEtapas);
         }
 
-        public async Task AdicionarMontagensEncomenda(int codEncomenda, List<int> montagens)
+        public async Task<string> AdicionarMontagensEncomenda(int codEncomenda, List<int> montagens)
         {
+            Dictionary<Movel, int> moveisQueFaltam;
+            moveisQueFaltam = await GetMoveisQueFaltamEncomenda(codEncomenda);
+            string erro = "";
             foreach (int id in montagens)
             {
-                await subMontagens.AssociarAEncomenda(id, codEncomenda);
+                Montagem mont;
+                mont = await subMontagens.GetMontagem(id);
+                Movel movel;
+                movel = await subMoveis.GetMovel(mont.Movel);
+                if (moveisQueFaltam.ContainsKey(movel))
+                {
+                    if (moveisQueFaltam[movel] > 1)
+                    {
+                        moveisQueFaltam[movel] = moveisQueFaltam[movel]--;
+                        await subMontagens.AssociarAEncomenda(id, codEncomenda);
+                    }
+                    else
+                    {
+                        moveisQueFaltam.Remove(movel);
+                        await subMontagens.AssociarAEncomenda(id, codEncomenda);
+                    }
+                }
+                else
+                {
+                    erro = "Não é possível adicionar montagens que não sejam necessárias na encomenda, uma ou mais montagens não foram adicionadas";
+                }
+            
             }
+            if(moveisQueFaltam.Count == 0)
+            {
+                await subEncomendas.ConcluirEncomenda(codEncomenda);
+
+            }
+            return erro;
         }
 
         public async Task<List<(int, string)>> GetMontagensNecessarias(int codEncomenda)
@@ -160,7 +192,7 @@ namespace BMManagerLN
             List<(int, string)> montagens = new List<(int, string)>();
             List<Movel> moveisNecessarios;
             Dictionary<Movel, int> res;
-            res = await subMoveis.GetMoveisEncomenda(codEncomenda);
+            res = await GetMoveisQueFaltamEncomenda(codEncomenda);
             moveisNecessarios = res.Keys.ToList();
             List<Montagem> m;
             m = await subMontagens.GetMontagens();
@@ -243,6 +275,31 @@ namespace BMManagerLN
         {
             return subMoveis.GetMoveisEncomenda(codEncomenda);
         }
+        public async Task<Dictionary<Movel, int>> GetMoveisQueFaltamEncomenda(int codEncomenda)
+        {
+            Dictionary<Movel, int> moveisEncomenda;
+            moveisEncomenda = await subMoveis.GetMoveisEncomenda(codEncomenda);
+            List<(int, string)> montagensAssociadas;
+            montagensAssociadas = await GetMontagensEncomenda(codEncomenda);
+            foreach((int mont, string nome) in montagensAssociadas)
+            {
+                Montagem montagem;
+                montagem = await GetMontagem(mont);
+                int idMovel = montagem.Movel;
+                Movel movel;
+                movel = await GetMovel(idMovel);
+                if (moveisEncomenda[movel] > 1)
+                {
+                    moveisEncomenda[movel] = moveisEncomenda[movel]--;
+                }
+                else
+                {
+                    moveisEncomenda.Remove(movel);
+                }
+            }
+            return moveisEncomenda;
+        }
+
 
         public Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda)
         {

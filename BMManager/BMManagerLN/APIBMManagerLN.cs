@@ -23,7 +23,7 @@ namespace BMManagerLN
         Task<(int, int)> MateriaisSuficientesMontagem(int codMovel);
         Task<Dictionary<Material, int>> MateriaisUtilizadosMontagem(int codMontagem);
         Task<Dictionary<Material, int>> MateriaisPorUtilizarMontagem(int codMontagem);
-        Task AdicionarMontagensEncomenda(int codEncomenda, List<int> montagens);
+        Task<string> AdicionarMontagensEncomenda(int codEncomenda, List<int> montagens);
         Task<List<(int, string)>> GetMontagensEncomenda(int codEncomenda);
 
 
@@ -39,6 +39,7 @@ namespace BMManagerLN
         Task PutEtapa(Etapa etapa);
         Task<Dictionary<Movel,int>> GetMoveisEncomenda(int codEncomenda);
         Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda);
+        Task<Dictionary<Movel, int>> GetMoveisQueFaltamEncomenda(int codEncomenda);
 
 
         //Métodos SubMateriais
