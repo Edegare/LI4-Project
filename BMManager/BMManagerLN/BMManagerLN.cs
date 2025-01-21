@@ -64,6 +64,17 @@ namespace BMManagerLN
             return await subFuncionarios.FuncionariosParticipamMontagem(codMontagem);
         }
 
+        public async Task<bool> AlterarSenha(int codigoFuncionario, string novaSenha)
+        {
+            var funcionario = await subFuncionarios.GetFuncionario(codigoFuncionario);
+            if (funcionario == null)
+                return false;
+
+            funcionario.Senha = novaSenha;
+
+            return await subFuncionarios.AtualizarFuncionario(funcionario);
+        }
+
         //Métodos SubMontagens
         public Task<List<Montagem>> GetMontagens()
         {

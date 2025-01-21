@@ -71,5 +71,17 @@ namespace BMManagerLN.SubFuncionarios
             }
             return funcionarios;
         }
+
+        public async Task<bool> AtualizarFuncionario(Funcionario funcionario)
+        {
+            
+            if (!await _context.Funcionario.AnyAsync(f => f.Codigo_Utilizador == funcionario.Codigo_Utilizador))
+                return false;
+
+
+            _context.Funcionario.Update(funcionario);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

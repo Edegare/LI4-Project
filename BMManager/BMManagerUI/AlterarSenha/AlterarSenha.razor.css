@@ -5,15 +5,21 @@
     justify-content: space-between;
 }
 
-.CodigoSenha {
-    margin-top: 5%;
+.esquema-senhas div {
+    margin-top: 20px;
 }
 
-.Senha {
-    margin-top: 2%;
-}
-
-.Botao {
+.Botoes {
+    text-align: center;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    margin-bottom: 20000px;
+    bottom: 0; 
+    width: 100%; 
+    margin: 0; 
+    padding: 10px; 
+}
+
+.ErroMensagem {
+    color: red;
 }

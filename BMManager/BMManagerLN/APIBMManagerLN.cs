@@ -15,6 +15,7 @@ namespace BMManagerLN
         Task PutFuncionario(Funcionario funcionario);
         Task<FuncionarioDTO?> AutenticarUtilizador(string codigo, string senha);
         Task<List<Funcionario>> FuncionariosParticipamMontagem(int codMontagem);
+        Task<bool> AlterarSenha(int codigoFuncionario, string novaSenha);
 
         //Métodos SubMontagens
         Task<List<Montagem>> GetMontagens();
