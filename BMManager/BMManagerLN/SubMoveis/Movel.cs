@@ -8,15 +8,15 @@ namespace BMManagerLN.SubMoveis
         [Key]
         public int Numero { get; set; }
 
-        [Required(ErrorMessage = "Tem que selecionar um nome")]
-        [StringLength(75, ErrorMessage = "Nome tem mais de 75 caracteres")]
-        public String Nome { get; set; }
+        [Required(ErrorMessage = "O campo Nome é obrigatório!")]
+        [StringLength(75, ErrorMessage = "Nome não pode ter mais de 75 carateres!")]
+        public string Nome { get; set; }
 
         public int Quantidade { get; set; } = 0;
 
-        [Required(ErrorMessage = "Tem que selecionar uma imagem")]
+        [Required(ErrorMessage = "O campo Imagem é obrigatório!")]
         public byte[] Imagem { get; set; }
         [NotMapped]
-        public Dictionary<int, int> Etapas_Montagem { get; set; } = new Dictionary<int, int>(); //
+        public Dictionary<int, int> Etapas_Montagem { get; set; } = new Dictionary<int, int>();
     }
 }

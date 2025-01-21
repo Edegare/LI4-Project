@@ -10,30 +10,91 @@
 
 <div class="InformacoesRegisto">
     <EditForm Model="@movelTemp" OnValidSubmit="@RegistarEtapa">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div>
-            <h4>Imagem</h4>
-            <InputFile id="nome" @bind-Value="@imagem" />
-        </div>
-        <div>
-            <h4>Materiais</h4>
-            <InputNumber id="nome" @bind-Value="@novoMaterialId" />
-            <InputNumber id="nome" @bind-Value="@novoMaterialQuantidade" />
-            <button type="button" @onclick="AdicionarMaterial">Adicionar</button>
+
+        <div class="linha-imagem-material">
+
+            <!-- Coluna da imagem -->
+            <div class="imagem">
+                <div class="parte-imagem">
+                    <h4>Imagem</h4>
+                    <div class="input-imagem">
+                        <InputFile id="imagem" OnChange="@OnInputFileChange" />
+                        <div>
+                            @if (!string.IsNullOrEmpty(erroImagem))
+                            {
+                                <div class="erro-material">
+                                    <p>@erroImagem</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="imagem-preview">
+                    @if (!string.IsNullOrEmpty(previewImage))
+                    {
+                        <img src="@previewImage" alt="Imagem escolhida" />
+                    }
+                    else
+                    {
+                        <img src="/imagens/BelosMoveisLogo.jpg" alt="ImagemInicial" />
+                    }
+                </div>
+            </div>
+
+            <!-- Coluna dos Materiais -->
+            <div class="material">
+                <div class="parte-material">
+                    <h4>Materiais</h4>
+                    <div class="inputs-materiais">
+                        <!-- Campo de ID do Material -->
+                        <div class="input-container">
+                            <div class="input">
+                                <InputNumber id="materialId" @bind-Value="@novoMaterialId" placeholder="ID Material" />
+                            </div>
+                            @if (!string.IsNullOrEmpty(erroMaterial))
+                            {
+                                <div class="erro-material">
+                                    <p>@erroMaterial</p>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Campo de Quantidade -->
+                        <div class="input-container">
+                            <div class="input">
+                                <InputNumber id="materialQuantidade" @bind-Value="@novoMaterialQuantidade" placeholder="Quantidade" />
+                            </div>
+                            @if (!string.IsNullOrEmpty(erroQuantidade))
+                            {
+                                <div class="erro-material">
+                                    <p>@erroQuantidade</p>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Botão -->
+                        <button type="button" @onclick="AdicionarMaterial">Adicionar</button>
+                    </div>
+                </div>
+                <!-- Tabela -->
+                <div class="tabela">
+                    <ul>
+                        @foreach ((int idMaterial, int quantidade) in materiais)
+                        {
+                            <div class="linha-material">
+                                <span>@idMaterial</span>
+                                <span>@quantidade</span>
+                                <button type="button" @onclick="() => RemoverMaterial(idMaterial)">-</button>
+                            </div>
+                        }
+                    </ul>
+                </div>
+            </div>
 
         </div>
 
-        <div>
-            <ul>
-                @foreach ((int idMaterial, int quantidade) in materiais)
-                {
-                    <li>@idMaterial @quantidade</li>
-                }
-            </ul>
-        </div>
-        <div class="esp">
-        </div>
+        <div class="esp"></div>
+
         <div class="Botoes">
             <Botao Nome="Voltar" Url="moveis/registar" />
             <Botao Nome="Registar" />
@@ -42,23 +103,98 @@
 </div>
 
 @code {
-    private byte[] imagem = new byte[829440];
-    private List<(int,int)> materiais = new List<(int,int)>();
+
+    private byte[] imagem = Array.Empty<byte>();
+    private List<(int, int)> materiais = new List<(int, int)>();
+
+    private int novoMaterialId = 0;
+    private int novoMaterialQuantidade = 0;
+
+    private string previewImage = "";
+
+    private string erroMaterial = "";  
+    private string erroQuantidade = ""; 
+    private string erroImagem = "";
+
+    private void RemoverMaterial(int idMaterial)
+    {
+        materiais.RemoveAll(m => m.Item1 == idMaterial);
+        StateHasChanged();
+    }
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        erroMaterial = "";
+        erroQuantidade = "";
+        erroImagem = "";
+        if (e.File != null)
+        {
+            using var memoryStream = new MemoryStream();
+            await e.File.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024).CopyToAsync(memoryStream);
+            byte[] imageData = memoryStream.ToArray();
+            imagem = memoryStream.ToArray();
+            previewImage = $"data:image/jpeg;base64,{Convert.ToBase64String(imageData)}";
+        }
+    }
 
     private async Task RegistarEtapa()
     {
+        erroMaterial = "";
+        erroQuantidade = "";
+        erroImagem = "";
+
+        if (imagem == null || imagem.Length == 0)
+        {
+            erroImagem = "Imagem é obrigatória!";
+            return;
+        }
+
+
         movelTemp.EtapasRegistadas += 1;
         movelTemp.NovoMovelEtapas.Add(movelTemp.EtapasRegistadas, (imagem, movelTemp.EtapasRegistadas, materiais));
         NavigationManager.NavigateTo("/moveis/registar");
     }
-    private int novoMaterialId;
-    private int novoMaterialQuantidade;
 
     private void AdicionarMaterial()
     {
-        materiais.Add((novoMaterialId, novoMaterialQuantidade));
-        novoMaterialId = 0;
-        novoMaterialQuantidade = 0;
+        // Resetando as mensagens de erro
+        erroMaterial = "";
+        erroQuantidade = "";
+        erroImagem = "";
+
+        // Validação dos campos
+        if (novoMaterialId <= 0)
+        {
+            
+            erroMaterial = "O ID do material deve ser maior que zero.";
+        }
+
+        if (novoMaterialQuantidade <= 0)
+        {
+            
+            erroQuantidade = "A quantidade do material deve ser maior que zero.";
+        }
+
+        if (novoMaterialId > 0 && novoMaterialQuantidade > 0)
+        {
+            
+            var materialExistente = materiais.FirstOrDefault(m => m.Item1 == novoMaterialId);
+
+            if (materialExistente != default)
+            {
+                
+                var index = materiais.IndexOf(materialExistente);
+                materiais[index] = (novoMaterialId, materialExistente.Item2 + novoMaterialQuantidade);
+            }
+            else
+            {
+                
+                materiais.Add((novoMaterialId, novoMaterialQuantidade));
+            }
+        }
+
+        // Força a renderização para exibir as mensagens de erro
+        StateHasChanged();
     }
 
 }

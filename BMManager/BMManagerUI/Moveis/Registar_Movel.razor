@@ -9,36 +9,92 @@
 <Titulo Nome="Registar Móvel" />
 
 <div class="InformacoesRegisto">
-    <EditForm Model="@movelTemp" OnValidSubmit="@RegistarMovel" FormName="registarMovel" Enhance>
+    <EditForm Model="@movelTemp" OnValidSubmit="@RegistarMovel" FormName="@MovelForm" Enhance>
         <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class = "linha">
+
+        <div class="linha">
             <h4>Nome</h4>
             <InputText id="nome" @bind-Value="@movelTemp.NovoMovelNome" />
         </div>
-        <div class="linha">
-            <h4>Imagem</h4>
-            <InputFile id="imagem" @bind-Value="@movelTemp.NovoMovelImagem" />
+        <div class="Validation">
+            <ValidationMessage For="()=> movelTemp.NovoMovelNome" />
         </div>
-        <div class="linha">
-            <h4>Etapas</h4>
-            <button type="button" @onclick="AdicionarEtapa">Adicionar</button>
-            <p>Etapas: @movelTemp.EtapasRegistadas</p>
+
+        <div class="linha-imagem-etapas">
+            <!-- Seção de Imagem -->
+            <div class="imagem-secao">
+                <h4>Imagem</h4>
+                <div class="input-imagem">
+                    <InputFile id="imagem" OnChange="@OnInputFileChange" />
+                </div>
+            </div>
+
+
+            <!-- Seção de Etapas -->
+            <div class="etapas-secao">
+                <h4>Etapas</h4>
+                <h5>@movelTemp.EtapasRegistadas</h5>
+                <button type="button" @onclick="AdicionarEtapa">Adicionar</button>
+            </div>
         </div>
-        <div class = "esp">
+        <div class="Validation">
+            <ValidationMessage For="()=> movelTemp.NovoMovelImagem" />
         </div>
-        <div class="Botoes">
-            <Botao Nome="Voltar" Url="moveis" />
-            <Botao Nome="Registar"/>
+
+        <div class="imagem-preview">
+            @if (!string.IsNullOrEmpty(previewImage))
+            {
+                <img src="@previewImage" alt="Imagem escolhida" />
+            }
+            else
+            {
+                <img src="/imagens/BelosMoveisLogo.jpg" alt="Imagem" />
+            }
+        </div>
+
+        <div class="esp"></div>
+
+        <div class="Botoes" >
+            <div @onclick="@Voltar">
+                <Botao Nome="Voltar" />
+            </div>
+            <Botao Nome="Registar" />
         </div>
     </EditForm>
 </div>
 
 @code {
+    private const string MovelForm = "registar-movel";
+    private string previewImage = "";
+
+    protected override void OnInitialized()
+    {
+        // Verifica se há uma imagem no MovelTemp e inicializa o previewImage com ela
+        if (movelTemp.NovoMovelImagem != null && movelTemp.NovoMovelImagem.Length > 0)
+        {
+            previewImage = $"data:image/jpeg;base64,{Convert.ToBase64String(movelTemp.NovoMovelImagem)}";
+        }
+    }
+
+    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        if (e.File != null)
+        {
+            using var memoryStream = new MemoryStream();
+            await e.File.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024).CopyToAsync(memoryStream);
+            byte[] imageData = memoryStream.ToArray();
+            previewImage = $"data:image/jpeg;base64,{Convert.ToBase64String(imageData)}";
+
+            // Atualiza o modelo com a imagem
+            movelTemp.NovoMovelImagem = imageData;
+        }
+    }
+
     private async Task AdicionarEtapa()
     {
         NavigationManager.NavigateTo("/moveis/registar/adicionar_etapa");
     }
+
     private async Task RegistarMovel()
     {
         Movel movel = new Movel
@@ -79,9 +135,10 @@
                 movel.Etapas_Montagem.Add(num, etapa.Codigo_Etapa);
                 proxima_etapa = etapa.Codigo_Etapa;
             }
-            movelTemp = new MovelTemp();
 
+            movelTemp.ResetMovelTemp();
             NavigationManager.NavigateTo("/moveis");
+
         }
         catch (Exception ex)
         {
@@ -89,4 +146,11 @@
             Console.WriteLine("Erro ao registrar móvel: " + ex.Message);
         }
     }
+
+    private void Voltar()
+    {
+        movelTemp.ResetMovelTemp();
+        NavigationManager.NavigateTo("/moveis");
+    }
 }
+
