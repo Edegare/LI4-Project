@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
+using BMManagerLN.SubMoveis;
 
 namespace BMManagerLN.SubMateriais
 {
@@ -62,6 +63,29 @@ namespace BMManagerLN.SubMateriais
             }
             return materiais;
         }
+
+        public async Task AdicionaMaterialEtapa(int codMaterial, int quantidade, int codEtapa)
+        {
+            bool associado = _context.Etapa_Precisa_Material.Any(e => e.Material == codMaterial & e.Etapa == codEtapa);
+            if (!associado)
+            {
+                Etapa_Precisa_Material epm = new Etapa_Precisa_Material()
+                {
+                    Etapa = codEtapa,
+                    Material = codMaterial,
+                    Quantidade = quantidade
+                };
+                await _context.Etapa_Precisa_Material.AddAsync(epm);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                Etapa_Precisa_Material epm = await _context.Etapa_Precisa_Material.FindAsync(codEtapa, codMaterial);
+                epm.Quantidade += quantidade;
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade)
         {
             Material mat = await _context.Material.FindAsync(codMaterial);

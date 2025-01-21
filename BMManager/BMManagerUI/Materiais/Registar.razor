@@ -7,7 +7,7 @@
 <Titulo Nome="Registar novo material" />
 
 <div class="InformacoesRegisto">
-    <EditForm Model="@novoMaterial" OnValidSubmit="@RegistarMaterial">
+    <EditForm Model="@novoMaterial" OnValidSubmit="@RegistarMaterial" FormName="registarMaterial">
         <DataAnnotationsValidator />
         <ValidationSummary />
         <div class = "linha">

@@ -249,6 +249,11 @@ namespace BMManagerLN
             return subMateriais.GetMateriaisEtapa(codEtapa);
         }
 
+        public Task AdicionaMaterialEtapa(int codMaterial, int quantidade, int codEtapa)
+        {
+            return subMateriais.AdicionaMaterialEtapa(codMaterial, quantidade, codEtapa);
+        }
+
         public Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade)
         {
             return subMateriais.AlterarQuantidadeMaterial(codMaterial, novaQuantidade);

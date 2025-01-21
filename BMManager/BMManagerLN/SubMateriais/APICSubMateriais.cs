@@ -8,6 +8,7 @@ namespace BMManagerLN.SubMateriais
         Task PutMaterial(Material material);
         Task<Dictionary<Material, int>> GetMateriaisEtapa(int codEtapa);
         Task<Dictionary<Material, int>> GetMateriaisEtapas(int[] codEtapas);
+        Task AdicionaMaterialEtapa(int codMaterial, int quantidade, int codEtapa);
         Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade);
     }
 }
