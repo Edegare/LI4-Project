@@ -32,7 +32,7 @@ namespace BMManagerLN.SubFuncionarios
             await _context.SaveChangesAsync();
         }
 
-        public async Task ModificarFuncionario (int codFuncionario, string nome, string email, string senha, string telefone, Equipa equipa, bool conta_ativa) {
+        public async Task ModificarFuncionario (int codFuncionario, string nome, string email, string senha, string telefone, Equipa? equipa, bool conta_ativa) {
             Funcionario fun = await _context.Funcionario.FindAsync(codFuncionario);
             if (fun != null)
             {

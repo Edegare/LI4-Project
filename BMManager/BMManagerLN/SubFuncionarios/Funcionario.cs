@@ -39,7 +39,7 @@ namespace BMManagerLN.SubFuncionarios
 
         [Required(ErrorMessage = "O campo Equipa é obrigatório!")]
         [EnumDataType(typeof(Equipa), ErrorMessage = "Tem que selecionar uma equipa!")]
-        public Equipa Equipa { get; set; }
+        public Equipa? Equipa { get; set; }
 
         public bool Conta_Ativa { get; set; } = true;
     }

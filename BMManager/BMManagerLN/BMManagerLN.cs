@@ -54,7 +54,7 @@ namespace BMManagerLN
             return subFuncionarios.PutFuncionario(funcionario);
         }
 
-        public Task ModificarFuncionario (int codFuncionario, string nome, string email, string senha, string telefone, Equipa equipa, bool conta_ativa) {
+        public Task ModificarFuncionario (int codFuncionario, string nome, string email, string senha, string telefone, Equipa? equipa, bool conta_ativa) {
             return subFuncionarios.ModificarFuncionario(codFuncionario, nome, email, senha, telefone, equipa, conta_ativa);
         }
 
