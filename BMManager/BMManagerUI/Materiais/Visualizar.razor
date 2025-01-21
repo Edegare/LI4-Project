@@ -3,6 +3,7 @@
 @using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Armazem,Modelacao,Montagem")]
 
 <Titulo Nome="Visualizar material" />
 @if (material == null) {

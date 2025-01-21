@@ -6,6 +6,8 @@
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
 
+@attribute [Authorize(Roles = "Administracao,Encomendas")]
+
 <Titulo Nome="Registar nova encomenda" />
 
 <div class="InformacoesRegisto">

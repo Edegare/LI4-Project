@@ -4,6 +4,7 @@
 @using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Armazem")]
 
 <Titulo Nome="Alterar quantidade de material" />
 @if (material == null) {

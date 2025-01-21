@@ -5,7 +5,6 @@ using BMManagerLN.SubMateriais;
 using BMManagerLN.SubMontagens;
 using BMManagerLN.SubMoveis;
 using System.Linq.Expressions;
-using BMManagerLN.SubEncomendas;
 namespace BMManager.BMManagerCD
 {
     public class BMManagerContext : DbContext

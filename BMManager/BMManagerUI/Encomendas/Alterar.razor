@@ -5,6 +5,7 @@
 @using BMManagerLN.SubMontagens
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Armazem")]
 
 <Titulo Nome="Adicionar montagens" />
 @if (encomenda == null) {

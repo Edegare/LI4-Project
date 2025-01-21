@@ -3,6 +3,7 @@
 @using BMManagerLN.SubFuncionarios
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Recursos_Humanos")]
 
 <Titulo Nome="Registar novo funcionário" />
 

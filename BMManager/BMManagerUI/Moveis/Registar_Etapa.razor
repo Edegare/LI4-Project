@@ -5,6 +5,7 @@
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
 @inject MovelTemp movelTemp
+@attribute [Authorize(Roles = "Administracao,Modelacao")]
 
 <Titulo Nome="Adicionar etapa" />
 

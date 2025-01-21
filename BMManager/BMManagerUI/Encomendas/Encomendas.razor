@@ -2,6 +2,7 @@
 @using BMManagerLN
 @using BMManagerLN.SubEncomendas
 @inject APIBMManagerLN ln
+@attribute [Authorize(Roles = "Administracao,Encomendas,Armazem")]
 
 <Titulo Nome="Encomendas" NomeBotao="Registar" UrlBotao="encomendas/registar"/>
 <Tabela TItem="Encomenda" Headers="@s" Items="@_encomendas" Columns="@c" Botoes= "@b"/>
