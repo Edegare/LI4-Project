@@ -65,9 +65,17 @@
     private async Task Autenticacao()
     {
         messagemErro = "";
-        FuncionarioDTO funcionario = await ln.AutenticarUtilizador(Model.Codigo, Model.Password);
+        FuncionarioDTO? funcionario = await ln.AutenticarUtilizador(Model.Codigo, Model.Password);
+
         if (funcionario != null)
         {
+            if (!funcionario.Conta_Ativa)
+            {
+                messagemErro = "Esta conta está desativada!";
+                Model.Codigo = string.Empty;
+                Model.Password = string.Empty;
+                return;
+            }
             
             var claims = funcionario.ToClaims();
             var identity = new ClaimsIdentity(claims, Constants.AuthScheme);
