@@ -105,9 +105,9 @@ INSERT INTO Etapa_Precisa_Material (Etapa, Material, Quantidade)
 -- Montagens
 INSERT INTO Montagem (Data_Inicial, Data_Final, Estado, Movel, Etapa, Encomenda)
 VALUES
-	('2025-01-21 08:00:00', NULL, 'Em_Progresso', 1, 1, NULL),
-	('2025-01-21 10:00:00', NULL, 'Em_Progresso', 1, 1, NULL),
-	('2025-01-21 08:00:00', NULL, 'Em_Progresso', 2, 1, NULL);
+	('2025-01-21 08:00:00', NULL, 'Em_Pausa', 1, 1, NULL),
+	('2025-01-21 10:00:00', NULL, 'Em_Pausa', 1, 1, NULL),
+	('2025-01-21 08:00:00', NULL, 'Em_Pausa', 2, 1, NULL);
 
 INSERT INTO Funcionario_Participa_Montagem (Montagem, Funcionario)
 VALUES

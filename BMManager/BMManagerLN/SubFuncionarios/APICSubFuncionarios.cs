@@ -11,5 +11,7 @@ namespace BMManagerLN.SubFuncionarios
         Task AssociaFuncionarioMontagem(int codFuncionario, int codMontagem);
         Task<FuncionarioDTO?> AutenticarUtilizador(string codigo, string senha);
         Task<List<Funcionario>> FuncionariosParticipamMontagem(int codMontagem);
+
+        Task<bool> AtualizarFuncionario(Funcionario funcionario);
     }
 }

@@ -1,49 +1,103 @@
 @page "/alterarsenha"
 @rendermode InteractiveServer
+@inject APIBMManagerLN ln
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @attribute [Authorize]
 
 <Titulo Nome="Alterar senha" />
 
 <div class="IniciarSessao">
-    <div class="CodigoSenha">
-        <div class="Codigo">
+    <div class="esquema-senhas">
+        <div>
             <h4>Confirme a senha atual</h4>
-            <input type="password" @bind="codigo"/>
+            <input type="password" @bind="senhaAtual" />
         </div>
-        <div class="Senha">
+        <div>
             <h4>Nova senha</h4>
-            <input type="password" @bind="senha"/>
+            <input type="password" @bind="senha" />
         </div>
-        <div class="Senha">
+        <div>
             <h4>Confirme a nova senha</h4>
-            <input type="password" @bind="nsenha"/>
+            <input type="password" @bind="nsenha" />
         </div>
     </div>
-
-    <div class="Botao" @onclick="Autenticacao">
-        <Botao Nome="Alterar"/>
+    <div class="@MensagemClasse">
+        <p>@mensagem</p>
+    </div>
+    <div class="Botoes">
+        <div>
+            <Botao Nome="Voltar" Url="menuinicial" />
+        </div>
+        <div>
+            <Botao Nome="Alterar" Metodo="Alterar" />
+        </div>
     </div>
 </div>
 
 @code {
-    private string codigo = "";
+    private string senhaAtual = "";
     private string senha = "";
     private string nsenha = "";
-    private string _url = "";
-    private bool autenticacaoSucesso = false;
+    private string mensagem = "";
+    private bool erro = false;
 
-    private async void Autenticacao()
+    private string? userCodigo;
+
+    private string MensagemClasse => erro ? "ErroMensagem" : "";
+
+    private async Task Alterar()
     {
-//        autenticacaoSucesso = await ln.AutenticarUtilizador(codigo, senha);
-        autenticacaoSucesso = true; //trocar
-        if (autenticacaoSucesso)
+        mensagem = "";
+
+        if (senha == "" || nsenha == "" || senhaAtual == "")
         {
-            _url = "menuinicial";
+            mensagem = "Por favor, preencha todos os campos.";
+            erro = true;
+            return;
+        }
+
+        if (senha != nsenha)
+        {
+            mensagem = "A nova senha e a confirmação não coincidem.";
+            erro = true;
+            return;
+        }
+
+        if (userCodigo == null) {
+            var authState = await AuthenticationStateProvider
+            .GetAuthenticationStateAsync();
+            var user = authState.User;
+            var claims = user.Claims;
+            userCodigo = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        }
+
+
+        if (string.IsNullOrEmpty(userCodigo) || !int.TryParse(userCodigo, out int codigoFuncionario))
+        {
+            mensagem = "Erro ao identificar o usuário.";
+            erro = true;
+            return;
+        }
+
+        var funcionario = await ln.AutenticarUtilizador(userCodigo, senhaAtual);
+        if (funcionario == null)
+        {
+            mensagem = "Senha atual incorreta.";
+            erro = true;
+            return;
+        }
+
+        var sucesso = await ln.AlterarSenha(codigoFuncionario, senha);
+        if (sucesso)
+        {
+            mensagem = "Senha alterada com sucesso!";
+            erro = false;
+            senhaAtual = senha = nsenha = "";
         }
         else
         {
-            _url = "";
+            erro = true;
+            mensagem = "Erro ao alterar a senha. Tente novamente.";
         }
-        //NavigationManager.NavigateTo(_url);
     }
 }
