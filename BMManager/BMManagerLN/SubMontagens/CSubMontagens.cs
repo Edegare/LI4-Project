@@ -53,5 +53,23 @@ namespace BMManagerLN.SubMontagens
                 throw new Exception("Montagem não encontrada.");
             }
         }
+
+        public async Task AtualizaMontagem(Montagem montagemAtualizada)
+        {
+            Montagem montagem = await _context.Montagem.FindAsync(montagemAtualizada.Numero);
+            if (montagem != null)
+            {
+                montagem.Data_Final = montagemAtualizada.Data_Final;
+                montagem.Duracao = montagemAtualizada.Duracao;
+                montagem.Estado = montagemAtualizada.Estado;
+                montagem.Etapa_Concluida = montagemAtualizada.Etapa_Concluida;
+                montagem.Etapa = montagemAtualizada.Etapa;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Montagem não encontrada.");
+            }
+        }
     }
 }

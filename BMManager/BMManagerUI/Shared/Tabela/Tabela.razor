@@ -12,7 +12,7 @@
     else {
         <table>
             <thead class="TabelaCabecalho">
-                 <tr>
+                <tr>
                     @foreach (string nome in Headers) {
                         <th>@nome</th>
                     }
@@ -40,9 +40,17 @@
                                 }
                             }
                         }
-                        @foreach (var par in Botoes) {
-                            var url = $"{@par.Item2}/{Columns[0](item)}";
-                            <td><Texto Nome="@par.Item1" Url = "@url" /></td>
+                        @for (int i = 0; i < Botoes.Count; i++) {
+                            var par = Botoes[i];
+                            if (Funcao3 == null || Funcao3[item][par.Item1])
+                            {
+                                var url = $"{@par.Item2}/{Columns[0](item)}";
+                                <td><Texto Nome="@par.Item1" Url="@url" /></td>
+                            }
+                            else
+                            {
+                                <td><Texto Nome="" /></td>
+                            }
                         }
                     </tr>
                 }
@@ -50,7 +58,7 @@
         </table>
     }
 </div>
-        
+
 
 @code {
     [Parameter]
@@ -76,4 +84,7 @@
 
     [Parameter]
     public Func<List<TItem3>, int, int> Funcao2 { get; set; }
+
+    [Parameter]
+    public Dictionary<TItem, Dictionary<string,bool>>? Funcao3 { get; set; }
 }

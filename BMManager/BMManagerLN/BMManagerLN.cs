@@ -110,6 +110,8 @@ namespace BMManagerLN
 
             await subFuncionarios.AssociaFuncionarioMontagem(codFuncionario, montagem.Numero);
 
+            await subMateriais.AtualizaStockMateriaisEtapa(montagem.Etapa);
+
             return montagem;
         }
 
@@ -246,6 +248,105 @@ namespace BMManagerLN
             return res;
         }
 
+        public async Task TerminaEtapaMontagem(Montagem montagem)
+        {
+            montagem.Etapa_Concluida = true;
+            await subMontagens.AtualizaMontagem(montagem);
+        }
+
+        public async Task SairEtapaMontagem(Montagem montagem)
+        {
+            if (montagem.Etapa > 0)
+            {
+                montagem.Estado = Estado.Em_Pausa;
+            }
+            else
+            {
+                montagem.Estado = Estado.Concluida;
+            }
+            await subMontagens.AtualizaMontagem(montagem);
+        }
+
+        public async Task<bool> ProximaEtapaMontagem(Montagem montagem)
+        {
+            bool podeAvancar = true;
+            Etapa proximaEtapa = await GetProximaEtapa(montagem);
+            if (proximaEtapa != null)
+            {
+                Dictionary<Material, int> materiaisEtapa = await subMateriais.GetMateriaisEtapa(proximaEtapa.Codigo_Etapa);
+                if (MateriaisSuficientes(materiaisEtapa))
+                {
+                    montagem.Etapa = proximaEtapa.Codigo_Etapa;
+                    montagem.Etapa_Concluida = false;
+                    await subMateriais.AtualizaStockMateriaisEtapa(montagem.Etapa);
+                }
+                else
+                {
+                    podeAvancar = false;
+//                    throw new Exception("Não existem materiais suficientes para a próxima etapa.");
+                }
+            }
+            else
+            {
+                montagem.Etapa = -1;
+                podeAvancar = false;
+            }
+            await subMontagens.AtualizaMontagem(montagem);
+            return podeAvancar;
+        }
+
+        public async Task<bool> MontagemTemMaisEtapas(Montagem montagem)
+        {
+            Etapa etapa = await subMoveis.GetEtapa(montagem.Etapa);
+            Func<Etapa, bool> condicao = e => e.Movel == montagem.Movel & e.Numero == etapa.Numero + 1;
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
+            if (etapas.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task ContinuaEtapaMontagem(Montagem montagem, int codFuncionario)
+        {
+            montagem.Estado = Estado.Em_Progresso;
+            if (montagem.Etapa_Concluida)
+            {
+                Etapa etapa = await GetProximaEtapa(montagem);
+                montagem.Etapa = etapa.Codigo_Etapa;
+            }
+            await subMontagens.AtualizaMontagem(montagem);
+            await subFuncionarios.AssociaFuncionarioMontagem(codFuncionario, montagem.Numero);
+        }
+
+        private async Task<Etapa> GetProximaEtapa(Montagem montagem)
+        {
+            Etapa etapa = await subMoveis.GetEtapa(montagem.Etapa);
+            Func<Etapa, bool> condicao = e => e.Movel == montagem.Movel & e.Numero == etapa.Numero + 1;
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
+            if (etapas.Count > 0 && etapas.ContainsKey(etapa.Numero + 1))
+            {
+                return etapas[etapa.Numero + 1];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task CancelarMontagem(int codMontagem)
+        {
+            Montagem montagemAtualizada = await GetMontagem(codMontagem);
+            if (montagemAtualizada.Estado == Estado.Em_Pausa)
+            {
+                montagemAtualizada.Estado = Estado.Cancelada;
+                await subMontagens.AtualizaMontagem(montagemAtualizada);
+            }
+        }
+
         //Métodos SubMoveis
         public Task<List<Movel>> GetMoveis()
         {
@@ -356,6 +457,28 @@ namespace BMManagerLN
             return subMateriais.AlterarQuantidadeMaterial(codMaterial, novaQuantidade);
         }
 
+        public async Task<bool> MateriaisSuficientesEtapa(Montagem montagem)
+        {
+            Etapa etapa;
+            if (montagem.Etapa_Concluida)
+            {
+                etapa = await GetProximaEtapa(montagem);
+            }
+            else
+            {
+                etapa = await subMoveis.GetEtapa(montagem.Etapa);
+            }
+            if (etapa != null)
+            {
+                Dictionary<Material, int> materiaisEtapa = await subMateriais.GetMateriaisEtapa(etapa.Codigo_Etapa);
+                return MateriaisSuficientes(materiaisEtapa);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         //Métodos SubEncomendas
         public Task<List<Encomenda>> GetEncomendas()
         {
@@ -381,6 +504,7 @@ namespace BMManagerLN
         public string ByteArrayParaImagem(byte[] bytes)
         {
             string tipo;
+            if (bytes == null) return "/imagens/Imagem.png";
             if (bytes[0] == 0xFF && bytes[1] == 0xD8 && bytes[2] == 0xFF) tipo = "image/jpeg";
             else if (bytes[0] == 0x89 && bytes[1] == 0x50 && bytes[2] == 0x4E && bytes[3] == 0x47) tipo = "image/png";
             else if (bytes[0] == 0x47 && bytes[1] == 0x49 && bytes[2] == 0x46) tipo = "image/gif";

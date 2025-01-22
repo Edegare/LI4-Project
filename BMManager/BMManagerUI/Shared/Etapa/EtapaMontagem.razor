@@ -1,4 +1,5 @@
-﻿@using BMManagerLN
+﻿@rendermode InteractiveServer
+@using BMManagerLN
 @using BMManagerLN.SubMoveis
 @using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
@@ -49,7 +50,7 @@
 @code {
     [Parameter]
     public Etapa Etapa { get; set; }
-    private string? _imagemEtapa;
+    private string? _imagemEtapa = "/imagens/Imagem.png";
     private Dictionary<Material, int>? _materiais;
     protected override async Task OnInitializedAsync()
     {

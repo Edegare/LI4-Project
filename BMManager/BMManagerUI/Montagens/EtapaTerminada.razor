@@ -1,6 +1,64 @@
-﻿@attribute [Authorize(Roles = "Administracao,Montagem")]
-<h3>EtapaTerminada</h3>
+﻿@page "/montagens/montar/{_codMontagem:int}/etapaterminada"
+@rendermode InteractiveServer
+@using BMManagerLN
+@using BMManagerLN.SubMontagens
+@using BMManagerLN.SubMoveis
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Montagem")]
+
+
+<div class="MontagemDeEtapa">
+    @if (_montagem == null)
+    {
+        <p>A carregar montagem ...</p>
+    }
+    else
+    {
+        <div class="Etapa">
+            <div class="EtapaTerminada">
+                <h4>Etapa Terminada</h4>
+                @if (_mensagemErro != null)
+                {
+                    <p>@_mensagemErro</p>
+                }
+            </div>
+            <div class="Botoes">
+                <Botao Nome="Sair" Metodo="SairMontagem" />
+                <Botao Nome="Avançar" Metodo="AvancarEtapa" />
+            </div>
+        </div>
+    }
+</div>
+
 
 @code {
+    [Parameter]
+    public int _codMontagem { get; set; }
+    private Montagem? _montagem;
+    private string? _mensagemErro;
 
+    protected override async Task OnInitializedAsync()
+    {
+        _montagem = await ln.GetMontagem(_codMontagem);
+    }
+
+    private async void AvancarEtapa()
+    {
+        bool podeAvancar = await ln.ProximaEtapaMontagem(_montagem);
+        if (podeAvancar)
+        {
+            NavigationManager.NavigateTo($"/montagens/montar/{_codMontagem}");
+        }
+        else
+        {
+            _mensagemErro = "Não pode avançar para a próxima etapa.";
+        }
+    }
+
+    private async void SairMontagem()
+    {
+        await ln.SairEtapaMontagem(_montagem);
+        NavigationManager.NavigateTo($"/montagens");
+    }
 }

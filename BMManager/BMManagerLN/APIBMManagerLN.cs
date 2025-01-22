@@ -28,6 +28,12 @@ namespace BMManagerLN
         Task<Dictionary<Material, int>> MateriaisPorUtilizarMontagem(int codMontagem);
         Task<string> AdicionarMontagensEncomenda(int codEncomenda, List<int> montagens);
         Task<List<(int, string)>> GetMontagensEncomenda(int codEncomenda);
+        Task TerminaEtapaMontagem(Montagem montagem);
+        Task SairEtapaMontagem(Montagem montagem);
+        Task<bool> ProximaEtapaMontagem(Montagem montagem);
+        Task ContinuaEtapaMontagem(Montagem montagem, int codFuncionario);
+        Task<bool> MontagemTemMaisEtapas(Montagem montagem);
+        Task CancelarMontagem(int codMontagem);
 
 
         //Métodos SubMoveis
@@ -52,6 +58,7 @@ namespace BMManagerLN
         Task<Dictionary<Material, int>> GetMateriaisEtapa(int codEtapa);
         Task AdicionaMaterialEtapa(int codMaterial, int quantidade, int codEtapa);
         Task AlterarQuantidadeMaterial(int codMaterial, int novaQuantidade);
+        Task<bool> MateriaisSuficientesEtapa(Montagem montagem);
 
 
         //Métodos SubEncomendas

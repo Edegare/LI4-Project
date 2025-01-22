@@ -99,5 +99,16 @@ namespace BMManagerLN.SubMateriais
                 throw new Exception("Material não encontrado.");
             }
         }
+
+        public async Task AtualizaStockMateriaisEtapa(int codEtapa)
+        {
+            Dictionary<int, int> materiaisQuantidades = await _context.Etapa_Precisa_Material.Where(e => e.Etapa == codEtapa).ToDictionaryAsync(e => e.Material, e => e.Quantidade);
+            foreach (KeyValuePair<int, int> materialQuantidade in materiaisQuantidades)
+            {
+                Material material = await GetMaterial(materialQuantidade.Key);
+                material.Quantidade -= materialQuantidade.Value;
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

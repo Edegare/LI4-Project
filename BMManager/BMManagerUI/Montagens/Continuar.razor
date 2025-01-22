@@ -3,17 +3,51 @@
 @using BMManagerLN.SubMontagens
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
+@inject HttpContext HttpContext
 @attribute [Authorize(Roles = "Administracao,Montagem")]
 
 <Titulo Nome="Continuar Montagem" />
 
 <div class="Continuar">
-    <div class="Botao">
-        <Botao Nome="Voltar" Url="montagens" />
-    </div>
+    @if (!_podeContinuarMontagem)
+    {
+        if (_mensagemDeErro == null)
+        {
+            <p>A carregar dados da montagem ...</p>
+        }
+        else
+        {
+            <p>Esta montagem não pode ser continuada.</p>
+            <p>@_mensagemDeErro</p>
+            <div class="Botao">
+                <Botao Nome="Voltar" Url="montagens" />
+            </div>
+        }
+    }
 </div>
 
 @code {
-    private string _codMontagem;
+    private int _codMontagem;
     private Montagem _montagem;
+    private bool _podeContinuarMontagem = false;
+    private string? _mensagemDeErro;
+    private int _codFuncionario;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _montagem = await ln.GetMontagem(_codMontagem);
+        int.TryParse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value, out _codFuncionario);
+        try
+        {
+            await ln.ContinuaEtapaMontagem(_montagem, _codFuncionario); //alterar
+        }
+        catch (Exception e)
+        {
+            _mensagemDeErro = e.Message;
+        }
+        if (_podeContinuarMontagem)
+        {
+            NavigationManager.NavigateTo($"/montagens/montar/{_codMontagem}");
+        }
+    }
 }

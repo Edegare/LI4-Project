@@ -21,8 +21,8 @@
                 <EtapaMontagem Etapa="@_etapa" />
             </div>
             <div class="Botoes">
-                <Botao Nome="Sair" Url="montagens" /> <!-- Alterar para confirmação -->
-                <Botao Nome="Terminar Etapa" />
+                <Botao Nome="Sair" Metodo="SairMontagem" /> <!-- Alterar para confirmação -->
+                <Botao Nome="Terminar Etapa" Metodo="TerminarEtapa" />
             </div>
         </div>
     }
@@ -34,10 +34,39 @@
     public int _codMontagem { get; set; }
     private Montagem? _montagem;
     private Etapa? _etapa;
+    private DateTime _dataInicio;
+    private int _codFucionario;
 
     protected override async Task OnInitializedAsync()
     {
         _montagem = await ln.GetMontagem(_codMontagem);
+        if (_montagem.Estado == Estado.Em_Pausa)
+        {
+            int.TryParse((await asp.GetAuthenticationStateAsync()).User.FindFirst(ClaimTypes.NameIdentifier).Value, out _codFucionario);
+            await ln.ContinuaEtapaMontagem(_montagem, _codFucionario);
+        }
         _etapa = await ln.GetEtapa(_montagem.Etapa);
+        _dataInicio = DateTime.Now;
+    }
+
+    private async void TerminarEtapa()
+    {
+        _montagem.Duracao += DateTime.Now - _dataInicio;
+        await ln.TerminaEtapaMontagem(_montagem);
+        if (await ln.MontagemTemMaisEtapas(_montagem))
+        {
+            NavigationManager.NavigateTo($"/montagens/montar/{_codMontagem}/etapaterminada");
+        }
+        else
+        {
+            NavigationManager.NavigateTo($"/montagens/montar/{_codMontagem}/montagemterminada");
+        }
+    }
+
+    private async void SairMontagem()
+    {
+        _montagem.Duracao += DateTime.Now - _dataInicio;
+        await ln.SairEtapaMontagem(_montagem);
+        NavigationManager.NavigateTo($"/montagens");
     }
 }

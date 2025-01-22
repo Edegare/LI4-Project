@@ -1,4 +1,4 @@
-﻿@page "/montagens/cancelar"
+﻿@page "/montagens/cancelar/{_codMontagem:int}"
 @using BMManagerLN
 @using BMManagerLN.SubMontagens
 @inject APIBMManagerLN ln
@@ -8,12 +8,21 @@
 <Titulo Nome="Cancelar Montagem" />
 
 <div class="Cancelar">
-    <div class="Botao">
-        <Botao Nome="Voltar" Url="montagens" />
+    <div class="CancelarMontagem">
+        <h4>Tem a certeza que pretende cancelar a montagem?</h4>
+    </div>
+    <div class="Botoes">
+        <Botao Nome="Sim" Metodo="CancelarMontagem" />
+        <Botao Nome="Não" Url="montagens" />
     </div>
 </div>
 
 @code {
-    private string _codMontagem;
-    private Montagem _montagem;
+    private int _codMontagem;
+
+    private async Task CancelarMontagem()
+    {
+        await ln.CancelarMontagem(_codMontagem);
+        NavigationManager.NavigateTo("/montagens/");
+    }
 }

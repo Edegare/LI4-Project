@@ -1,7 +1,50 @@
-﻿@attribute [Authorize(Roles = "Administracao,Montagem")]
+﻿@page "/montagens/montar/{_codMontagem:int}/montagemterminada"
+@rendermode InteractiveServer
+@using BMManagerLN
+@using BMManagerLN.SubMontagens
+@using BMManagerLN.SubMoveis
+@inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Administracao,Montagem")]
 
-<h3>MontagemTerminada</h3>
+
+<div class="MontagemDeEtapa">
+    @if (_montagem == null || _movel == null)
+    {
+        <p>A carregar montagem ...</p>
+    }
+    else
+    {
+        <div class="Etapa">
+            <div class="MontagemTerminada">
+                <h4>Montagem Terminada</h4>
+                <img src="@_imagem" />
+            </div>
+            <div class="Botoes">
+                <Botao Nome="Sair" Metodo="SairMontagem" />
+            </div>
+        </div>
+    }
+</div>
+
 
 @code {
+    [Parameter]
+    public int _codMontagem { get; set; }
+    private Montagem? _montagem;
+    private Movel? _movel;
+    private string? _imagem = "/imagens/Imagem.png";
 
+    protected override async Task OnInitializedAsync()
+    {
+        _montagem = await ln.GetMontagem(_codMontagem);
+        _movel = await ln.GetMovel(_montagem.Movel);
+        _imagem = ln.ByteArrayParaImagem(_movel.Imagem);
+    }
+
+    private async void SairMontagem()
+    {
+        await ln.SairEtapaMontagem(_montagem);
+        NavigationManager.NavigateTo($"/montagens");
+    }
 }

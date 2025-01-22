@@ -7,7 +7,7 @@
 
 
 <Titulo Nome="Montagens" NomeBotao="Iniciar" UrlBotao="montagens/iniciar"/>
-<Tabela TItem="Montagem" Headers="@s" Items="@_montagens" Columns="@c" Botoes= "@b" TItem2 = "Etapa" TItem3 = "Etapa" Items2="@_etapas" Items3="@_etapas" Funcao1 ="@f1" Funcao2 = "@f2"/>
+<Tabela TItem="Montagem" Headers="@s" Items="@_montagens" Columns="@c" Botoes= "@b" TItem2 = "Etapa" TItem3 = "Etapa" Items2="@_etapas" Items3="@_etapas" Funcao1 ="@f1" Funcao2 = "@f2" Funcao3="@f3"/>
 
 @code {
     private List<Montagem>? _montagens;
@@ -29,11 +29,21 @@
                     ("Visualizar", "montagens/visualizar"),
                     ("Cancelar", "montagens/cancelar"),
                     ("Continuar","montagens/montar")};
+    Dictionary<Montagem, Dictionary<string, bool>> f3 = new Dictionary<Montagem, Dictionary<string, bool>>();
 
     protected override async Task OnInitializedAsync()
     {
         _montagens = await ln.GetMontagens();
         _montagens = _montagens.OrderBy(f => ln.OrdenarEstado(f.Estado)).ToList();
         _etapas = await ln.GetEtapas();
+        foreach (Montagem montagem in _montagens) {
+            if (!f3.ContainsKey(montagem))
+            {
+                f3[montagem] = new Dictionary<string, bool>();
+            }
+            f3[montagem]["Visualizar"] = true;
+            f3[montagem]["Cancelar"] = montagem.Estado == Estado.Em_Pausa;
+            f3[montagem]["Continuar"] = montagem.Estado == Estado.Em_Pausa && await ln.MateriaisSuficientesEtapa(montagem);
+        }
     }
 }
