@@ -2,13 +2,6 @@
     padding: 20px;
 }
 
-.corpo {
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto auto;
-    margin: 5px 0; /* Adiciona espaço entre os parágrafos */
-}
-
 .linha {
     display: flex;
     align-items: center;
@@ -42,7 +35,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: 85px;
+    margin-left: 225px;
 }
 
     .etapas-secao button {
@@ -72,7 +65,7 @@
 }
 
 .esp {
-    height: 30px; /* Define a altura máxima como 100% da altura da janela de visualização */
+    height: 1px; /* Define a altura máxima como 100% da altura da janela de visualização */
 }
 
 .Botoes {
