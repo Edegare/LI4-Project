@@ -7,7 +7,7 @@
 @attribute [Authorize(Roles = "Administracao,Encomendas,Armazem")]
 
 <Titulo Nome="Encomendas" NomeBotao="Registar" UrlBotao="encomendas/registar"/>
-<Tabela TItem="Encomenda" TItem2 = "Montagem" TItem3 = "Encomenda_Precisa_Movel" Headers="@s" Items="@_encomendas" Columns="@c" Botoes= "@b" Items2="@_montagens" Items3="@_encomendasMoveis" Funcao1 ="@f1" Funcao2 = "@f2"/>
+<Tabela TItem="Encomenda" TItem2 = "Montagem" TItem3 = "Encomenda_Precisa_Movel" Headers="@s" Items="@_encomendas" Columns="@c" Botoes= "@b" Items2="@_montagens" Items3="@_encomendasMoveis" Funcao1 ="@f1" Funcao2 = "@f2" Funcao3="@f3"/>
 
 @code {
     private List<Encomenda> _encomendas;
@@ -31,6 +31,7 @@
     List<(string NomeBotao, string UrlBotao)> b = new List<(string, string)> {
                     ("Visualizar", "encomendas/visualizar"),
                     ("Adicionar", "encomendas/adicionar_montagens")};
+    Dictionary<Encomenda, Dictionary<string, bool>> f3 = new Dictionary<Encomenda, Dictionary<string, bool>>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -38,5 +39,14 @@
         _encomendas = _encomendas.OrderBy(f => f.Data_Prevista).OrderBy(f => f.Concluida).ToList();
         _montagens = await ln.GetMontagens();
         _encomendasMoveis = await ln.GetEncomendaPrecisaMovel();
+        foreach (Encomenda encomenda in _encomendas)
+        {
+            if (!f3.ContainsKey(encomenda))
+            {
+                f3[encomenda] = new Dictionary<string, bool>();
+            }
+            f3[encomenda]["Visualizar"] = true;
+            f3[encomenda]["Adicionar"] = encomenda.Concluida == false;
+        }
     }
 }
