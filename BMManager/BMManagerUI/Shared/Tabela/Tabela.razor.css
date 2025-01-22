@@ -7,6 +7,11 @@ table {
 }
 
 thead {
+    text-align: center;
+}
+
+td {
+    text-align: center;
 }
 
 .TabelaCabecalho {
