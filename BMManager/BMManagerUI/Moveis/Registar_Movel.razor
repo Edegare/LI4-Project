@@ -26,7 +26,7 @@
             <div class="imagem-secao">
                 <h4>Imagem</h4>
                 <div class="input-imagem">
-                    <InputFile id="imagem" OnChange="@OnInputFileChange" />
+                    <InputFile id="imagem" OnChange="@UploadImagem" />
                 </div>
             </div>
 
@@ -43,12 +43,13 @@
         </div>
 
         <div class="imagem-preview">
-            @if (!string.IsNullOrEmpty(previewImage))
+            @if (!string.IsNullOrEmpty(imagem))
             {
-                <img src="@previewImage" alt="Imagem escolhida" />
+                <img src="@imagem" alt="Imagem escolhida" />
             }
             else
             {
+                <p>Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp</p>
                 <img src="/imagens/Imagem.png" alt="Imagem" />
             }
         </div>
@@ -66,28 +67,32 @@
 
 @code {
     private const string MovelForm = "registar-movel";
-    private string previewImage = "";
 
     protected override void OnInitialized()
     {
-        // Verifica se há uma imagem no MovelTemp e inicializa o previewImage com ela
+        // Verifica se há uma imagem no MovelTemp e inicializa o imagem com ela
         if (movelTemp.NovoMovelImagem != null && movelTemp.NovoMovelImagem.Length > 0)
         {
-            previewImage = $"data:image/jpeg;base64,{Convert.ToBase64String(movelTemp.NovoMovelImagem)}";
+            imagem = $"data:image/jpeg;base64,{Convert.ToBase64String(movelTemp.NovoMovelImagem)}";
         }
     }
+    private string imagem;
 
-    private async Task OnInputFileChange(InputFileChangeEventArgs e)
+    private async Task UploadImagem(InputFileChangeEventArgs e)
     {
-        if (e.File != null)
+        var ficheiro = e.File;
+        if (ficheiro != null && (ficheiro.ContentType == "image/jpeg" || ficheiro.ContentType == "image/png" || ficheiro.ContentType == "image/gif" || ficheiro.ContentType == "image/bmp" || ficheiro.ContentType == "image/webp"))
         {
-            using var memoryStream = new MemoryStream();
-            await e.File.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024).CopyToAsync(memoryStream);
-            byte[] imageData = memoryStream.ToArray();
-            previewImage = $"data:image/jpeg;base64,{Convert.ToBase64String(imageData)}";
+            var buffer = new byte[8294400];
+            await ficheiro.OpenReadStream().ReadAsync(buffer);
 
-            // Atualiza o modelo com a imagem
-            movelTemp.NovoMovelImagem = imageData;
+            imagem = $"data:{ficheiro.ContentType};base64,{Convert.ToBase64String(buffer)}";
+            movelTemp.NovoMovelImagem = buffer;
+        }
+        else
+        {
+            imagem = null;
+            movelTemp.NovoMovelImagem = null;
         }
     }
 
