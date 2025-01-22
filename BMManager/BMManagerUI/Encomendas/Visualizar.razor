@@ -1,4 +1,4 @@
-@page "/encomendas/visualizar/{id:int}"
+﻿@page "/encomendas/visualizar/{id:int}"
 @using BMManagerLN.SubMoveis
 @using BMManagerLN
 @using BMManagerLN.SubEncomendas
@@ -7,57 +7,54 @@
 @attribute [Authorize(Roles = "Administracao,Encomendas,Armazem")]
 
 <Titulo Nome="Visualizar encomenda" />
-@if (encomenda == null) {
-    <h4> Wait </h4>
-}
-else {
-    <div class="InformacoesRegisto">
-        <div class = "linha">
-            <h4>Número</h4> 
-            <div class = "inf">@encomenda.Numero</div>
+<div class="Visualizar">
+    @if (encomenda == null)
+    {
+        <p>A carregar montagem ...</p>
+    }
+    else
+    {
+        <div class="Montagem">
+            <div class="Informacoes">
+                <p>Número<span>@encomenda.Numero</span></p>
+                <p>Cliente<span>@encomenda.Cliente</span></p>
+                <p></p>
+                <p>Data Prevista<span>@encomenda.Data_Prevista</span></p>
+                <p>Data Real<span>@(encomenda.Data_Real?.ToString("dd/MM/yyyy") ?? "-")</span></p>
+                <p>Estado<span>@(encomenda.Concluida ? "Concluída" : "Em progresso")</span></p>
+                <p>Móveis</p>
+                <div class="CaixaInformacoes">
+                    <div class="CaixaUtilizados">
+                        <span>Número</span>
+                        <span>Nome</span>
+                        <span>Quantidade</span>
+                        @foreach ((Movel movel, int quantidade) in moveis)
+                        {
+                            <span>@movel.Numero</span>
+                            <span>@movel.Nome</span>
+                            <span>@quantidade</span>
+                        }
+                    </div>
+                </div>
+                <p>Montagens</p>
+                <div class="CaixaInformacoes">
+                    <div class="CaixaFuncionarios">
+                        <span>Número</span>
+                        <span>Nome</span>
+                        @foreach ((int id, string nome) in montagens)
+                        {
+                            <span>@id</span>
+                            <span>@nome</span>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class = "linha">
-            <h4>Cliente</h4>
-            <div class = "inf">@encomenda.Cliente</div>
-        </div>
-        <div class="linha">
-            <h4>Data Prevista</h4>
-            <div class="inf">@encomenda.Data_Prevista</div>
-        </div>
-        <div class="linha">
-            <h4>Data Real</h4>
-            <div class="inf">@(encomenda.Data_Real?.ToString("dd/MM/yyyy") ?? "-")</div>
-        </div>
-        <div class="linha">
-            <h4>Estado</h4>
-            @if(encomenda.Concluida){
-                <p>Concluída</p>
-            }
-            else{
-                <p>Em progresso</p>
-            }
-        </div>
-        <div class="linha">
-            <h4>Móveis</h4>
-            @foreach((Movel movel, int quantidade) in moveis){
-                <p>@movel.Numero @movel.Nome @quantidade</p>
-            }
-        </div>
-        <div class="linha">
-            <h4>Montagens</h4>
-            @foreach ((int id, string nome) in montagens)
-            {
-                <p>@id @nome</p>
-            }
-        </div>
-        <div class = "esp">
-        </div>
-        <div class="Botoes">
-            <div> </div>
-            <Botao Nome="Voltar" Url="encomendas" />
-        </div>
+    }
+    <div class="Botao">
+        <Botao Nome="Voltar" Url="encomendas" />
     </div>
-}   
+</div>
 
 @code {
     [Parameter]

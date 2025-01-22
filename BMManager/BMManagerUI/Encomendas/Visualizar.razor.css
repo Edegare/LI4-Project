@@ -1,42 +1,58 @@
-﻿body {
+﻿.Visualizar {
+    padding-bottom: 5px;
 }
 
-.InformacoesRegisto {
-}
-
-.esp {
-    height: 17vh; /* Define a altura máxima como 100% da altura da janela de visualização */
-}
-
-.Botoes {
-    text-align: center;
+.Botao {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20000px;
-    bottom: 0; /* Posiciona os botões no final da página */
-    width: 100%; /* Faz os botões ocuparem toda a largura */
-    margin: 0; /* Remove qualquer margem que atrapalhe */
-    padding: 10px; /* Ajuste de espaçamento, opcional */
+    justify-content: start;
+    margin-bottom: 16px;
 }
 
-.linha {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
+.Informacoes {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 5px 0; /* Adiciona espaço entre os parágrafos */
 }
 
-.inf {
-    display: inline-block;
-    white-space: nowrap;
-    align-items: center;
+    
+
+    .Informacoes .CaixaInformacoes {
+        grid-column: 1 / 4;
+        width: max-content;
+        margin-bottom: 10px;
+        padding: 10px;
+        padding-right: 2%;
+        border: 2px solid black;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+        p {
+            font-weight: bold;
+        }
+
+            span {
+                font-weight: normal;
+                margin-left: 10px;
+            }
+
+.Informacoes .CaixaUtilizados {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 5px 0;
 }
 
-.linha h4 {
-    width: 125px; /* Define uma largura fixa para o primeiro elemento */
-    margin: 0; /* Remove a margem padrão do <h4> */
+.Informacoes .CaixaPorUtilizar {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 5px 0;
 }
 
-.linha InputText {
-    flex: 1; /* Permite que o campo de entrada se ajuste ao restante do espaço */
+.Informacoes .CaixaFuncionarios {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 5px 0;
 }
