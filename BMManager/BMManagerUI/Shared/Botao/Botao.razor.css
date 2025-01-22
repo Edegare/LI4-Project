@@ -7,9 +7,16 @@
     color: #F1DAC4; /* Cor do texto */
     cursor: pointer; /* Cursor de clique */
     font-weight: bold;
+    box-shadow: 0 2px #161b33b3;
 }
 
-.button:hover {
-    background-color: #8253ee;/*#474973;  Cor ao passar o mouse */
-    /*color: #8253ee;*/
-}
+    .button:hover {
+        background-color: #8253ee; /*#474973;  Cor ao passar o mouse */
+        box-shadow: 0 2px #161b3366;
+        /*color: #8253ee;*/
+    }
+
+    .button:active {
+        box-shadow: 0 0px;
+        transform: translateY(2px);
+    }
