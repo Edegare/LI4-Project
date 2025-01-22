@@ -13,6 +13,11 @@
     width: 50%;
 }
 
+.ErroImagem {
+    color: red;
+    padding-top: 10px;
+}
+
 .parte-imagem {
     display: flex;
     gap: 10px; 

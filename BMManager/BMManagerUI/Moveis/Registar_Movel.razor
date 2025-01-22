@@ -10,7 +10,7 @@
 <Titulo Nome="Registar Móvel" />
 
 <div class="InformacoesRegisto">
-    <EditForm Model="@movelTemp" OnValidSubmit="@RegistarMovel" FormName="@MovelForm" Enhance>
+    <EditForm EditContext="@_contexto" FormName="@MovelForm" Enhance>
         <DataAnnotationsValidator />
         <div class="corpo">
             <div class="linha">
@@ -49,7 +49,6 @@
                 }
                 else
                 {
-                    <p>Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp</p>
                     <img src="/imagens/Imagem.png" alt="Imagem" />
                 }
             </div>
@@ -67,6 +66,9 @@
 
 @code {
     private const string MovelForm = "registar-movel";
+    private string imagem;
+    private EditContext _contexto;
+    private ValidationMessageStore _mensagens;
 
     protected override void OnInitialized()
     {
@@ -76,10 +78,50 @@
             imagem = $"data:image/jpeg;base64,{Convert.ToBase64String(movelTemp.NovoMovelImagem)}";
         }
     }
-    private string imagem;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _contexto = new EditContext(movelTemp);
+        _mensagens = new ValidationMessageStore(_contexto);
+        _contexto.OnValidationRequested += ValidarAsync;
+        await base.OnParametersSetAsync();
+    }
+
+    private async void ValidarAsync(object? sender, ValidationRequestedEventArgs e)
+    {
+        _mensagens.Clear(() => movelTemp.NovoMovelImagem);
+        _mensagens.Clear(() => movelTemp.NovoMovelNome);
+        _contexto.NotifyValidationStateChanged();
+        StateHasChanged();
+        bool valido = true;
+        if (movelTemp.NovoMovelNome == null)
+        {
+            _mensagens.Add(() => movelTemp.NovoMovelNome, "O campo Nome é obrigatório!");
+            valido = false;
+        }
+        else if (movelTemp.NovoMovelNome.Length > 75)
+        {
+            _mensagens.Add(() => movelTemp.NovoMovelNome, "Nome não pode ter mais de 75 carateres!");
+            valido = false;
+        }
+        if (movelTemp.NovoMovelImagem == null)
+        {
+            _mensagens.Add(() => movelTemp.NovoMovelImagem, "O campo Imagem é obrigatório!");
+            valido = false;
+        }
+        if (valido)
+        {
+            await RegistarMovel();
+        }
+        _contexto.NotifyValidationStateChanged();
+        StateHasChanged();
+    }
 
     private async Task UploadImagem(InputFileChangeEventArgs e)
     {
+        _mensagens.Clear(() => movelTemp.NovoMovelImagem);
+        _contexto.NotifyValidationStateChanged();
+        StateHasChanged();
         var ficheiro = e.File;
         if (ficheiro != null && (ficheiro.ContentType == "image/jpeg" || ficheiro.ContentType == "image/png" || ficheiro.ContentType == "image/gif" || ficheiro.ContentType == "image/bmp" || ficheiro.ContentType == "image/webp"))
         {
@@ -93,6 +135,9 @@
         {
             imagem = null;
             movelTemp.NovoMovelImagem = null;
+            _mensagens.Add(() => movelTemp.NovoMovelImagem, "Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp");
+            _contexto.NotifyValidationStateChanged();
+            StateHasChanged();
         }
     }
 

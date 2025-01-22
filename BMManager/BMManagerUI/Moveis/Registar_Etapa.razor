@@ -21,6 +21,15 @@
                     <h4>Imagem</h4>
                     <div class="input-imagem">
                         <InputFile id="imagem" OnChange="@OnInputFileChange" />
+                        @if (_contexto != null)
+                        {
+                            @foreach (var mensagem in _contexto.GetValidationMessages())
+                            {
+                                <div class="ErroImagem">
+                                    <p>@mensagem</p>
+                                </div>
+                            }
+                        }
                         <div>
                             @if (!string.IsNullOrEmpty(erroImagem))
                             {
@@ -38,7 +47,6 @@
                     }
                     else
                     {
-                        <p>Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp</p>
                         <img src="/imagens/Imagem.png" alt="ImagemInicial" />
                     }
                 </div>
@@ -136,9 +144,14 @@
 
     private List<Material> materiaisDisponiveis = new List<Material>();
 
+    private EditContext _contexto;
+    private ValidationMessageStore _mensagens;
+
     protected override async Task OnInitializedAsync()
     {
         materiaisDisponiveis = await ln.GetMateriais();
+        _contexto = new EditContext(imagem);
+        _mensagens = new ValidationMessageStore(_contexto);
     }
 
     private void RemoverMaterial(int idMaterial)
@@ -149,6 +162,9 @@
 
     private async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
+        _mensagens.Clear(() => imagem);
+        _contexto.NotifyValidationStateChanged();
+        StateHasChanged();
         erroMaterial = "";
         erroQuantidade = "";
         erroImagem = "";
@@ -166,7 +182,10 @@
         {
             previewImage = null;
             imagem = null;
+            _mensagens.Add(() => imagem, "Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp");
         }
+        _contexto.NotifyValidationStateChanged();
+        StateHasChanged();
     }
 
     private async Task RegistarEtapa()
@@ -179,6 +198,9 @@
         if (imagem == null || imagem.Length == 0)
         {
             erroImagem = "Imagem é obrigatória!";
+            _mensagens.Clear(() => imagem);
+            _contexto.NotifyValidationStateChanged();
+            StateHasChanged();
             return;
         }
 

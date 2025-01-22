@@ -1,1 +1,37 @@
-﻿
+﻿.InformacoesIniciar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    .InformacoesIniciar .iniciarMontagem {
+        background-color: red;
+    }
+
+
+    .InformacoesIniciar .linha {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        padding-top: 2%;
+    }
+
+    .InformacoesIniciar .Botoes {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20%;
+    }
+
+    .InformacoesIniciar .Confirmacao {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20%;
+    }
+
+    .InformacoesIniciar .Confirmacao p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
