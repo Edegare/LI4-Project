@@ -14,9 +14,7 @@
         <DataAnnotationsValidator />
         <div class="linha">
             <h4>Móvel</h4>
-            <
-                
-            ber id="codigo" @bind-Value="@_codMovel" />
+            <InputNumber id="codigo" @bind-Value="@_codMovel" min="0" />
             <ValidationMessage For="@(() => _codMovel)" />
         </div>
         @if (!_mostrarConfirmacao)

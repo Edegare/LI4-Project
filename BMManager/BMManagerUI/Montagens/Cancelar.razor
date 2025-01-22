@@ -1,4 +1,5 @@
 ﻿@page "/montagens/cancelar/{_codMontagem:int}"
+@rendermode InteractiveServer
 @using BMManagerLN
 @using BMManagerLN.SubMontagens
 @inject APIBMManagerLN ln
@@ -18,11 +19,12 @@
 </div>
 
 @code {
-    private int _codMontagem;
+    [Parameter]
+    public int _codMontagem { get; set; }
 
     private async Task CancelarMontagem()
     {
         await ln.CancelarMontagem(_codMontagem);
-        NavigationManager.NavigateTo("/montagens/");
+        NavigationManager.NavigateTo("/montagens");
     }
 }
