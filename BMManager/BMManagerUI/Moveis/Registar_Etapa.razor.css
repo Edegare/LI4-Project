@@ -3,7 +3,6 @@
     display: flex;
     gap: 2rem;
     align-items: flex-start;
-    margin-bottom: 30px;
     margin-top: 20px;
 }
 
@@ -46,7 +45,7 @@
 }
 .parte-material {
     display: flex;
-    gap: 10px; /* Espaço entre os inputs e o botão */
+    gap: 10px;
     height: 80px;
 }
 
@@ -81,13 +80,12 @@
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
-    width: 100%; 
-    max-width: 600px; 
-    height: 500px; 
-    overflow-y: auto; 
-    overflow-x: hidden; 
+    width: 100%;
+    max-width: 600px;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
-
 
     .tabela ul {
         list-style: none;
@@ -95,22 +93,55 @@
         margin: 0;
     }
 
-    /* Itens da Lista */
-    .tabela li {
-        margin-bottom: 5px;
-        padding: 5px 10px;
-        border-bottom: 1px solid #ccc; 
-        display: flex; 
-        justify-content: space-between; 
-    }
 
         .tabela li:last-child {
             border-bottom: none;
         }
 
+    .tabela .linha-material {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 5px;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .tabela .linha-material:last-child {
+            border-bottom: none;
+        }
+
+    .tabela .coluna {
+        flex: 1;
+        text-align: center;
+    }
+
+    .tabela .coluna-botao button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        line-height: 1;
+        font-size: 40px;
+        margin-top: -10px;
+
+    }
+
+
+.erro-tabela {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    text-align: left;
+    height: 20px;
+    line-height: 20px;
+    visibility: hidden; 
+}
+
+    .erro-tabela.mostrar {
+        visibility: visible;
+    }
 
 .esp {
-    height: 30px;
+    height: 20px;
 }
 
 .Botoes {
@@ -118,33 +149,8 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20000px;
-    bottom: 0; /* Posiciona os botões no final da página */
-    width: 100%; /* Faz os botões ocuparem toda a largura */
-    margin: 0; /* Remove qualquer margem que atrapalhe */
-    padding: 10px; /* Ajuste de espaçamento, opcional */
+    bottom: 0; 
+    width: 100%; 
+    margin: 0; 
+    padding: 10px; 
 }
-
-
-.linha-material {
-    display: flex;
-    height: 10px;
-    justify-content: space-between; /* Distribui o espaço entre os itens */
-    align-items: center; /* Alinha os itens verticalmente no centro */
-    margin-bottom: 10px; /* Espaço entre as linhas, opcional */
-}
-
-    .linha-material span {
-        width: 10px; /* Espaço entre o idMaterial e a quantidade */
-    }
-
-    .linha-material button {
-        width: 10px; /* Espaço entre a quantidade e o botão */
-    }
-
-    .linha-material button {
-        background: none; 
-        border: none; 
-        font-size: 30px; 
-        padding: 0; 
-        cursor: pointer;  
-    }

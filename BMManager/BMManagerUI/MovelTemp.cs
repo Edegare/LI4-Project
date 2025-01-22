@@ -11,7 +11,7 @@ namespace BMManager.BMManagerUI
         public string NovoMovelNome { get; set; }
 
         [Required(ErrorMessage = "O campo Imagem é obrigatório!")]
-        public byte[] NovoMovelImagem { get; set; }
+        public byte[]? NovoMovelImagem { get; set; }
         public Dictionary<int, (byte[], int, List<(int,int)>)> NovoMovelEtapas { get; set; } = new Dictionary<int, (byte[], int, List<(int,int)>)>();
         public int EtapasRegistadas { get; set; } = 0;
         public void ResetMovelTemp()
