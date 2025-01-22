@@ -75,10 +75,10 @@ VALUES
     (NULL, 3, NULL, 1),
 
     -- Etapas para o Movel 2
-    (NULL, 1, 2, 2),
-    (NULL, 2, 3, 2),
-    (NULL, 3, 4, 2),
-    (NULL, 4, 5, 2),
+    (NULL, 1, 5, 2),
+    (NULL, 2, 6, 2),
+    (NULL, 3, 7, 2),
+    (NULL, 4, 8, 2),
     (NULL, 5, NULL, 2);
 
 -- Móveis encomendados
