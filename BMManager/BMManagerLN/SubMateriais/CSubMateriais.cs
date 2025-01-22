@@ -49,7 +49,7 @@ namespace BMManagerLN.SubMateriais
             foreach (Etapa_Precisa_Material epm in etapasMateriaisQuantidades)
             {
                 Material material;
-                if (!materiaisExistentes.ContainsKey(epm.Etapa))
+                if (!materiaisExistentes.ContainsKey(epm.Material))
                 {
                     material = await GetMaterial(epm.Material);
                     materiaisExistentes[epm.Material] = material;

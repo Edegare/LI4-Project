@@ -151,8 +151,8 @@ namespace BMManagerLN
             Montagem montagem = await subMontagens.GetMontagem(codMontagem);
             Etapa etapaAtual = await subMoveis.GetEtapa(montagem.Etapa);
             Func<Etapa, bool> condicao;
-            if (montagem.Etapa_Concluida) condicao = e => e.Movel == codMontagem & e.Numero < etapaAtual.Numero;
-            else condicao = e => e.Movel == codMontagem & e.Numero <= etapaAtual.Numero;
+            if (montagem.Etapa_Concluida) condicao = e => e.Movel == montagem.Movel & e.Numero <= etapaAtual.Numero;
+            else condicao = e => e.Movel == montagem.Movel & e.Numero < etapaAtual.Numero;
             Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
             int[] codEtapas = etapas.Values.Select(e => e.Codigo_Etapa).ToArray();
             return await subMateriais.GetMateriaisEtapas(codEtapas);
@@ -163,8 +163,8 @@ namespace BMManagerLN
             Montagem montagem = await subMontagens.GetMontagem(codMontagem);
             Etapa etapaAtual = await subMoveis.GetEtapa(montagem.Etapa);
             Func<Etapa, bool> condicao;
-            if (montagem.Etapa_Concluida) condicao = e => e.Movel == codMontagem & e.Numero > etapaAtual.Numero;
-            else condicao = e => e.Movel == codMontagem & e.Numero >= etapaAtual.Numero;
+            if (montagem.Etapa_Concluida) condicao = e => e.Movel == montagem.Movel & e.Numero > etapaAtual.Numero;
+            else condicao = e => e.Movel == montagem.Movel & e.Numero >= etapaAtual.Numero;
             Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
             int[] codEtapas = etapas.Values.Select(e => e.Codigo_Etapa).ToArray();
             return await subMateriais.GetMateriaisEtapas(codEtapas);
