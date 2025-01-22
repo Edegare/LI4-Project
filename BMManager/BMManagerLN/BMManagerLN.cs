@@ -289,6 +289,8 @@ namespace BMManagerLN
             else
             {
                 montagem.Etapa = -1;
+                montagem.Estado = Estado.Concluida;
+                await subMontagens.AtualizaMontagem(montagem);
                 podeAvancar = false;
             }
             await subMontagens.AtualizaMontagem(montagem);
@@ -306,6 +308,8 @@ namespace BMManagerLN
             }
             else
             {
+                montagem.Estado = Estado.Concluida;
+                await subMontagens.AtualizaMontagem(montagem);
                 return false;
             }
         }
@@ -317,6 +321,7 @@ namespace BMManagerLN
             {
                 Etapa etapa = await GetProximaEtapa(montagem);
                 montagem.Etapa = etapa.Codigo_Etapa;
+                montagem.Etapa_Concluida = false;
             }
             await subMontagens.AtualizaMontagem(montagem);
             await subFuncionarios.AssociaFuncionarioMontagem(codFuncionario, montagem.Numero);
