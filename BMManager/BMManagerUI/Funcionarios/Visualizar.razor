@@ -56,6 +56,6 @@ else {
     private Funcionario funcionario;
     protected override async Task OnInitializedAsync()
     {
-        funcionario = await ln.GetFuncionario(Id); //trocar para método da lógica de negócio
+        funcionario = await ln.GetFuncionario(Id);
     }
 }

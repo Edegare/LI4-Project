@@ -1,8 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
-using BMManagerLN.SubMateriais;
-using BMManagerLN.SubFuncionarios;
-using Azure;
 
 namespace BMManagerLN.SubMoveis
 {

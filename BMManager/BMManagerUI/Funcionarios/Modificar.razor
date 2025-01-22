@@ -81,7 +81,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Funcionario funcionario = await ln.GetFuncionario(Id); //trocar para método da lógica de negócio
+        Funcionario funcionario = await ln.GetFuncionario(Id); 
         novoFuncionario = new Funcionario
         {
             Nome = funcionario.Nome,

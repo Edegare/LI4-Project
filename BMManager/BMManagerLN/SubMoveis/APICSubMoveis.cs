@@ -1,6 +1,4 @@
 ﻿
-using BMManagerLN.SubMoveis;
-
 namespace BMManagerLN.SubMoveis
 {
     public interface APICSubMoveis

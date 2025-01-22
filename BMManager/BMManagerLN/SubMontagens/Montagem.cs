@@ -1,5 +1,4 @@
-﻿using BMManagerLN.SubEncomendas;
-using BMManagerLN.SubFuncionarios;
+﻿using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMoveis;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -34,17 +33,11 @@ namespace BMManagerLN.SubMontagens
         public bool Etapa_Concluida { get; set; } = false;
 
         [Required]
-        public int Movel { get; set; } //
+        public int Movel { get; set; }
 
         [Required]
-        public int Etapa { get; set; } //
+        public int Etapa { get; set; }
 
-        public int? Encomenda { get; set; } //
-
-        [NotMapped]
-        public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>(); //
-
-        [NotMapped]
-        public List<Etapa> Etapas { get; set; } = new List<Etapa>();
+        public int? Encomenda { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
-using BMManagerLN.SubMoveis;
 
 namespace BMManagerLN.SubMateriais
 {

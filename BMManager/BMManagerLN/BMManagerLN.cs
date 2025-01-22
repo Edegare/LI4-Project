@@ -1,18 +1,11 @@
 using BMManager;
 using BMManager.BMManagerCD;
-using BMManager.BMManagerUI.Funcionarios;
 using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMateriais;
 using BMManagerLN.SubMontagens;
 using BMManagerLN.SubMoveis;
-using BMManagerLN.Exceptions;
-using Newtonsoft.Json.Linq;
 using System.ComponentModel;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http.Timeouts;
-using System.Collections.Generic;
-using Microsoft.Extensions.Internal;
 
 namespace BMManagerLN
 {

@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
 using BMManager;

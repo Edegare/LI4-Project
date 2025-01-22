@@ -1,6 +1,4 @@
-﻿using BMManagerLN.SubMateriais;
-
-namespace BMManagerLN.SubMontagens
+﻿namespace BMManagerLN.SubMontagens
 {
     public interface APICSubMontagens
     {
