@@ -256,15 +256,11 @@ namespace BMManagerLN
 
         public async Task SairEtapaMontagem(Montagem montagem)
         {
-            if (montagem.Etapa > 0)
+            if (montagem.Etapa > 0 && montagem.Estado == Estado.Em_Progresso)
             {
                 montagem.Estado = Estado.Em_Pausa;
+                await subMontagens.AtualizaMontagem(montagem);
             }
-            else
-            {
-                montagem.Estado = Estado.Concluida;
-            }
-            await subMontagens.AtualizaMontagem(montagem);
         }
 
         public async Task<bool> ProximaEtapaMontagem(Montagem montagem)
@@ -283,13 +279,13 @@ namespace BMManagerLN
                 else
                 {
                     podeAvancar = false;
-//                    throw new Exception("Não existem materiais suficientes para a próxima etapa.");
                 }
             }
             else
             {
                 montagem.Etapa = -1;
                 montagem.Estado = Estado.Concluida;
+                montagem.Data_Final = DateTime.Now;
                 await subMontagens.AtualizaMontagem(montagem);
                 podeAvancar = false;
             }
@@ -309,6 +305,7 @@ namespace BMManagerLN
             else
             {
                 montagem.Estado = Estado.Concluida;
+                montagem.Data_Final = DateTime.Now;
                 await subMontagens.AtualizaMontagem(montagem);
                 return false;
             }
