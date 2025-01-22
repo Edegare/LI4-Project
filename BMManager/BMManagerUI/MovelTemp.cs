@@ -13,7 +13,7 @@ namespace BMManager.BMManagerUI
         public int EtapasRegistadas { get; set; } = 0;
         public void ResetMovelTemp()
         {
-            NovoMovelNome = "";
+            NovoMovelNome = null;
             NovoMovelImagem = null;
             NovoMovelEtapas.Clear();
             EtapasRegistadas = 0;
