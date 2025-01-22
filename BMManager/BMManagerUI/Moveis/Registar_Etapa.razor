@@ -1,6 +1,7 @@
 ﻿@page "/moveis/registar/adicionar_etapa"
 @rendermode InteractiveServer
 @using BMManagerLN
+@using BMManagerLN.SubMateriais
 @using BMManagerLN.SubMoveis
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
@@ -82,14 +83,28 @@
                     <ul>
                         @foreach ((int idMaterial, int quantidade) in materiais)
                         {
+                            var material = materiaisDisponiveis.FirstOrDefault(m => m.Numero == idMaterial);
                             <div class="linha-material">
-                                <span>@idMaterial</span>
-                                <span>@quantidade</span>
-                                <button type="button" @onclick="() => RemoverMaterial(idMaterial)">-</button>
+                                <div>@idMaterial</div>
+                                <div class="coluna">@material?.Nome</div>
+                                <div class="coluna">@quantidade</div>
+                                <div class="coluna-botao">
+                                    <button type="button" @onclick="() => RemoverMaterial(idMaterial)">-</button>
+                                </div>
                             </div>
                         }
                     </ul>
                 </div>
+                @if (!string.IsNullOrEmpty(erroNaoExiste))
+                {
+                    <div class="erro-tabela mostrar">
+                        <p>@erroNaoExiste</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="erro-tabela"></div>
+                }
             </div>
 
         </div>
@@ -116,6 +131,14 @@
     private string erroMaterial = "";  
     private string erroQuantidade = ""; 
     private string erroImagem = "";
+    private string erroNaoExiste = "";
+
+    private List<Material> materiaisDisponiveis = new List<Material>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        materiaisDisponiveis = await ln.GetMateriais();
+    }
 
     private void RemoverMaterial(int idMaterial)
     {
@@ -128,6 +151,7 @@
         erroMaterial = "";
         erroQuantidade = "";
         erroImagem = "";
+        erroNaoExiste = "";
         if (e.File != null)
         {
             using var memoryStream = new MemoryStream();
@@ -143,6 +167,7 @@
         erroMaterial = "";
         erroQuantidade = "";
         erroImagem = "";
+        erroNaoExiste = "";
 
         if (imagem == null || imagem.Length == 0)
         {
@@ -162,6 +187,7 @@
         erroMaterial = "";
         erroQuantidade = "";
         erroImagem = "";
+        erroNaoExiste = "";
 
         // Validação dos campos
         if (novoMaterialId <= 0)
@@ -176,6 +202,14 @@
             erroQuantidade = "A quantidade deve ser um valor positivo.";
         }
 
+        // Existe material?
+        var materialDisponivel = materiaisDisponiveis.FirstOrDefault(m => m.Numero == novoMaterialId);
+
+        if (materialDisponivel == null)
+        {
+            erroNaoExiste = $"O material com ID {novoMaterialId} não existe.";
+            return;
+        }
         if (novoMaterialId > 0 && novoMaterialQuantidade > 0)
         {
             
