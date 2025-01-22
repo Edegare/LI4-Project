@@ -12,48 +12,48 @@
 <div class="InformacoesRegisto">
     <EditForm Model="@movelTemp" OnValidSubmit="@RegistarMovel" FormName="@MovelForm" Enhance>
         <DataAnnotationsValidator />
+        <div class="corpo">
+            <div class="linha">
+                <h4>Nome</h4>
+                <InputText id="nome" @bind-Value="@movelTemp.NovoMovelNome" />
+            </div>
+            <div class="Validation">
+                <ValidationMessage For="()=> movelTemp.NovoMovelNome" />
+            </div>
 
-        <div class="linha">
-            <h4>Nome</h4>
-            <InputText id="nome" @bind-Value="@movelTemp.NovoMovelNome" />
-        </div>
-        <div class="Validation">
-            <ValidationMessage For="()=> movelTemp.NovoMovelNome" />
-        </div>
+            <div class="linha-imagem-etapas">
+                <!-- Seção de Imagem -->
+                <div class="imagem-secao">
+                    <h4>Imagem</h4>
+                    <div class="input-imagem">
+                        <InputFile id="imagem" OnChange="@UploadImagem" />
+                    </div>
+                </div>
 
-        <div class="linha-imagem-etapas">
-            <!-- Seção de Imagem -->
-            <div class="imagem-secao">
-                <h4>Imagem</h4>
-                <div class="input-imagem">
-                    <InputFile id="imagem" OnChange="@UploadImagem" />
+
+                <!-- Seção de Etapas -->
+                <div class="etapas-secao">
+                    <h4>Etapas</h4>
+                    <h5>@movelTemp.EtapasRegistadas</h5>
+                    <button type="button" @onclick="AdicionarEtapa">Adicionar</button>
                 </div>
             </div>
+            <div class="Validation">
+                <ValidationMessage For="()=> movelTemp.NovoMovelImagem" />
+            </div>
 
-
-            <!-- Seção de Etapas -->
-            <div class="etapas-secao">
-                <h4>Etapas</h4>
-                <h5>@movelTemp.EtapasRegistadas</h5>
-                <button type="button" @onclick="AdicionarEtapa">Adicionar</button>
+            <div class="imagem-preview">
+                @if (!string.IsNullOrEmpty(imagem))
+                {
+                    <img src="@imagem" alt="Imagem escolhida" />
+                }
+                else
+                {
+                    <p>Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp</p>
+                    <img src="/imagens/Imagem.png" alt="Imagem" />
+                }
             </div>
         </div>
-        <div class="Validation">
-            <ValidationMessage For="()=> movelTemp.NovoMovelImagem" />
-        </div>
-
-        <div class="imagem-preview">
-            @if (!string.IsNullOrEmpty(imagem))
-            {
-                <img src="@imagem" alt="Imagem escolhida" />
-            }
-            else
-            {
-                <p>Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp</p>
-                <img src="/imagens/Imagem.png" alt="Imagem" />
-            }
-        </div>
-
         <div class="esp"></div>
 
         <div class="Botoes" >

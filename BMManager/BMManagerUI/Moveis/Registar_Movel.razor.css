@@ -2,6 +2,13 @@
     padding: 20px;
 }
 
+.corpo {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 5px 0; /* Adiciona espaço entre os parágrafos */
+}
+
 .linha {
     display: flex;
     align-items: center;
@@ -34,7 +41,8 @@
 .etapas-secao {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
+    margin-left: 85px;
 }
 
     .etapas-secao button {
