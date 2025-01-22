@@ -14,33 +14,34 @@
     <EditForm Model="@novaEncomenda" OnValidSubmit="@RegistarEncomenda">
         <DataAnnotationsValidator />
         <ValidationSummary />
-        <div>
-            <h4>Cliente</h4>
-            <InputText id="cliente" @bind-Value="@novaEncomenda.Cliente" />
-        </div>
-        <div>
-            <h4>Data Prevista</h4>
-            <InputDate id="data" @bind-Value="@data" />
-        </div>
-        <div>
-            <h4>Móveis</h4>
-            <InputNumber id="id" @bind-Value="@novoMovelId" min="0"/>
-            <InputNumber id="quantidade" @bind-Value="@novoMovelQuantidade" min="0" />
-            <button type="button" @onclick="AdicionarMovel">Adicionar</button>
-
-        </div>
-        @if (!string.IsNullOrEmpty(erro))
-        {
-            <p>@erro</p>
-        }
-        <div>
-            <ul>
-                @for(int i = 0; i<@moveis.Count; i++){
-                    int index = i;
-                    <li>@moveis.ElementAt(i).Item1  @nomesMoveis.ElementAt(i) @moveis.ElementAt(i).Item2</li>
-                    <button type="button" @onclick="(() => RemoverMovel(index))">-</button>
-                }
-            </ul>
+        <div class="corpo">
+            <div class="linha">
+                <h4>Cliente</h4>
+                <InputText id="cliente" @bind-Value="@novaEncomenda.Cliente" />
+            </div>
+            <div class = "linha">
+                <h4>Data Prevista</h4>
+                <InputDate id="data" @bind-Value="@data" />
+            </div>
+            <div class = "linha">
+                <h4>Móveis</h4>
+                <InputNumber id="id" @bind-Value="@novoMovelId" min="0"/>
+                <InputNumber id="quantidade" @bind-Value="@novoMovelQuantidade" min="0" />
+                <button type="button" @onclick="AdicionarMovel">Adicionar</button>
+            </div>
+            @if (!string.IsNullOrEmpty(erro))
+            {
+                <p>@erro</p>
+            }
+            <div>
+                <ul>
+                    @for(int i = 0; i<@moveis.Count; i++){
+                        int index = i;
+                        <li>@moveis.ElementAt(i).Item1  @nomesMoveis.ElementAt(i) @moveis.ElementAt(i).Item2</li>
+                        <button type="button" @onclick="(() => RemoverMovel(index))">-</button>
+                    }
+                </ul>
+            </div>
         </div>
         <div class = "esp">
         </div>

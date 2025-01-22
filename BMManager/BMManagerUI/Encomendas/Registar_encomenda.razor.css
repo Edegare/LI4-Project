@@ -1,7 +1,14 @@
 ﻿body {
 }
 
-.InformacoesRegisto {
+.InformacoesRegisto {   
+}
+
+.corpo {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 5px 0; /* Adiciona espaço entre os parágrafos */
 }
 
 .esp {
@@ -27,7 +34,7 @@
 }
 
 .linha h4 {
-    width: 100px; /* Define uma largura fixa para o primeiro elemento */
+    width: 170px; /* Define uma largura fixa para o primeiro elemento */
     margin: 0; /* Remove a margem padrão do <h4> */
 }
 

@@ -26,6 +26,10 @@
     margin-top: 20px;
 }
 
+h4 {
+    font-weight: bold;
+  }
+
 .inf {
     display: inline-block;
     white-space: nowrap;
