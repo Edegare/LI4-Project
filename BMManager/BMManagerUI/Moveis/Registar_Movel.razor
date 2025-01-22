@@ -187,6 +187,21 @@
                 proxima_etapa = etapa.Codigo_Etapa;
             }
 
+            // Associa os materiais às etapas
+            foreach (var etapaTemp in movelTemp.NovoMovelEtapas)
+            {
+                int numeroEtapa = etapaTemp.Key;
+                var materiais = etapaTemp.Value.Item3;
+
+                if (movel.Etapas_Montagem.TryGetValue(numeroEtapa, out var codigoEtapa))
+                {
+                    foreach (var (idMaterial, quantidade) in materiais)
+                    {
+                        await ln.AdicionaMaterialEtapa(idMaterial, quantidade, codigoEtapa);
+                    }
+                }
+            }
+
             movelTemp.ResetMovelTemp();
             NavigationManager.NavigateTo("/moveis");
 

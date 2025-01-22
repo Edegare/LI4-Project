@@ -75,10 +75,10 @@ VALUES
     ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKallaxBranco42x41Etapa3.png', SINGLE_BLOB) AS Imagem), 3, NULL, 1),
 
     -- Etapas para o Movel 2
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa1.png', SINGLE_BLOB) AS Imagem), 1, 2, 2),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa2.png', SINGLE_BLOB) AS Imagem), 2, 3, 2),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa3.png', SINGLE_BLOB) AS Imagem), 3, 4, 2),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa4.png', SINGLE_BLOB) AS Imagem), 4, 5, 2),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa1.png', SINGLE_BLOB) AS Imagem), 1, 5, 2),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa2.png', SINGLE_BLOB) AS Imagem), 2, 6, 2),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa3.png', SINGLE_BLOB) AS Imagem), 3, 7, 2),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa4.png', SINGLE_BLOB) AS Imagem), 4, 8, 2),
     ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa5.png', SINGLE_BLOB) AS Imagem), 5, NULL, 2);
 
 
