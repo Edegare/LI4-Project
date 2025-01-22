@@ -8,6 +8,10 @@
     height: 17vh; /* Define a altura máxima como 100% da altura da janela de visualização */
 }
 
+.linha > p {
+    color: red;
+}
+
 .Botoes {
     text-align: center;
     display: flex;
