@@ -25,7 +25,7 @@
 
     .EtapaMontagem .MateriaisNecessarios {
         max-height: 50%;
-        width: 25%;
+        max-width: 25%;
         display: flex;
         flex-direction: column;
         position: absolute;
@@ -34,11 +34,12 @@
         border: 2px solid black;
         border-radius: 2px;
         overflow: hidden;
-        padding: 10px;
+        padding: 10px min(5rem, 5%);
+        box-sizing: border-box;
     }
 
         .EtapaMontagem .MateriaisNecessarios .Material {
-            width: 100%;
+            width: auto;
             max-height: 50%;
             display: flex;
             justify-content: center;
@@ -46,8 +47,8 @@
         }
 
             .EtapaMontagem .MateriaisNecessarios .Material > img {
-                width: 50%;
-                max-height: 100%;
+                width: auto;
+                max-height: 5rem;
                 object-fit: contain;
             }
 
