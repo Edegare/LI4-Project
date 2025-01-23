@@ -13,9 +13,14 @@
     <EditForm EditContext="@_contexto" FormName="iniciarMontagem" Enhance>
         <DataAnnotationsValidator />
         <div class="linha">
-            <h4>Móvel</h4>
-            <InputNumber id="codigo" @bind-Value="@_codMovel" min="0" />
-            <ValidationMessage For="@(() => _codMovel)" />
+            <div class="Movel">
+                <h4>Móvel</h4>
+                <InputNumber id="codigo" @bind-Value="@_codMovel" min="0" />
+            </div>
+            @foreach (var mensagem in _contexto.GetValidationMessages())
+            {
+                <p>@mensagem</p>
+            }
         </div>
         @if (!_mostrarConfirmacao)
         {
@@ -62,6 +67,7 @@
 
     private void LimparMensagens(object? sender, FieldChangedEventArgs e)
     {
+        _mostrarConfirmacao = false;
         _mensagens.Clear(e.FieldIdentifier);
         _contexto.NotifyValidationStateChanged();
     }
@@ -102,6 +108,7 @@
             }
         }
         _contexto.NotifyValidationStateChanged();
+        StateHasChanged();
     }
 
     private async void IniciarMontagem()
