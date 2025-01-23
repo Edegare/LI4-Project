@@ -31,7 +31,17 @@ namespace BMManagerLN.SubMateriais
 
         public async Task<Material> GetMaterial(int codMaterial)
         {
-            return await _context.Material.FindAsync(codMaterial);
+            return await _context.Material.FindAsync(codMaterial) ?? new Material();
+        }
+
+        public async Task<Material> GetMaterialSemImagem(int codMaterial)
+        {
+            return await _context.Material.Where(m => m.Numero == codMaterial).Select(m => new Material
+                                                                                    {
+                                                                                        Numero = m.Numero,
+                                                                                        Nome = m.Nome,
+                                                                                        Quantidade = m.Quantidade
+                                                                                    }).FirstOrDefaultAsync() ?? new Material();
         }
 
         public async Task PutMaterial(Material material)
@@ -61,7 +71,7 @@ namespace BMManagerLN.SubMateriais
                 Material material;
                 if (!materiaisExistentes.ContainsKey(epm.Material))
                 {
-                    material = await GetMaterial(epm.Material);
+                    material = await GetMaterialSemImagem(epm.Material);
                     materiaisExistentes[epm.Material] = material;
                     materiais[material] = 0;
                 }

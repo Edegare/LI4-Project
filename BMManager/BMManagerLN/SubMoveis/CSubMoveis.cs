@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
+using BMManagerLN.SubMateriais;
 
 namespace BMManagerLN.SubMoveis
 {
@@ -34,7 +35,17 @@ namespace BMManagerLN.SubMoveis
 
         public async Task<Movel> GetMovel(int codMovel)
         {
-            return await _context.Movel.FindAsync(codMovel);
+            return await _context.Movel.FindAsync(codMovel) ?? new Movel();
+        }
+
+        public async Task<Movel> GetMovelSemImagem(int codMovel)
+        {
+            return await _context.Movel.Where(m => m.Numero == codMovel).Select(m => new Movel
+                                                                                    {
+                                                                                        Numero = m.Numero,
+                                                                                        Nome = m.Nome,
+                                                                                        Quantidade = m.Quantidade
+                                                                                    }).FirstOrDefaultAsync() ?? new Movel();
         }
 
         public bool MovelExiste(int codMovel)
@@ -66,7 +77,18 @@ namespace BMManagerLN.SubMoveis
         public async Task<Etapa> GetEtapa(int codEtapa)
         {
             return await _context.Etapa
-                                 .FirstOrDefaultAsync(f => f.Codigo_Etapa == codEtapa);
+                                 .FirstOrDefaultAsync(f => f.Codigo_Etapa == codEtapa) ?? new Etapa();
+        }
+
+        public async Task<Etapa> GetEtapaSemImagem(int codEtapa)
+        {
+            return await _context.Etapa.Where(m => m.Numero == codEtapa).Select(e => new Etapa
+            {
+                                                                                Codigo_Etapa = e.Codigo_Etapa,
+                                                                                Numero = e.Numero,
+                                                                                Proxima_Etapa = e.Proxima_Etapa,
+                                                                                Movel = e.Movel
+                                                                            }).FirstOrDefaultAsync() ?? new Etapa();
         }
 
         public async Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel)
@@ -74,9 +96,32 @@ namespace BMManagerLN.SubMoveis
             return await _context.Etapa.Where(e => e.Movel == codMovel).ToDictionaryAsync(e => e.Numero);
         }
 
+        public async Task<Dictionary<int, Etapa>> GetEtapasMovelSemImagens(int codMovel)
+        {
+            return await _context.Etapa.Where(e => e.Movel == codMovel).Select(e => new Etapa
+                                                                            {
+                                                                                Codigo_Etapa = e.Codigo_Etapa,
+                                                                                Numero = e.Numero,
+                                                                                Proxima_Etapa = e.Proxima_Etapa,
+                                                                                Movel = e.Movel
+                                                                            }).ToDictionaryAsync(e => e.Numero);
+        }
+
         public async Task<Dictionary<int, Etapa>> GetEtapasMovelCondicao(Func<Etapa,bool> condicao)
         {
             Dictionary<int,Etapa> etapas = _context.Etapa.AsEnumerable().Where(e => condicao(e)).ToDictionary(e => e.Numero);
+            return etapas;
+        }
+
+        public async Task<Dictionary<int, Etapa>> GetEtapasMovelCondicaoSemImagem(Func<Etapa, bool> condicao)
+        {
+            Dictionary<int, Etapa> etapas = _context.Etapa.AsEnumerable().Where(e => condicao(e)).Select(e => new Etapa
+                                                                                                    {
+                                                                                                        Codigo_Etapa = e.Codigo_Etapa,
+                                                                                                        Numero = e.Numero,
+                                                                                                        Proxima_Etapa = e.Proxima_Etapa,
+                                                                                                        Movel = e.Movel
+                                                                                                    }).ToDictionary(e => e.Numero);
             return etapas;
         }
 

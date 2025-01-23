@@ -142,11 +142,11 @@ namespace BMManagerLN
         public async Task<Dictionary<Material, int>> MateriaisUtilizadosMontagem(int codMontagem)
         {
             Montagem montagem = await subMontagens.GetMontagem(codMontagem);
-            Etapa etapaAtual = await subMoveis.GetEtapa(montagem.Etapa);
+            Etapa etapaAtual = await subMoveis.GetEtapaSemImagem(montagem.Etapa);
             Func<Etapa, bool> condicao;
             if (montagem.Etapa_Concluida) condicao = e => e.Movel == montagem.Movel & e.Numero <= etapaAtual.Numero;
             else condicao = e => e.Movel == montagem.Movel & e.Numero < etapaAtual.Numero;
-            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicaoSemImagem(condicao);
             int[] codEtapas = etapas.Values.Select(e => e.Codigo_Etapa).ToArray();
             return await subMateriais.GetMateriaisEtapas(codEtapas);
         }
@@ -154,11 +154,11 @@ namespace BMManagerLN
         public async Task<Dictionary<Material, int>> MateriaisPorUtilizarMontagem(int codMontagem)
         {
             Montagem montagem = await subMontagens.GetMontagem(codMontagem);
-            Etapa etapaAtual = await subMoveis.GetEtapa(montagem.Etapa);
+            Etapa etapaAtual = await subMoveis.GetEtapaSemImagem(montagem.Etapa);
             Func<Etapa, bool> condicao;
             if (montagem.Etapa_Concluida) condicao = e => e.Movel == montagem.Movel & e.Numero > etapaAtual.Numero;
             else condicao = e => e.Movel == montagem.Movel & e.Numero >= etapaAtual.Numero;
-            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicaoSemImagem(condicao);
             int[] codEtapas = etapas.Values.Select(e => e.Codigo_Etapa).ToArray();
             return await subMateriais.GetMateriaisEtapas(codEtapas);
         }
@@ -362,6 +362,11 @@ namespace BMManagerLN
             return subMoveis.GetMovel(codMovel);
         }
 
+        public Task<Movel> GetMovelSemImagem(int codMovel)
+        {
+            return subMoveis.GetMovelSemImagem(codMovel);
+        }
+
         public bool MovelExiste(int codMovel)
         {
             return subMoveis.MovelExiste(codMovel);
@@ -389,6 +394,11 @@ namespace BMManagerLN
         public Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel)
         {
             return subMoveis.GetEtapasMovel(codMovel);
+        }
+
+        public Task<Dictionary<int, Etapa>> GetEtapasMovelSemImagens(int codMovel)
+        {
+            return subMoveis.GetEtapasMovelSemImagens(codMovel);
         }
 
         public Task PutEtapa(Etapa etapa)

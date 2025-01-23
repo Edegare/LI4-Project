@@ -90,8 +90,8 @@
     protected override async Task OnInitializedAsync()
     {
         _montagem = await ln.GetMontagem(_codMontagem);
-        _movel = await ln.GetMovel(_montagem.Movel);
-        _etapas = await ln.GetEtapasMovel(_montagem.Movel);
+        _movel = await ln.GetMovelSemImagem(_montagem.Movel);
+        _etapas = await ln.GetEtapasMovelSemImagens(_montagem.Movel);
         _etapaAtual = _etapas.Values.FirstOrDefault(e => e.Codigo_Etapa == _montagem.Etapa);
         _materiaisUtilizados = await ln.MateriaisUtilizadosMontagem(_codMontagem);
         _materiaisPorUtilizar = await ln.MateriaisPorUtilizarMontagem(_codMontagem);

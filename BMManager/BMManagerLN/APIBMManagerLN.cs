@@ -41,12 +41,14 @@ namespace BMManagerLN
         Task<List<Movel>> GetMoveisSemImagens();
         Task<List<Encomenda_Precisa_Movel>> GetEncomendaPrecisaMovel();
         Task<Movel> GetMovel(int codMovel);
+        Task<Movel> GetMovelSemImagem(int codMovel);
         bool MovelExiste(int codMovel);
         Task PutMovel(Movel movel);
         Task<List<Etapa>> GetEtapas();
         Task<List<Etapa>> GetEtapasSemImagens();
         Task<Etapa> GetEtapa(int codEtapa);
         Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel);
+        Task<Dictionary<int, Etapa>> GetEtapasMovelSemImagens(int codMovel);
         Task PutEtapa(Etapa etapa);
         Task<Dictionary<Movel,int>> GetMoveisEncomenda(int codEncomenda);
         Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda);
