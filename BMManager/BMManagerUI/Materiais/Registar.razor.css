@@ -12,6 +12,10 @@
     color: red;
 }
 
+h4 {
+    font-weight: bold;
+}
+
 .Botoes {
     text-align: center;
     display: flex;
