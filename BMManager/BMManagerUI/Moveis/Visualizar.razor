@@ -44,7 +44,7 @@
     private Movel _movel;
     private string imagem { get; set; }
     private Dictionary<int,Etapa>? _etapas;
-    private Dictionary<int, Dictionary<Material, int>> etapaMateriaisQuantidade = new Dictionary<int, Dictionary<Material, int>>();
+    private Dictionary<int, List<(Material, int)>> etapaMateriaisQuantidade = new Dictionary<int, List<(Material, int)>>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,7 +53,7 @@
         imagem = ln.ByteArrayParaImagem(_movel.Imagem);
         foreach (Etapa etapa in _etapas.Values)
         {
-            etapaMateriaisQuantidade[etapa.Numero] = await ln.GetMateriaisEtapa(etapa.Codigo_Etapa);
+            etapaMateriaisQuantidade[etapa.Numero] = await ln.GetMateriaisEtapaLista(etapa.Codigo_Etapa);
         }
     }
 }

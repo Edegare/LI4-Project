@@ -62,6 +62,18 @@ namespace BMManagerLN.SubMateriais
             return await MateriaisQuantidades(etapasMateriaisQuantidades);
         }
 
+        public async Task<List<(Material, int)>> GetMateriaisEtapaLista(int codEtapa)
+        {
+            List<Etapa_Precisa_Material> etapasMateriaisQuantidades = await _context.Etapa_Precisa_Material.Where(epm => epm.Etapa == codEtapa).ToListAsync();
+            Dictionary<Material, int> materiaisQuantidades = await MateriaisQuantidades(etapasMateriaisQuantidades);
+            List<(Material, int)> materiais = new List<(Material, int)>();
+            foreach (KeyValuePair<Material, int> materialQuantidade in materiaisQuantidades)
+            {
+                materiais.Add((materialQuantidade.Key, materialQuantidade.Value));
+            }
+            return materiais;
+        }
+
         private async Task<Dictionary<Material, int>> MateriaisQuantidades(List<Etapa_Precisa_Material> etapasMateriaisQuantidades)
         {
             Dictionary<int, Material> materiaisExistentes = new Dictionary<int, Material>();
