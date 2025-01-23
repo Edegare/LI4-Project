@@ -20,7 +20,15 @@
                 <p>Número<span>@_movel.Numero</span></p>
                 <p>Nome<span>@_movel.Nome</span></p>
                 <p>Quantidade<span>@_movel.Quantidade</span></p>
-                <p>Etapas<span>@_etapas.Count</span></p>
+                <p><img src=@imagem /></p>
+                @foreach(var etapa in _etapas) {
+                    <p></p>
+                    <p></p>
+                    <p>Etapa @etapa.Key</p>
+                    <p></p>
+                    <p></p>
+                    <p><img src=@ln.ByteArrayParaImagem(etapa.Value.Imagem)/></p>
+                }
             </div>
         </div>
     }
@@ -30,17 +38,16 @@
 </div>
 
 @code {
-    //<img src=@imagem />
     [Parameter]
     public int _cod { get; set; }
     private Movel _movel;
-    //private string imagem { get; set; }
+    private string imagem { get; set; }
     private Dictionary<int,Etapa>? _etapas;
 
     protected override async Task OnInitializedAsync()
     {
         _movel = await ln.GetMovel(_cod);
         _etapas = await ln.GetEtapasMovel(_cod);
-        //imagem = ln.ByteArrayParaImagem(_movel.Imagem);
+        imagem = ln.ByteArrayParaImagem(_movel.Imagem);
     }
 }
