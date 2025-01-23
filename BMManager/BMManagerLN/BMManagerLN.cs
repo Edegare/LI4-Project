@@ -288,9 +288,9 @@ namespace BMManagerLN
 
         public async Task<bool> MontagemTemMaisEtapas(Montagem montagem)
         {
-            Etapa etapa = await subMoveis.GetEtapa(montagem.Etapa);
+            Etapa etapa = await subMoveis.GetEtapaSemImagem(montagem.Etapa);
             Func<Etapa, bool> condicao = e => e.Movel == montagem.Movel & e.Numero == etapa.Numero + 1;
-            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicaoSemImagem(condicao);
             if (etapas.Count > 0)
             {
                 return true;
@@ -319,9 +319,9 @@ namespace BMManagerLN
 
         private async Task<Etapa> GetProximaEtapa(Montagem montagem)
         {
-            Etapa etapa = await subMoveis.GetEtapa(montagem.Etapa);
+            Etapa etapa = await subMoveis.GetEtapaSemImagem(montagem.Etapa);
             Func<Etapa, bool> condicao = e => e.Movel == montagem.Movel & e.Numero == etapa.Numero + 1;
-            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicao(condicao);
+            Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovelCondicaoSemImagem(condicao);
             if (etapas.Count > 0 && etapas.ContainsKey(etapa.Numero + 1))
             {
                 return etapas[etapa.Numero + 1];
