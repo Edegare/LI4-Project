@@ -63,8 +63,7 @@
         Encomenda encomenda = new Encomenda
         {
             Cliente = novaEncomenda.Cliente,
-            Data_Prevista = data,
-            Moveis_Pedidos = moveis
+            Data_Prevista = data
         };
         await ln.PutEncomenda(encomenda);
         foreach ((int id, int quantidade) in moveis){

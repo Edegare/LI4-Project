@@ -16,7 +16,5 @@ namespace BMManagerLN.SubMoveis
 
         [Required(ErrorMessage = "O campo Imagem é obrigatório!")]
         public byte[] Imagem { get; set; }
-        [NotMapped]
-        public Dictionary<int, int> Etapas_Montagem { get; set; } = new Dictionary<int, int>();
     }
 }

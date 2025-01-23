@@ -20,8 +20,5 @@ namespace BMManagerLN.SubMoveis
 
 //        [Required(ErrorMessage = "Tem que selecionar um móvel")]
         public int Movel { get; set; }
-
-        [NotMapped]
-        public List<(int, int)> Materiais_Necessarios { get; set; } = new List<(int, int)>(); //
     }
 }

@@ -168,8 +168,7 @@
                         {
                             Imagem = imagem,
                             Numero = num,
-                            Movel = movel.Numero,
-                            Materiais_Necessarios = materiais,
+                            Movel = movel.Numero
                         };
                 }
                 else{
@@ -178,28 +177,15 @@
                             Imagem = imagem,
                             Numero = num,
                             Movel = movel.Numero,
-                            Materiais_Necessarios = materiais,
                             Proxima_Etapa = proxima_etapa
                         };
                 }
                 await ln.PutEtapa(etapa);
-                movel.Etapas_Montagem.Add(num, etapa.Codigo_Etapa);
-                proxima_etapa = etapa.Codigo_Etapa;
-            }
-
-            // Associa os materiais às etapas
-            foreach (var etapaTemp in movelTemp.NovoMovelEtapas)
-            {
-                int numeroEtapa = etapaTemp.Key;
-                var materiais = etapaTemp.Value.Item3;
-
-                if (movel.Etapas_Montagem.TryGetValue(numeroEtapa, out var codigoEtapa))
+                foreach (var (idMaterial, quantidade) in materiais)
                 {
-                    foreach (var (idMaterial, quantidade) in materiais)
-                    {
-                        await ln.AdicionaMaterialEtapa(idMaterial, quantidade, codigoEtapa);
-                    }
+                    await ln.AdicionaMaterialEtapa(idMaterial, quantidade, etapa.Codigo_Etapa);
                 }
+                proxima_etapa = etapa.Codigo_Etapa;
             }
 
             movelTemp.ResetMovelTemp();
