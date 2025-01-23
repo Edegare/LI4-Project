@@ -28,7 +28,7 @@
                     <p>Etapa @etapa.Key</p>
                     <p></p>
                     <p></p>
-                    <p><img src=@ln.ByteArrayParaImagem(etapa.Value.Imagem)/></p>
+                    <EtapaMontagem Etapa="@etapa.Value" Materiais="@etapaMateriaisQuantidade[etapa.Key]" />
                 }
             </div>
         </div>
