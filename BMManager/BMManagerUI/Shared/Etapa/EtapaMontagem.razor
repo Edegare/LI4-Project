@@ -24,15 +24,17 @@
             }
         </div>
         <div class="MateriaisNecessarios">
-            @if (Materiais == null)
+            @if (_materiais == null)
             {
                 <img src="/imagens/Imagem.png" />
                 <p>A carregar materiais ...</p>
             }
             else
             {
-                foreach ((Material material, int quantidade) in Materiais)
+                foreach (KeyValuePair<Material, int> materialQuantidade in _materiais)
                 {
+                    Material material = materialQuantidade.Key;
+                    int quantidade = materialQuantidade.Value;
                     string imagem = ln.ByteArrayParaImagem(material.Imagem);
                     //<img src="/imagens/Imagem.png" />
                     <div class="Material">
@@ -49,10 +51,10 @@
     [Parameter]
     public Etapa Etapa { get; set; }
     private string? _imagemEtapa = "/imagens/Imagem.png";
-    [Parameter]
-    public List<(Material, int)>? Materiais { get; set; }
+    private Dictionary<Material, int>? _materiais;
     protected override async Task OnInitializedAsync()
     {
+        _materiais = await ln.GetMateriaisEtapa(Etapa.Codigo_Etapa);
         _imagemEtapa = ln.ByteArrayParaImagem(Etapa.Imagem);
     }
 }

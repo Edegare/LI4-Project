@@ -3,7 +3,6 @@
 @using BMManagerLN
 @using BMManagerLN.SubMontagens
 @using BMManagerLN.SubMoveis
-@using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider asp
@@ -19,7 +18,7 @@
     {
         <div class="Etapa">
             <div class="ImagemEtapaMontagem">
-                <EtapaMontagem Etapa="@_etapa" Materiais="_materiais_quantidade" />
+                <EtapaMontagem Etapa="@_etapa" />
             </div>
             <div class="Botoes">
                 <Botao Nome="Sair" Metodo="SairMontagem" /> <!-- Alterar para confirmação -->
@@ -37,7 +36,6 @@
     private Etapa? _etapa;
     private DateTime _dataInicio;
     private int _codFucionario;
-    private List<(Material, int)> _materiais_quantidade;
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,7 +47,6 @@
         }
         _etapa = await ln.GetEtapa(_montagem.Etapa);
         _dataInicio = DateTime.Now;
-        _materiais_quantidade = await ln.GetMateriaisEtapaLista(_etapa.Codigo_Etapa);
     }
 
     private async void TerminarEtapa()
