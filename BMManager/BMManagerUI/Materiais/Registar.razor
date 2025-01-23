@@ -10,14 +10,18 @@
 <div class="InformacoesRegisto">
     <EditForm Model="@novoMaterial" OnValidSubmit="@RegistarMaterial" FormName="registarMaterial">
         <DataAnnotationsValidator />
-        <ValidationSummary />
         <div class = "linha">
             <h4>Nome</h4>
             <InputText id="nome" @bind-Value="@novoMaterial.Nome" />
+            <ValidationMessage For="()=> novoMaterial.Nome" id="validacaoNome" />
         </div>
-        <div  class = "linha">
+        <div class="linha">
             <h4>Imagem</h4>
             <InputFile id="imagem" OnChange="@UploadImagem" @bind-Value="@imagem" />
+            @foreach (var mensagem in _contexto.GetValidationMessages())
+            {
+                <p>@mensagem</p>
+            }
         </div>
         @if (!string.IsNullOrEmpty(imagem))
         {
@@ -27,7 +31,6 @@
         }
         else
         {
-            <p>Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp</p>
             <img src="/imagens/Imagem.png" alt="Imagem" />
         }
         <div class = "esp">
@@ -40,10 +43,19 @@
 </div>
 
 @code {
-    private string imagem;
+    private string imagem = "";
+    private EditContext _contexto;
+    private ValidationMessageStore _mensagens;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _contexto = new EditContext(imagem);
+        _mensagens = new ValidationMessageStore(_contexto);
+    }
 
     private async Task UploadImagem(InputFileChangeEventArgs e)
     {
+        _mensagens.Clear(() => imagem);
         var ficheiro = e.File;
         if (ficheiro != null && (ficheiro.ContentType == "image/jpeg" || ficheiro.ContentType == "image/png" || ficheiro.ContentType == "image/gif" || ficheiro.ContentType == "image/bmp" || ficheiro.ContentType == "image/webp"))
         {
@@ -56,7 +68,10 @@
         else{
             imagem = null;
             novoMaterial.Imagem = null;
+            _mensagens.Add(() => imagem, "Selecione uma imagem válida, formatos suportados: jpeg, png, gif, bmp, webp");
         }
+        _contexto.NotifyValidationStateChanged();
+        StateHasChanged();
     }
 
     private Material novoMaterial = new Material();
