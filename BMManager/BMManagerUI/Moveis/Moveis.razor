@@ -19,6 +19,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _moveis = await ln.GetMoveis(); //trocar para método da lógica de negócio
+        _moveis = await ln.GetMoveisSemImagens();
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
+using BMManagerLN.SubMoveis;
 
 namespace BMManagerLN.SubMateriais
 {
@@ -16,6 +17,16 @@ namespace BMManagerLN.SubMateriais
         public async Task<List<Material>> GetMateriais()
         {
             return await _context.Material.ToListAsync();
+        }
+
+        public async Task<List<Material>> GetMateriaisSemImagens()
+        {
+            return await _context.Material.Select(m => new Material
+                                                {
+                                                   Numero = m.Numero,
+                                                   Nome = m.Nome,
+                                                   Quantidade = m.Quantidade
+                                                }).ToListAsync();
         }
 
         public async Task<Material> GetMaterial(int codMaterial)

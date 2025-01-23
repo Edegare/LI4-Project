@@ -35,8 +35,9 @@
     {
         _montagens = await ln.GetMontagens();
         _montagens = _montagens.OrderBy(f => ln.OrdenarEstado(f.Estado)).ToList();
-        _etapas = await ln.GetEtapas();
-        foreach (Montagem montagem in _montagens) {
+        _etapas = await ln.GetEtapasSemImagens();
+        foreach (Montagem montagem in _montagens)
+        {
             if (!f3.ContainsKey(montagem))
             {
                 f3[montagem] = new Dictionary<string, bool>();

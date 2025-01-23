@@ -348,6 +348,11 @@ namespace BMManagerLN
             return subMoveis.GetMoveis();
         }
 
+        public Task<List<Movel>> GetMoveisSemImagens()
+        {
+            return subMoveis.GetMoveisSemImagens();
+        }
+
         public Task<List<Encomenda_Precisa_Movel>> GetEncomendaPrecisaMovel() {
             return subMoveis.GetEncomendaPrecisaMovel();
         }
@@ -371,6 +376,11 @@ namespace BMManagerLN
         {
             return subMoveis.GetEtapas();
         }
+        public Task<List<Etapa>> GetEtapasSemImagens()
+        {
+            return subMoveis.GetEtapasSemImagens();
+        }
+
         public Task<Etapa> GetEtapa(int codEtapa)
         {
             return subMoveis.GetEtapa(codEtapa);
@@ -425,6 +435,11 @@ namespace BMManagerLN
         public Task<List<Material>> GetMateriais()
         {
             return subMateriais.GetMateriais();
+        }
+
+        public Task<List<Material>> GetMateriaisSemImagens()
+        {
+            return subMateriais.GetMateriaisSemImagens();
         }
 
         public Task<Material> GetMaterial(int codMaterial)

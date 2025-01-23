@@ -20,7 +20,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _materiais = await ln.GetMateriais();
+        _materiais = await ln.GetMateriaisSemImagens();
         _materiais = _materiais.OrderBy(f => f.Quantidade).ToList();
     }
 }

@@ -18,6 +18,16 @@ namespace BMManagerLN.SubMoveis
             return await _context.Movel.ToListAsync();
         }
 
+        public async Task<List<Movel>> GetMoveisSemImagens()
+        {
+            return await _context.Movel.Select(m => new Movel
+                                            {
+                                                Numero = m.Numero,
+                                                Nome = m.Nome,
+                                                Quantidade = m.Quantidade
+                                            }).ToListAsync();
+        }
+
         public async Task<List<Encomenda_Precisa_Movel>> GetEncomendaPrecisaMovel() {
             return await _context.Encomenda_Precisa_Movel.ToListAsync();
         }
@@ -40,6 +50,17 @@ namespace BMManagerLN.SubMoveis
         public async Task<List<Etapa>> GetEtapas()
         {
             return await _context.Etapa.ToListAsync();
+        }
+
+        public async Task<List<Etapa>> GetEtapasSemImagens()
+        {
+            return await _context.Etapa.Select(e => new Etapa
+                                            {
+                                                Codigo_Etapa = e.Codigo_Etapa,
+                                                Numero = e.Numero,
+                                                Proxima_Etapa = e.Proxima_Etapa,
+                                                Movel = e.Movel
+                                            }).ToListAsync();
         }
 
         public async Task<Etapa> GetEtapa(int codEtapa)
