@@ -31,10 +31,8 @@
             }
             else
             {
-                foreach (KeyValuePair<Material, int> materialQuantidade in Materiais)
+                foreach ((Material material, int quantidade) in Materiais)
                 {
-                    Material material = materialQuantidade.Key;
-                    int quantidade = materialQuantidade.Value;
                     string imagem = ln.ByteArrayParaImagem(material.Imagem);
                     //<img src="/imagens/Imagem.png" />
                     <div class="Material">
@@ -52,7 +50,7 @@
     public Etapa Etapa { get; set; }
     private string? _imagemEtapa = "/imagens/Imagem.png";
     [Parameter]
-    public Dictionary<Material, int>? Materiais { get; set; }
+    public List<(Material, int)>? Materiais { get; set; }
     protected override async Task OnInitializedAsync()
     {
         _imagemEtapa = ln.ByteArrayParaImagem(Etapa.Imagem);
