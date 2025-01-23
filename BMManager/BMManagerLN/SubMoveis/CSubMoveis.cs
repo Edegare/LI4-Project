@@ -82,13 +82,13 @@ namespace BMManagerLN.SubMoveis
 
         public async Task<Etapa> GetEtapaSemImagem(int codEtapa)
         {
-            return await _context.Etapa.Where(m => m.Numero == codEtapa).Select(e => new Etapa
-            {
-                                                                                Codigo_Etapa = e.Codigo_Etapa,
-                                                                                Numero = e.Numero,
-                                                                                Proxima_Etapa = e.Proxima_Etapa,
-                                                                                Movel = e.Movel
-                                                                            }).FirstOrDefaultAsync() ?? new Etapa();
+            return await _context.Etapa.Where(e => e.Codigo_Etapa == codEtapa).Select(e => new Etapa
+                                                                                    {
+                                                                                        Codigo_Etapa = e.Codigo_Etapa,
+                                                                                        Numero = e.Numero,
+                                                                                        Proxima_Etapa = e.Proxima_Etapa,
+                                                                                        Movel = e.Movel
+                                                                                    }).FirstOrDefaultAsync() ?? new Etapa();
         }
 
         public async Task<Dictionary<int,Etapa>> GetEtapasMovel(int codMovel)
