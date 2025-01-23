@@ -1,0 +1,36 @@
+﻿body {
+}
+
+.InformacoesRegisto {
+}
+
+.esp {
+    height: 50vh; /* Define a altura máxima como 100% da altura da janela de visualização */
+}
+
+h4 {
+    font-weight: bold;
+}
+
+.Botoes {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20000px;
+    bottom: 0; /* Posiciona os botões no final da página */
+    width: 100%; /* Faz os botões ocuparem toda a largura */
+    margin: 0; /* Remove qualquer margem que atrapalhe */
+    padding: 10px; /* Ajuste de espaçamento, opcional */
+}
+
+.linha {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.linha h4 {
+    width: 140px; /* Define uma largura fixa para o primeiro elemento */
+    margin: 0; /* Remove a margem padrão do <h4> */
+}

@@ -10,21 +10,21 @@
     <h4> Wait </h4>
 }
 else {
-    <div class="InformacoesRegisto">
-        <div class = "linha">
-            <h4>Número</h4> 
-            <div class = "inf">@material.Numero</div>
-            <h4>Nome</h4>
-            <div class = "inf">@material.Nome</div>
+    <div class="Visualizar">
+        <div class="Montagem">
+            <div class = "Informacoes">
+                <p>Número<span>@material.Numero</span></p>
+                <p>Nome<span>@material.Nome</span></p>
+                <p>Quantidade<span>@material.Quantidade</span></p>
+            </div>
         </div>
-        <div class = "linha">
-            <h4>Quantidade</h4>
-            <div class = "inf">@material.Quantidade</div>
-        </div>
+
         <div>
             <img src=@imagem />
         </div>
+        <div class = "esp"> </div>
         <div class="Botoes">
+            <div> </div>
             <Botao Nome="Voltar" Url="materiais" />
         </div>
     </div>
