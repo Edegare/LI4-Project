@@ -35,6 +35,26 @@
                                     var r = $"{@etapa}/{@n_etapas}";
                                     <td>@r</td>
                                 }
+                                else if (value is TimeSpan)
+                                {
+                                    TimeSpan tempo = (TimeSpan) value;
+                                    if (tempo.TotalMinutes > 60)
+                                    {
+                                        <td>@(tempo.ToString("%h\\h\\ %m\\m") ?? "-")</td>
+                                    }
+                                    else if (tempo.TotalSeconds > 60)
+                                    {
+                                        <td>@(tempo.ToString("mm\\m\\ ss\\s") ?? "-")</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@(tempo.ToString("ss\\s") ?? "-")</td>
+                                    }
+                                }
+                                else if (value is DateTime)
+                                {
+                                    <td>@(((DateTime)value).ToString("HH\\h:mm dd/MM/yyyy") ?? "-")</td>
+                                }
                                 else {
                                     <td>@(value ?? "-")</td>
                                 }
