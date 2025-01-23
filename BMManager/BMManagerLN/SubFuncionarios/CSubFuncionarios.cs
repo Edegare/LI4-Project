@@ -60,6 +60,7 @@ namespace BMManagerLN.SubFuncionarios
                         Funcionario = codFuncionario
                     };
                 await _context.Funcionario_Participa_Montagem.AddAsync(fpm);
+                await _context.SaveChangesAsync();
             }
         }
 
