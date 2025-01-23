@@ -16,6 +16,10 @@
     position: relative;
 }
 
+    .validacaoNome {
+        padding-left: 10px;
+    }
+
     .linha p:nth-child(3) {
         position: absolute;
         top: 160%;

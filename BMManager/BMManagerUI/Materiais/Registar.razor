@@ -13,7 +13,9 @@
         <div class = "linha">
             <h4>Nome</h4>
             <InputText id="nome" @bind-Value="@novoMaterial.Nome" />
-            <ValidationMessage For="()=> novoMaterial.Nome" id="validacaoNome" />
+            <div class="validacaoNome">
+                <ValidationMessage For="()=> novoMaterial.Nome" id="validacaoNome" />
+            </div>
         </div>
         <div class="linha">
             <h4>Imagem</h4>
