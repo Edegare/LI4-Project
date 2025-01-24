@@ -165,5 +165,20 @@ namespace BMManagerLN.SubMoveis
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task IncrementarQuantidadeMovel(int codMovel) {
+
+            var movel = await _context.Movel
+                               .FirstOrDefaultAsync(m => m.Numero == codMovel);
+
+            if (movel == null)
+            {
+                throw new ArgumentException("Móvel não encontrado");
+            }
+
+            movel.Quantidade++;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

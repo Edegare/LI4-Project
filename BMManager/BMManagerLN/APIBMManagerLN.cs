@@ -53,6 +53,7 @@ namespace BMManagerLN
         Task<Dictionary<Movel,int>> GetMoveisEncomenda(int codEncomenda);
         Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda);
         Task<Dictionary<Movel, int>> GetMoveisQueFaltamEncomenda(int codEncomenda);
+        Task IncrementarQuantidadeMovel(int codMovel);
 
 
         //Métodos SubMateriais

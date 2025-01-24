@@ -450,6 +450,10 @@ namespace BMManagerLN
             return subMoveis.AdicionaMovelEncomenda(codMovel, quantidade, codEncomenda);
         }
 
+        public Task IncrementarQuantidadeMovel(int codMovel) {
+            return subMoveis.IncrementarQuantidadeMovel(codMovel);
+        }
+
         //Métodos SubMateriais
         public Task<List<Material>> GetMateriais()
         {
