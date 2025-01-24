@@ -9,6 +9,11 @@
     margin-bottom: 16px;
 }
 
+.imagemEtapaDeMontagem {
+    height: 400px;
+    width: 500px;
+}
+
 .Informacoes {
     width: 100%;
     display: grid;

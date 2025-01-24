@@ -25,9 +25,9 @@
             </div>
             @foreach(var etapa in _etapas) {
                 <p>Etapa @etapa.Key</p>
-                <p>
+                <div class="imagemEtapaDeMontagem">
                     <EtapaMontagem Etapa="@etapa.Value" _imagemEtapa="@ln.ByteArrayParaImagem(@etapa.Value.Imagem)" _materiais="@etapaMateriaisQuantidade[@etapa.Key]"/>
-                </p>
+                </div>
             }
         </div>
     }
