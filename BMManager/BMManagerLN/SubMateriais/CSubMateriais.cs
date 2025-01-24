@@ -53,16 +53,16 @@ namespace BMManagerLN.SubMateriais
         public async Task<Dictionary<Material, int>> GetMateriaisEtapa(int codEtapa)
         {
             List<Etapa_Precisa_Material> etapasMateriaisQuantidades = await _context.Etapa_Precisa_Material.Where(epm => epm.Etapa == codEtapa).ToListAsync();
-            return await MateriaisQuantidades(etapasMateriaisQuantidades);
+            return await MateriaisQuantidades(etapasMateriaisQuantidades, true);
         }
 
         public async Task<Dictionary<Material, int>> GetMateriaisEtapas(int[] codEtapas)
         {
             List<Etapa_Precisa_Material> etapasMateriaisQuantidades = await _context.Etapa_Precisa_Material.Where(epm => codEtapas.Contains(epm.Etapa)).ToListAsync();
-            return await MateriaisQuantidades(etapasMateriaisQuantidades);
+            return await MateriaisQuantidades(etapasMateriaisQuantidades, false);
         }
 
-        private async Task<Dictionary<Material, int>> MateriaisQuantidades(List<Etapa_Precisa_Material> etapasMateriaisQuantidades)
+        private async Task<Dictionary<Material, int>> MateriaisQuantidades(List<Etapa_Precisa_Material> etapasMateriaisQuantidades, bool imagem)
         {
             Dictionary<int, Material> materiaisExistentes = new Dictionary<int, Material>();
             Dictionary<Material, int> materiais = new Dictionary<Material, int>();
@@ -71,7 +71,14 @@ namespace BMManagerLN.SubMateriais
                 Material material;
                 if (!materiaisExistentes.ContainsKey(epm.Material))
                 {
-                    material = await GetMaterialSemImagem(epm.Material);
+                    if (!imagem)
+                    {
+                        material = await GetMaterialSemImagem(epm.Material);
+                    }
+                    else
+                    {
+                        material = await GetMaterial(epm.Material);
+                    }
                     materiaisExistentes[epm.Material] = material;
                     materiais[material] = 0;
                 }

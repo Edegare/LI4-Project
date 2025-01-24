@@ -113,12 +113,21 @@ namespace BMManagerLN
             Movel movel = await subMoveis.GetMovel(codMovel);
 
             Dictionary<int, Etapa> etapas = await subMoveis.GetEtapasMovel(codMovel);
+            Dictionary<Material, int> materiaisGastos = new Dictionary<Material, int>();
             bool materiaisSuficientes = true;
             int etapaComMateriais = 0;
             for (int i = 1; i <= etapas.Count && materiaisSuficientes; i++)
             {
                 Dictionary<Material, int> materiasEtapa = await subMateriais.GetMateriaisEtapa(etapas[i].Codigo_Etapa);
-                materiaisSuficientes = MateriaisSuficientes(materiasEtapa);
+                foreach (KeyValuePair<Material, int> materialQuantidade in materiasEtapa)
+                {
+                    if (!materiaisGastos.ContainsKey(materialQuantidade.Key))
+                    {
+                        materiaisGastos[materialQuantidade.Key] = 0;
+                    }
+                    materiaisGastos[materialQuantidade.Key] += materialQuantidade.Value;
+                }
+                materiaisSuficientes = MateriaisSuficientes(materiaisGastos);
                 if (materiaisSuficientes)
                 {
                     etapaComMateriais++;
