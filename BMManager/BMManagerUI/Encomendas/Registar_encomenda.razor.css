@@ -8,11 +8,11 @@
     width: 100%;
     display: grid;
     grid-template-columns: auto auto;
-    margin: 5px 0; /* Adiciona espaço entre os parágrafos */
+
 }
 
 .esp {
-    height: 30vh; /* Define a altura máxima como 100% da altura da janela de visualização */
+    height: 20vh; /* Define a altura máxima como 100% da altura da janela de visualização */
 }
 
 .Botoes {
@@ -20,6 +20,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20000px;
+    margin-top:0;
     bottom: 0; /* Posiciona os botões no final da página */
     width: 100%; /* Faz os botões ocuparem toda a largura */
     margin: 0; /* Remove qualquer margem que atrapalhe */
@@ -29,15 +30,23 @@
 .linha {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
     margin-top: 20px;
 }
 
 .linha h4 {
-    width: 170px; /* Define uma largura fixa para o primeiro elemento */
+    width: 100px; /* Define uma largura fixa para o primeiro elemento */
     margin: 0; /* Remove a margem padrão do <h4> */
 }
 
 .linha InputText {
     flex: 1; /* Permite que o campo de entrada se ajuste ao restante do espaço */
+}
+
+.Validation {
+    min-height: 25px;
+    font-size: 15px;
+    color: red;
+    display: flex;
+    align-items: center;
+    padding-left: 100px;
 }

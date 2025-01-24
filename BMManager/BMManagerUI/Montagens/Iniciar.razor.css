@@ -24,6 +24,7 @@
 
         .InformacoesIniciar .linha p {
             color: red;
+            margin-left: 90px;
         }
 
             .InformacoesIniciar .linha p:nth-child(2) {

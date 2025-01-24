@@ -35,7 +35,7 @@ namespace BMManagerLN.SubMoveis
 
         public async Task<Movel> GetMovel(int codMovel)
         {
-            return await _context.Movel.FindAsync(codMovel) ?? new Movel();
+            return await _context.Movel.FindAsync(codMovel);
         }
 
         public async Task<Movel> GetMovelSemImagem(int codMovel)

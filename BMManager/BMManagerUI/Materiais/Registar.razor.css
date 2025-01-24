@@ -12,18 +12,24 @@
     color: red;
 }
 
+.linha-erro {
+    display: flex;
+    flex-direction:column;
+}
+
 .linha {
     position: relative;
 }
 
-    .validacaoNome {
-        padding-left: 10px;
-    }
+.validacaoNome {
+    min-height: 25px;
+    font-size: 15px;
+    color: red;
+    display: flex;
+    align-items: flex-start;
+    padding-left: 100px;
+}
 
-    .linha p:nth-child(3) {
-        position: absolute;
-        top: 160%;
-    }
 
 h4 {
     font-weight: bold;
@@ -54,4 +60,7 @@ h4 {
 
 .linha InputText {
     flex: 1; /* Permite que o campo de entrada se ajuste ao restante do espaço */
+}
+
+img {
 }

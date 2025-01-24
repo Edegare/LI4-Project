@@ -10,20 +10,27 @@
 <div class="InformacoesRegisto">
     <EditForm Model="@novoMaterial" OnValidSubmit="@RegistarMaterial" FormName="registarMaterial">
         <DataAnnotationsValidator />
-        <div class = "linha">
-            <h4>Nome</h4>
-            <InputText id="nome" @bind-Value="@novoMaterial.Nome" />
+        <div class="linha-erro">
+            <div class="linha">
+                <h4>Nome</h4>
+                <InputText id="nome" @bind-Value="@novoMaterial.Nome" />
+            </div>
             <div class="validacaoNome">
                 <ValidationMessage For="()=> novoMaterial.Nome" id="validacaoNome" />
             </div>
         </div>
-        <div class="linha">
-            <h4>Imagem</h4>
-            <InputFile id="imagem" OnChange="@UploadImagem" @bind-Value="@imagem" />
-            @foreach (var mensagem in _contexto.GetValidationMessages())
-            {
-                <p>@mensagem</p>
-            }
+        <div class="linha-erro">
+            <div class="linha">
+                <h4>Imagem</h4>
+                <InputFile id="imagem" OnChange="@UploadImagem" @bind-Value="@imagem" />
+            </div>
+            <div class="validacaoNome">
+                @foreach (var mensagem in _contexto.GetValidationMessages())
+                {
+                    <p>@mensagem</p>
+                }
+                <ValidationMessage For="()=> novoMaterial.Imagem" id="validacaoImagem" />
+            </div>
         </div>
         @if (!string.IsNullOrEmpty(imagem))
         {

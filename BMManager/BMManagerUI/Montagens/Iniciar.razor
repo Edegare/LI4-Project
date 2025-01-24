@@ -76,13 +76,13 @@
     {
         if (_codMovel <= 0)
         {
-            _mensagens.Add(() => _codMovel, "O código deve ser um código válido");
+            _mensagens.Add(() => _codMovel, "O código deve ser válido!");
         }
         else
         {
             if (!ln.MovelExiste(_codMovel))
             {
-                _mensagens.Add(() => _codMovel, "O móvel não existe");
+                _mensagens.Add(() => _codMovel, $"O móvel com código {_codMovel} não existe!");
             }
             else
             {
@@ -92,12 +92,12 @@
                 _mensagens.Clear();
                 if (etapasComMateriais == 0)
                 {
-                    _mensagens.Add(() => _codMovel, "Não existem materiais suficientes para iniciar a montagem");
+                    _mensagens.Add(() => _codMovel, "Não existem materiais suficientes para iniciar a montagem!");
                 }
                 else if (etapasComMateriais < totalEtapas)
                 {
-                    _mensagens.Add(() => _codMovel, "Não existem materiais suficientes para todas as etapas");
-                    _mensagens.Add(() => _codMovel, $"Existem materiais suficientes para {etapasComMateriais} / {totalEtapas} etapas");
+                    _mensagens.Add(() => _codMovel, "Não existem materiais suficientes para todas as etapas!");
+                    _mensagens.Add(() => _codMovel, $"Existem materiais suficientes para {etapasComMateriais} / {totalEtapas} etapas!");
                     _mostrarConfirmacao = true;
                     StateHasChanged();
                 }
