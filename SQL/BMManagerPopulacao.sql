@@ -41,7 +41,7 @@ INSERT INTO Funcionario
 			'Armazem',
 			1),
            ('João Feio',
-			'nome6@bmmanager.pt',
+			'6@bmmanager.pt',
 			'960000000',
 			'senha6',
 			'Recursos_Humanos',
