@@ -50,14 +50,18 @@ INSERT INTO Funcionario
 -- Móveis
 INSERT INTO Movel (Nome, Quantidade, Imagem) -- Na imagem metam o vosso caminho
 	VALUES
-	('Estante Branco 42X41', 5, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKallaxBranco42x41Modelo.png', SINGLE_BLOB) AS Imagem)),
-	('Estante Branco 77X41', 5, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Modelo.png', SINGLE_BLOB) AS Imagem));
+	('Estante Branca 42x41x39', 5, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKallaxBranco42x41Modelo.png', SINGLE_BLOB) AS Imagem)),
+	('Estante Branca 77x41x39', 5, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Modelo.png', SINGLE_BLOB) AS Imagem));
 
 -- Materiais
 INSERT INTO Material (Nome, Quantidade, Imagem)
 	VALUES
 	('Parafuso 10cm Metal', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\Parafuso10cm.png', SINGLE_BLOB) AS Imagem)),
-	('Pino 5cm Metal', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\Pino5cm.png', SINGLE_BLOB) AS Imagem));
+	('Pino 5cm Metal', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\Pino5cm.png', SINGLE_BLOB) AS Imagem)),
+	('Placa de Madeira 34x39x4 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\vermelho.png', SINGLE_BLOB) AS Imagem)),
+	('Placa de Madeira 34x39x2 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\verde.png', SINGLE_BLOB) AS Imagem)),
+	('Placa de Madeira 77x39x4 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\azul.png', SINGLE_BLOB) AS Imagem)),
+	('Placa de Madeira 42x39x4 branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\rosa.png', SINGLE_BLOB) AS Imagem));
 
 -- Encomendas
 INSERT INTO Encomenda (Cliente, Data_Prevista, Data_Real, Concluida)
@@ -93,14 +97,23 @@ INSERT INTO Encomenda_Precisa_Movel (Encomenda, Movel, Quantidade)
 INSERT INTO Etapa_Precisa_Material (Etapa, Material, Quantidade)
 	VALUES
 	(1, 1, 2), -- Etapa 1 da Estante única precisa de 2 unidades de Parafuso 10cm
+	(1, 6, 1),
+	(1, 3, 1),
 	(2, 1, 2), -- Etapa 2 de Estante única precisa de 2 unidades de Parafuso 10cm
+	(2, 3, 1),
 	(3, 1, 4), -- Etapa 3 de Estante única precisa de 4 unidades de Parafuso 10cm
+	(3, 6, 1),
 
-	(4, 1, 2), -- Etapa 1 da Estante dupla precisa de 2 unidades de Parafuso 10cm
+	(4, 1, 2),-- Etapa 1 da Estante dupla precisa de 2 unidades de Parafuso 10cm
+	(4, 5, 1),
+	(4, 3, 1),
 	(5, 2, 2), -- Etapa 2 da Estante dupla precisa de 2 unidades de Pino5cm
+	(5, 4, 1),
 	(6, 1, 2),
+	(6, 3, 1),
 	(7, 2, 2),
-	(8, 1, 4);
+	(8, 1, 4),
+	(8, 5, 1);
 
 -- Montagens
 INSERT INTO Montagem (Data_Inicial, Data_Final, Estado, Movel, Etapa, Encomenda)
