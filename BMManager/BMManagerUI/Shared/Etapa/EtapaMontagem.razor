@@ -50,11 +50,8 @@
 @code {
     [Parameter]
     public Etapa Etapa { get; set; }
-    private string? _imagemEtapa = "/imagens/Imagem.png";
-    private Dictionary<Material, int>? _materiais;
-    protected override async Task OnInitializedAsync()
-    {
-        _materiais = await ln.GetMateriaisEtapa(Etapa.Codigo_Etapa);
-        _imagemEtapa = ln.ByteArrayParaImagem(Etapa.Imagem);
-    }
+    [Parameter]
+    public string? _imagemEtapa {get;set;}
+    [Parameter]
+    public Dictionary<Material, int>? _materiais {get;set;}
 }

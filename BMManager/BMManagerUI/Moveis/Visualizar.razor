@@ -2,6 +2,7 @@
 @using BMManagerLN
 @using BMManagerLN.SubMontagens
 @using BMManagerLN.SubMoveis
+@using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Administracao,Montagem,Armazem,Recursos_Humanos")]
@@ -21,15 +22,13 @@
                 <p>Nome<span>@_movel.Nome</span></p>
                 <p>Quantidade<span>@_movel.Quantidade</span></p>
                 <p><img src=@imagem /></p>
-                @foreach(var etapa in _etapas) {
-                    <p></p>
-                    <p></p>
-                    <p>Etapa @etapa.Key</p>
-                    <p></p>
-                    <p></p>
-                    <p><img src=@ln.ByteArrayParaImagem(etapa.Value.Imagem)/></p>
-                }
             </div>
+            @foreach(var etapa in _etapas) {
+                <p>Etapa @etapa.Key</p>
+                <p>
+                    <EtapaMontagem Etapa="@etapa.Value" _imagemEtapa="@ln.ByteArrayParaImagem(@etapa.Value.Imagem)" _materiais="@etapaMateriaisQuantidade[@etapa.Key]"/>
+                </p>
+            }
         </div>
     }
     <div class="Botao">
@@ -43,11 +42,16 @@
     private Movel _movel;
     private string imagem { get; set; }
     private Dictionary<int,Etapa>? _etapas;
+    private Dictionary<int, Dictionary<Material, int>?> etapaMateriaisQuantidade = new Dictionary<int, Dictionary<Material, int>?>();
 
     protected override async Task OnInitializedAsync()
     {
         _movel = await ln.GetMovel(_cod);
         _etapas = await ln.GetEtapasMovel(_cod);
         imagem = ln.ByteArrayParaImagem(_movel.Imagem);
+        foreach (Etapa etapa in _etapas.Values)
+        {
+            etapaMateriaisQuantidade[etapa.Numero] = await ln.GetMateriaisEtapa(etapa.Codigo_Etapa);
+        }
     }
 }
