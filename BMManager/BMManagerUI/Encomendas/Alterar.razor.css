@@ -1,3 +1,18 @@
 ﻿.Montagens p{
     color:red;
 }
+
+.esp {
+    height: 50vh; /* Define a altura máxima como 100% da altura da janela de visualização */
+}
+
+.Botoes {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20000px;
+    bottom: 0; /* Posiciona os botões no final da página */
+    width: 100%; /* Faz os botões ocuparem toda a largura */
+    margin: 0; /* Remove qualquer margem que atrapalhe */
+    padding: 10px; /* Ajuste de espaçamento, opcional */
+}
