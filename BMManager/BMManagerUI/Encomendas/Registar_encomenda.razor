@@ -13,26 +13,39 @@
 <div class="InformacoesRegisto">
     <EditForm Model="@novaEncomenda" OnValidSubmit="@RegistarEncomenda">
         <DataAnnotationsValidator />
-        <ValidationSummary />
         <div class="corpo">
-            <div class="linha">
-                <h4>Cliente</h4>
-                <InputText id="cliente" @bind-Value="@novaEncomenda.Cliente" />
+            <div>
+                <div class="linha">
+                    <h4>Cliente</h4>
+                    <InputText id="cliente" @bind-Value="@novaEncomenda.Cliente" />
+                </div>
+                <div class="Validation">
+                    <ValidationMessage For="()=> novaEncomenda.Cliente" id="validacaoCliente" />
+                </div>
             </div>
-            <div class = "linha">
-                <h4>Data Prevista</h4>
-                <InputDate id="data" @bind-Value="@data" />
+            <div>
+                <div class="linha">
+                    <h4>Data Prevista</h4>
+                    <InputDate id="data" @bind-Value="@data" />
+                </div>
+                <div class="Validation">
+                    <ValidationMessage For="()=> novaEncomenda.Data_Prevista" id="validacaoData" />
+                </div>
             </div>
-            <div class = "linha">
-                <h4>Móveis</h4>
-                <InputNumber id="id" @bind-Value="@novoMovelId" min="0"/>
-                <InputNumber id="quantidade" @bind-Value="@novoMovelQuantidade" min="0" />
-                <button type="button" @onclick="AdicionarMovel">Adicionar</button>
+            <div class="linha-moveis">
+                <div class="linha">
+                    <h4>Móveis</h4>
+                    <InputNumber id="id" @bind-Value="@novoMovelId" min="0" />
+                    <InputNumber id="quantidade" @bind-Value="@novoMovelQuantidade" min="0" />
+                    <button type="button" @onclick="AdicionarMovel">Adicionar</button>
+                </div>
+                <div class="Validation">
+                    @if (!string.IsNullOrEmpty(erro))
+                    {
+                        <p>@erro</p>
+                    }
+                </div>
             </div>
-            @if (!string.IsNullOrEmpty(erro))
-            {
-                <p>@erro</p>
-            }
             <div>
                 <ul>
                     @for(int i = 0; i<@moveis.Count; i++){
@@ -57,9 +70,19 @@
     private List<(int, int)> moveis = new List<(int, int)>();
     private List<string> nomesMoveis = new List<string>();
     private string erro = "";
+    private string erroRegisto = "";
     private DateOnly data = DateOnly.FromDateTime(DateTime.Today);
+
     private async Task RegistarEncomenda()
     {
+        erro = "";
+        erroRegisto = "";
+
+        if (!moveis.Any())
+        {
+            erro = "A lista de móveis não pode estar vazia.";
+            return;
+        }
         Encomenda encomenda = new Encomenda
         {
             Cliente = novaEncomenda.Cliente,
@@ -74,22 +97,40 @@
 
         NavigationManager.NavigateTo("/encomendas");
     }
-    private int novoMovelId;
-    private int novoMovelQuantidade;
-    private Movel movel;
+    private int novoMovelId = 0;
+    private int novoMovelQuantidade = 0;
+    private Movel? movel;
 
     private async Task AdicionarMovel()
     {
+        erro = "";
+
+        if (novoMovelId == 0 || novoMovelQuantidade == 0) {
+            erro = "Por favor, insira valores positivos!";
+            return;
+        }
+
         movel = await ln.GetMovel(novoMovelId);
         if(movel!=null){
-            moveis.Add((novoMovelId, novoMovelQuantidade));
+            var movelExistente = moveis.FirstOrDefault(m => m.Item1 == novoMovelId);
+
+            if (movelExistente != default)
+            {
+
+                var index = moveis.IndexOf(movelExistente);
+                moveis[index] = (novoMovelId, movelExistente.Item2 + novoMovelQuantidade);
+            }
+            else
+            {
+
+                moveis.Add((novoMovelId, novoMovelQuantidade));
+            }
             nomesMoveis.Add(movel.Nome);
             novoMovelId = 0;
             novoMovelQuantidade = 0;
-            erro = ""; 
         }
         else{
-            erro = "Móvel não existe";
+            erro = $"Móvel com ID {novoMovelId} não existe!";
             novoMovelId = 0;
             novoMovelQuantidade = 0;
         }

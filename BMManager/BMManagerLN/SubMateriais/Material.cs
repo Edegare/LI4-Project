@@ -7,13 +7,13 @@ namespace BMManagerLN.SubMateriais
         [Key]
         public int Numero { get; set; }
 
-        [Required(ErrorMessage = "Tem que selecionar um nome")]
+        [Required(ErrorMessage = "O campo Nome é obrigatório!")]
         [StringLength(75, ErrorMessage = "Nome tem mais de 75 caracteres")]
         public String Nome { get; set; }
 
         public int Quantidade { get; set; } = 0;
 
-        [Required(ErrorMessage = "Tem que selecionar uma imagem")]
-        public byte[] Imagem { get; set; } = new byte[8294400];
+        [Required(ErrorMessage = "O campo Imagem é obrigatório!")]
+        public byte[]? Imagem { get; set; } = null;
     }
 }
