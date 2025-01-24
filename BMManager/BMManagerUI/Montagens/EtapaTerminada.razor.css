@@ -23,6 +23,16 @@
                 font-size: 5rem;
             }
 
+            .MontagemDeEtapa .Etapa .EtapaTerminada p {
+                position: absolute;
+                top: 160%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 2rem;
+                color: red;
+                text-align: center;
+            }
+
         .MontagemDeEtapa .Etapa .Botoes {
             display: flex;
             justify-content: space-between;
