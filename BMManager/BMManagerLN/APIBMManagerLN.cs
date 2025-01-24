@@ -52,7 +52,8 @@ namespace BMManagerLN
         Task<Dictionary<Movel, int>> GetMoveisEncomenda(int codEncomenda); // Obtém os móveis associados a uma encomenda.
         Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda); // Adiciona um móvel a uma encomenda.
         Task<Dictionary<Movel, int>> GetMoveisQueFaltamEncomenda(int codEncomenda); // Obtém os móveis que ainda faltam em uma encomenda.
-
+        Task IncrementarQuantidadeMovel(int codMovel); // Incrementa a quantidade disponível de um móvel
+      
         // Métodos SubMateriais
         Task<List<Material>> GetMateriais(); // Obtém a lista de todos os materiais.
         Task<List<Material>> GetMateriaisSemImagens(); // Obtém a lista de materiais sem carregar imagens.

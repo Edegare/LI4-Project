@@ -20,19 +20,26 @@ else {
                 <p>Encomenda @Id</p>
                 <p>Montagens adicionadas @adicionar.Count</p>
             </div>
-            <div>
-                <ul>
-                 @foreach ((int idMontagem, string movel) in montagens)
-                    {
-                        <li>@idMontagem @movel</li>
-                        @if (adicionar.Contains(idMontagem)){
-                            <button type="button" @onclick="(() => RemoverMontagemLista(idMontagem))">-</button>
+            <div class="Montagens">
+                @if (montagens!=null && montagens.Count > 0){
+                        <ul>
+                        @foreach ((int idMontagem, string movel) in montagens)
+                        {
+                            <li>@idMontagem @movel</li>
+                            @if (adicionar.Contains(idMontagem))
+                            {
+                                <button type="button" @onclick="(() => RemoverMontagemLista(idMontagem))">-</button>
+                            }
+                            else
+                            {
+                                <button type="button" @onclick="(() => AdicionarMontagemLista(idMontagem))">+</button>
+                            }
                         }
-                        else{
-                            <button type="button" @onclick="(() => AdicionarMontagemLista(idMontagem))">+</button>
-                        }
-                    }
-                </ul>
+                        </ul>
+                }
+                else{
+                    <p>Não existem montagens concluídas que possam ser adicionadas.</p>
+                }
             </div>
             <div class="esp">
             </div>
