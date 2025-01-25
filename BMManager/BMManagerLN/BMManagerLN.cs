@@ -189,11 +189,13 @@ namespace BMManagerLN
                     {
                         moveisQueFaltam[movel]--;
                         await subMontagens.AssociarAEncomenda(id, codEncomenda);
+                        await subMoveis.DiminuirQuantidadeMovel(movel.Numero);
                     }
                     else
                     {
                         moveisQueFaltam.Remove(movel);
                         await subMontagens.AssociarAEncomenda(id, codEncomenda);
+                        await subMoveis.DiminuirQuantidadeMovel(movel.Numero);
                     }
                 }
                 else

@@ -22,5 +22,6 @@ namespace BMManagerLN.SubMoveis
         Task<Dictionary<Movel, int>> GetMoveisEncomenda(int codEncomenda);
         Task AdicionaMovelEncomenda(int codMovel, int quantidade, int codEncomenda);
         Task IncrementarQuantidadeMovel(int codMovel);
+        Task DiminuirQuantidadeMovel(int codMovel);
     }
 }
