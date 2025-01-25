@@ -321,6 +321,7 @@ namespace BMManagerLN
                 Etapa etapa = await GetProximaEtapa(montagem);
                 montagem.Etapa = etapa.Codigo_Etapa;
                 montagem.Etapa_Concluida = false;
+                await subMateriais.AtualizaStockMateriaisEtapa(montagem.Etapa);
             }
             await subMontagens.AtualizaMontagem(montagem);
             await subFuncionarios.AssociaFuncionarioMontagem(codFuncionario, montagem.Numero);
@@ -501,14 +502,14 @@ namespace BMManagerLN
             {
                 etapa = await subMoveis.GetEtapa(montagem.Etapa);
             }
-            if (etapa != null)
+            if (etapa != null && etapa.Proxima_Etapa > 0 && montagem.Etapa_Concluida)
             {
                 Dictionary<Material, int> materiaisEtapa = await subMateriais.GetMateriaisEtapa(etapa.Codigo_Etapa);
                 return MateriaisSuficientes(materiaisEtapa);
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
