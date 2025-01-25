@@ -187,7 +187,7 @@ namespace BMManagerLN
                 {
                     if (moveisQueFaltam[movel] > 1)
                     {
-                        moveisQueFaltam[movel] = moveisQueFaltam[movel]--;
+                        moveisQueFaltam[movel]--;
                         await subMontagens.AssociarAEncomenda(id, codEncomenda);
                     }
                     else

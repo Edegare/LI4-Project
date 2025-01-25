@@ -22,7 +22,7 @@ else {
             </div>
             <div class="Montagens">
                 @if (montagens!=null && montagens.Count > 0){
-                        <ul>
+                    <ul>
                         @foreach ((int idMontagem, string movel) in montagens)
                         {
                             <li>@idMontagem @movel</li>
@@ -35,7 +35,7 @@ else {
                                 <button type="button" @onclick="(() => AdicionarMontagemLista(idMontagem))">+</button>
                             }
                         }
-                        </ul>
+                    </ul>
                 }
                 else{
                     <p>Não existem montagens concluídas que possam ser adicionadas.</p>
@@ -57,6 +57,7 @@ else {
     private Encomenda encomenda;
     private List<int> adicionar = new List<int>();
     private List<(int, string)> montagens;
+    string erro;
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,7 +74,7 @@ else {
     }
     private async Task AdicionarMontagens()
     {
-        await ln.AdicionarMontagensEncomenda(Id, adicionar);
+        erro = await ln.AdicionarMontagensEncomenda(Id, adicionar);
         NavigationManager.NavigateTo("/encomendas");
     }
 
