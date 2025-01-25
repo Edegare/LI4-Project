@@ -54,7 +54,7 @@
         _imagemEtapa = ln.ByteArrayParaImagem(_etapa.Imagem);
     }
 
-    private async void TerminarEtapa()
+    private async Task TerminarEtapa()
     {
         _montagem.Duracao += DateTime.Now - _dataInicio;
         await ln.TerminaEtapaMontagem(_montagem);
@@ -68,7 +68,7 @@
         }
     }
 
-    private async void SairMontagem()
+    private async Task SairMontagem()
     {
         _montagem.Duracao += DateTime.Now - _dataInicio;
         await ln.SairEtapaMontagem(_montagem);

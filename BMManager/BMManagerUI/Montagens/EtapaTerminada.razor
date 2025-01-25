@@ -43,7 +43,7 @@
         _montagem = await ln.GetMontagem(_codMontagem);
     }
 
-    private async void AvancarEtapa()
+    private async Task AvancarEtapa()
     {
         bool podeAvancar = await ln.ProximaEtapaMontagem(_montagem);
         if (podeAvancar)
@@ -56,7 +56,7 @@
         }
     }
 
-    private async void SairMontagem()
+    private async Task SairMontagem()
     {
         await ln.SairEtapaMontagem(_montagem);
         NavigationManager.NavigateTo($"/montagens");

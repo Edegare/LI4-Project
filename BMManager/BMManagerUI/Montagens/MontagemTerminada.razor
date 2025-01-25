@@ -48,7 +48,7 @@
         }
     }
 
-    private async void SairMontagem()
+    private async Task SairMontagem()
     {
         await ln.SairEtapaMontagem(_montagem);
         NavigationManager.NavigateTo($"/montagens");

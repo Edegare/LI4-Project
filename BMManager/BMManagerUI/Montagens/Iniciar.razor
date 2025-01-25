@@ -49,7 +49,7 @@
     private string? _codUtilizador;
     private int _codFuncionario;
 
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         var authState = await asp.GetAuthenticationStateAsync();
         _codUtilizador = authState.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -111,16 +111,16 @@
         StateHasChanged();
     }
 
-    private async void IniciarMontagem()
+    private async Task IniciarMontagem()
     {
         Montagem montagem = await ln.NovaMontagem(_codMovel, _codFuncionario);
         NavigationManager.NavigateTo($"/montagens/montar/{montagem.Numero}");
     }
 
-    private void Continuar()
+    private async Task Continuar()
     {
         _mostrarConfirmacao = false;
-        IniciarMontagem();
+        await IniciarMontagem();
     }
 
     private void Cancelar()
