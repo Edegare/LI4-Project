@@ -34,13 +34,18 @@
     private Montagem? _montagem;
     private Movel? _movel;
     private string? _imagem = "/imagens/Imagem.png";
+    bool incrementou = false;
 
     protected override async Task OnInitializedAsync()
     {
         _montagem = await ln.GetMontagem(_codMontagem);
         _movel = await ln.GetMovel(_montagem.Movel);
         _imagem = ln.ByteArrayParaImagem(_movel.Imagem);
-        await ln.IncrementarQuantidadeMovel(_movel.Numero);
+        if (!incrementou)
+        {
+            await ln.IncrementarQuantidadeMovel(_movel.Numero);
+            incrementou = true;
+        }
     }
 
     private async void SairMontagem()
