@@ -437,7 +437,7 @@ namespace BMManagerLN
                 movel = await GetMovel(idMovel);
                 if (moveisEncomenda[movel] > 1)
                 {
-                    moveisEncomenda[movel] = moveisEncomenda[movel]--;
+                   moveisEncomenda[movel]--;
                 }
                 else
                 {
