@@ -23,23 +23,28 @@
 
             <div class="linha-imagem-etapas">
                 <!-- Seção de Imagem -->
-                <div class="imagem-secao">
-                    <h4>Imagem</h4>
-                    <div class="input-imagem">
-                        <InputFile id="imagem" OnChange="@UploadImagem" />
+                <div>
+                    <div class="imagem-secao">
+                        <h4>Imagem</h4>
+                        <div class="input-imagem">
+                            <InputFile id="imagem" OnChange="@UploadImagem" />
+                        </div>
+                    </div>
+                    <div class="Validation">
+                        <ValidationMessage For="()=> movelTemp.NovoMovelImagem" />
                     </div>
                 </div>
-
-
                 <!-- Seção de Etapas -->
-                <div class="etapas-secao">
-                    <h4>Etapas</h4>
-                    <h5>@movelTemp.EtapasRegistadas</h5>
-                    <button type="button" @onclick="AdicionarEtapa">Adicionar</button>
+                <div class="etapas-e-erro">
+                    <div class="etapas-secao">
+                        <h4>Etapas</h4>
+                        <h5>@movelTemp.EtapasRegistadas</h5>
+                        <button type="button" @onclick="AdicionarEtapa">Adicionar</button>
+                    </div>
+                    <div class="Validation">
+                        <ValidationMessage For="()=> movelTemp.EtapasRegistadas" />
+                    </div>
                 </div>
-            </div>
-            <div class="Validation">
-                <ValidationMessage For="()=> movelTemp.NovoMovelImagem" />
             </div>
 
             <div class="imagem-preview">
@@ -67,6 +72,7 @@
 @code {
     private const string MovelForm = "registar-movel";
     private string imagem;
+    private string erroSemEtapas = "";
     private EditContext _contexto;
     private ValidationMessageStore _mensagens;
 
@@ -91,6 +97,7 @@
     {
         _mensagens.Clear(() => movelTemp.NovoMovelImagem);
         _mensagens.Clear(() => movelTemp.NovoMovelNome);
+        _mensagens.Clear(() => movelTemp.EtapasRegistadas);
         _contexto.NotifyValidationStateChanged();
         StateHasChanged();
         bool valido = true;
@@ -109,6 +116,11 @@
             _mensagens.Add(() => movelTemp.NovoMovelImagem, "O campo Imagem é obrigatório!");
             valido = false;
         }
+        if (movelTemp.EtapasRegistadas == 0)
+        {
+            _mensagens.Add(() => movelTemp.EtapasRegistadas, "É obrigatório ter pelo menos uma etapa!");
+            valido = false;
+        }
         if (valido)
         {
             await RegistarMovel();
@@ -119,7 +131,10 @@
 
     private async Task UploadImagem(InputFileChangeEventArgs e)
     {
+        erroSemEtapas = "";
         _mensagens.Clear(() => movelTemp.NovoMovelImagem);
+        _mensagens.Clear(() => movelTemp.NovoMovelNome);
+        _mensagens.Clear(() => movelTemp.EtapasRegistadas);
         _contexto.NotifyValidationStateChanged();
         StateHasChanged();
         var ficheiro = e.File;
@@ -148,6 +163,10 @@
 
     private async Task RegistarMovel()
     {
+        _mensagens.Clear(() => movelTemp.NovoMovelImagem);
+        _mensagens.Clear(() => movelTemp.NovoMovelNome);
+        _mensagens.Clear(() => movelTemp.EtapasRegistadas);
+
         Movel movel = new Movel
             {
                 Nome = movelTemp.NovoMovelNome,

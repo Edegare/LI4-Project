@@ -42,6 +42,11 @@
     flex: 1; /* Permite que o campo de entrada se ajuste ao restante do espaço */
 }
 
+.linha-moveis {
+    height: 100px;
+    display:flex;
+    flex-direction: column;
+}
 .Validation {
     min-height: 25px;
     font-size: 15px;
