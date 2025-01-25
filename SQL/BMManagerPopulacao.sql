@@ -50,18 +50,18 @@ INSERT INTO Funcionario
 -- Móveis
 INSERT INTO Movel (Nome, Quantidade, Imagem) -- Na imagem metam o vosso caminho
 	VALUES
-	('Estante Branca 42x41x39', 5, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKallaxBranco42x41Modelo.png', SINGLE_BLOB) AS Imagem)),
-	('Estante Branca 77x41x39', 5, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Modelo.png', SINGLE_BLOB) AS Imagem));
+	('Estante Branca 42x41x39', 0, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKallaxBranco42x41Modelo.png', SINGLE_BLOB) AS Imagem)),
+	('Estante Branca 77x41x39', 0, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Modelo.png', SINGLE_BLOB) AS Imagem));
 
 -- Materiais
 INSERT INTO Material (Nome, Quantidade, Imagem)
 	VALUES
-	('Parafuso 10cm Metal', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\Parafuso10cm.png', SINGLE_BLOB) AS Imagem)),
-	('Pino 5cm Metal', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\Pino5cm.png', SINGLE_BLOB) AS Imagem)),
-	('Placa de Madeira 34x39x4 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\vermelho.png', SINGLE_BLOB) AS Imagem)),
-	('Placa de Madeira 34x39x2 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\verde.png', SINGLE_BLOB) AS Imagem)),
-	('Placa de Madeira 77x39x4 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\azul.png', SINGLE_BLOB) AS Imagem)),
-	('Placa de Madeira 42x39x4 branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\rosa.png', SINGLE_BLOB) AS Imagem));
+	('Parafuso 10cm Metal', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\Parafuso10cm.png', SINGLE_BLOB) AS Imagem)),
+	('Pino 5cm Metal', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\Pino5cm.png', SINGLE_BLOB) AS Imagem)),
+	('Placa de Madeira 34x39x4 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\vermelho.png', SINGLE_BLOB) AS Imagem)),
+	('Placa de Madeira 34x39x2 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\verde.png', SINGLE_BLOB) AS Imagem)),
+	('Placa de Madeira 77x39x4 Branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\azul.png', SINGLE_BLOB) AS Imagem)),
+	('Placa de Madeira 42x39x4 branca', 10, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\rosa.png', SINGLE_BLOB) AS Imagem));
 
 -- Encomendas
 INSERT INTO Encomenda (Cliente, Data_Prevista, Data_Real, Concluida)
@@ -74,16 +74,16 @@ INSERT INTO Encomenda (Cliente, Data_Prevista, Data_Real, Concluida)
 INSERT INTO Etapa (Imagem, Numero, Proxima_Etapa, Movel)
 VALUES
     -- Etapas para o Movel 1
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKallaxBranco42x41Etapa1.png', SINGLE_BLOB) AS Imagem), 1, 2, 1),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKallaxBranco42x41Etapa2.png', SINGLE_BLOB) AS Imagem), 2, 3, 1),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKallaxBranco42x41Etapa3.png', SINGLE_BLOB) AS Imagem), 3, NULL, 1),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKallaxBranco42x41Etapa1.png', SINGLE_BLOB) AS Imagem), 1, 2, 1),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKallaxBranco42x41Etapa2.png', SINGLE_BLOB) AS Imagem), 2, 3, 1),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKallaxBranco42x41Etapa3.png', SINGLE_BLOB) AS Imagem), 3, NULL, 1),
 
     -- Etapas para o Movel 2
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa1.png', SINGLE_BLOB) AS Imagem), 1, 5, 2),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa2.png', SINGLE_BLOB) AS Imagem), 2, 6, 2),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa3.png', SINGLE_BLOB) AS Imagem), 3, 7, 2),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa4.png', SINGLE_BLOB) AS Imagem), 4, 8, 2),
-    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Edgar\Desktop\Minha pasta\LEI\3ano\LI4\Projeto\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa5.png', SINGLE_BLOB) AS Imagem), 5, NULL, 2);
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa1.png', SINGLE_BLOB) AS Imagem), 1, 5, 2),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa2.png', SINGLE_BLOB) AS Imagem), 2, 6, 2),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa3.png', SINGLE_BLOB) AS Imagem), 3, 7, 2),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa4.png', SINGLE_BLOB) AS Imagem), 4, 8, 2),
+    ((SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Etapa5.png', SINGLE_BLOB) AS Imagem), 5, NULL, 2);
 
 -- Móveis encomendados
 INSERT INTO Encomenda_Precisa_Movel (Encomenda, Movel, Quantidade)
