@@ -502,7 +502,7 @@ namespace BMManagerLN
             {
                 etapa = await subMoveis.GetEtapa(montagem.Etapa);
             }
-            if (etapa != null && etapa.Proxima_Etapa > 0 && montagem.Etapa_Concluida)
+            if (etapa != null && montagem.Etapa_Concluida)
             {
                 Dictionary<Material, int> materiaisEtapa = await subMateriais.GetMateriaisEtapa(etapa.Codigo_Etapa);
                 return MateriaisSuficientes(materiaisEtapa);
