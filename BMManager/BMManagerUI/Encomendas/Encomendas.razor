@@ -18,11 +18,9 @@
                     f => f.Numero,
                     f => f.Cliente,
                     f => (object) (f.Concluida ? "Concluída" : "Em Progresso"),
-                  //  f => f.Moveis_Pedidos,
                     f => f.Data_Prevista,
                     f => f.Data_Real,
                     f => (f.Numero,f.Numero)};
-               // f => f.Montagens_Associadas
     Func<List<Montagem>, int, int> f1 = (mo, d2) =>
         mo.Count(n => n.Encomenda == d2);
     Func<List<Encomenda_Precisa_Movel>, int, int> f2 = (mo, d2) =>
