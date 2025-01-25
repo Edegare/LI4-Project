@@ -142,6 +142,7 @@
     private string erroImagem = "";
     private string erroNaoExiste = "";
 
+
     private List<Material> materiaisDisponiveis = new List<Material>();
 
     private EditContext _contexto;
@@ -204,6 +205,10 @@
             return;
         }
 
+        if (!materiais.Any()) {
+            erroNaoExiste = "A lista de materiais não pode ser vazia!";
+            return;
+        } 
 
         movelTemp.EtapasRegistadas += 1;
         movelTemp.NovoMovelEtapas.Add(movelTemp.EtapasRegistadas, (imagem, movelTemp.EtapasRegistadas, materiais));

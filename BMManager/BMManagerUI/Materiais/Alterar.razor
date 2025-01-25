@@ -14,20 +14,23 @@ else {
     <div class="InformacoesRegisto">
         <EditForm Model="@novaQuantidade" OnValidSubmit="@AlterarQuantidadeMaterial" FormName="AlterarQuantidade">
             <DataAnnotationsValidator />
-            <ValidationSummary />
-            <div class = "linha">
-                <h4>Quantidade</h4>
-                <InputNumber id="quantidade" @bind-Value="@deltaQuantidade" min="0" />
-                @if (!string.IsNullOrEmpty(erro))
-                {
-                    <p>@erro</p>
-                }
-                <select @bind="@opcao">
-                    <option value="0">Aumentar</option>
-                    <option value="1">Diminuir</option>
-                    <option value="2">Alterar</option>
-                </select>
-            </div>
+                <div class="linha-e-erro">
+                    <div class="linha">
+                        <h4>Quantidade</h4>
+                        <InputNumber id="quantidade" @bind-Value="@deltaQuantidade" min="0" />
+                        <select @bind="@opcao">
+                            <option value="0">Aumentar</option>
+                            <option value="1">Diminuir</option>
+                            <option value="2">Alterar</option>
+                        </select>
+                    </div>
+                    <div class="Validation">
+                        @if (!string.IsNullOrEmpty(erro))
+                        {
+                            <p>@erro</p>
+                        }
+                    </div>
+                </div>
             <div class="esp">
             </div>
             <div class="Botoes">
@@ -58,7 +61,7 @@ else {
         else if(opcao == 1){
             if (deltaQuantidade>material.Quantidade){
                 deltaQuantidade = 0;
-                erro = "N�o pode retirar uma quantidade maior do que a existente.";
+                erro = "Não pode retirar uma quantidade maior do que a existente.";
                 return;
             }
             else{
@@ -68,7 +71,7 @@ else {
         else{
             if(deltaQuantidade<0){
                 deltaQuantidade = 0;
-                erro = "A quantidade n�o pode ser negativa.";
+                erro = "A quantidade não pode ser negativa.";
                 return;
             }
             else{

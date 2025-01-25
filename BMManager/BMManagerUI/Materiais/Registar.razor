@@ -3,6 +3,7 @@
 @using BMManagerLN
 @using BMManagerLN.SubMateriais
 @inject APIBMManagerLN ln
+@inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Administracao,Modelacao")]
 
 <Titulo Nome="Registar novo material" />
@@ -87,6 +88,7 @@
 
     private async Task RegistarMaterial()
     {
+        _mensagens.Clear(() => imagem);
         Material material = new Material
         {
             Nome = novoMaterial.Nome,
@@ -94,6 +96,6 @@
         };
         await ln.PutMaterial(material);
 
-        novoMaterial = new Material();
+        NavigationManager.NavigateTo("/materiais");
     }
 }

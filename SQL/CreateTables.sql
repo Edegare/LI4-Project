@@ -66,7 +66,7 @@ IF OBJECT_ID('Material', 'U') IS NOT NULL
 CREATE TABLE Material (
     Numero INT IDENTITY(1,1) PRIMARY KEY,
     Nome VARCHAR(75) NOT NULL,
-    Quantidade INT NOT NULL,
+    Quantidade INT NOT NULL DEFAULT 0,
     Imagem VARBINARY(MAX)
 );
 
