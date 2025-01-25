@@ -75,7 +75,12 @@ else {
     private async Task AdicionarMontagens()
     {
         erro = await ln.AdicionarMontagensEncomenda(Id, adicionar);
-        NavigationManager.NavigateTo("/encomendas");
+        if(erro!=null && erro!=""){
+            NavigationManager.NavigateTo("/encomendas/adicionar_montagens/erro");
+        }
+        else{
+            NavigationManager.NavigateTo("/encomendas");
+        }
     }
 
 }
