@@ -64,6 +64,7 @@
         }
         else
         {
+            await ln.IncrementarQuantidadeMovel(_montagem.Movel);
             NavigationManager.NavigateTo($"/montagens/montar/{_codMontagem}/montagemterminada");
         }
     }
