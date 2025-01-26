@@ -41,23 +41,27 @@ INSERT INTO Funcionario
 			'Armazem',
 			1),
            ('João Feio',
-			'nome6@bmmanager.pt',
+			'6@bmmanager.pt',
 			'960000000',
 			'senha6',
 			'Recursos_Humanos',
-			1);
+			1)
 
 -- Móveis
-INSERT INTO Movel (Nome, Quantidade, Imagem) -- As imagens são configuradas como NULL
+INSERT INTO Movel (Nome, Quantidade, Imagem)
 	VALUES
-	('Estante Branco 42X41', 5, NULL),
-	('Estante Branco 77X41', 5, NULL);
+	('Estante Branca 42x41x39', 0, NULL),
+	('Estante Branca 77x41x39', 0, NULL);
 
 -- Materiais
-INSERT INTO Material (Nome, Quantidade, Imagem) -- As imagens são configuradas como NULL
+INSERT INTO Material (Nome, Quantidade, Imagem)
 	VALUES
 	('Parafuso 10cm Metal', 10, NULL),
-	('Pino 5cm Metal', 10, NULL);
+	('Pino 5cm Metal', 10, NULL),
+	('Placa de Madeira 34x39x4 Branca', 10, NULL),
+	('Placa de Madeira 34x39x2 Branca', 10, NULL),
+	('Placa de Madeira 77x39x4 Branca', 10, NULL),
+	('Placa de Madeira 42x39x4 branca', 10, NULL);
 
 -- Encomendas
 INSERT INTO Encomenda (Cliente, Data_Prevista, Data_Real, Concluida)
@@ -67,7 +71,7 @@ INSERT INTO Encomenda (Cliente, Data_Prevista, Data_Real, Concluida)
 	('Empresa Macedo', '2025-05-01', NULL, 0);
 
 -- Etapas
-INSERT INTO Etapa (Imagem, Numero, Proxima_Etapa, Movel) -- As imagens são configuradas como NULL
+INSERT INTO Etapa (Imagem, Numero, Proxima_Etapa, Movel)
 VALUES
     -- Etapas para o Movel 1
     (NULL, 1, 2, 1),
@@ -92,14 +96,23 @@ INSERT INTO Encomenda_Precisa_Movel (Encomenda, Movel, Quantidade)
 INSERT INTO Etapa_Precisa_Material (Etapa, Material, Quantidade)
 	VALUES
 	(1, 1, 2), -- Etapa 1 da Estante única precisa de 2 unidades de Parafuso 10cm
+	(1, 6, 1),
+	(1, 3, 1),
 	(2, 1, 2), -- Etapa 2 de Estante única precisa de 2 unidades de Parafuso 10cm
+	(2, 3, 1),
 	(3, 1, 4), -- Etapa 3 de Estante única precisa de 4 unidades de Parafuso 10cm
+	(3, 6, 1),
 
-	(4, 1, 2), -- Etapa 1 da Estante dupla precisa de 2 unidades de Parafuso 10cm
+	(4, 1, 2),-- Etapa 1 da Estante dupla precisa de 2 unidades de Parafuso 10cm
+	(4, 5, 1),
+	(4, 3, 1),
 	(5, 2, 2), -- Etapa 2 da Estante dupla precisa de 2 unidades de Pino5cm
+	(5, 4, 1),
 	(6, 1, 2),
+	(6, 3, 1),
 	(7, 2, 2),
-	(8, 1, 4);
+	(8, 1, 4),
+	(8, 5, 1);
 
 -- Montagens
 INSERT INTO Montagem (Data_Inicial, Data_Final, Estado, Movel, Etapa, Encomenda)
@@ -108,9 +121,9 @@ VALUES
 	('2025-01-21 10:00:00', NULL, 'Em_Pausa', 1, 1, NULL),
 	('2025-01-21 08:00:00', NULL, 'Em_Pausa', 2, 4, NULL);
 
--- Funcionários participando nas montagens
 INSERT INTO Funcionario_Participa_Montagem (Montagem, Funcionario)
 VALUES
 	(1, 4), -- João Belo participa na montagem 1
 	(2, 4), -- João Belo participa na montagem 2
 	(3, 4); -- João Belo participa na montagem 3
+

@@ -48,7 +48,7 @@ INSERT INTO Funcionario
 			1)
 
 -- Móveis
-INSERT INTO Movel (Nome, Quantidade, Imagem) -- Na imagem metam o vosso caminho
+INSERT INTO Movel (Nome, Quantidade, Imagem) -- Na imagem colocar o path correto
 	VALUES
 	('Estante Branca 42x41x39', 0, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKallaxBranco42x41Modelo.png', SINGLE_BLOB) AS Imagem)),
 	('Estante Branca 77x41x39', 0, (SELECT * FROM OPENROWSET(BULK N'C:\Users\Ana Sá Oliveira\Desktop\LI4-Project\Imagens\EstanteKALLAXBranco77x41Modelo.png', SINGLE_BLOB) AS Imagem));
