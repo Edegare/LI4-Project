@@ -1,5 +1,5 @@
-using BMManager;
 using BMManager.BMManagerCD;
+using BMManager.Utils;
 using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMateriais;
@@ -379,7 +379,7 @@ namespace BMManagerLN
             return subMoveis.GetMovelSemImagem(codMovel);
         }
 
-        public bool MovelExiste(int codMovel)
+        public Task<bool> MovelExiste(int codMovel)
         {
             return subMoveis.MovelExiste(codMovel);
         }

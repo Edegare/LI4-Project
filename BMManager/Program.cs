@@ -2,7 +2,7 @@ using BMManager.BMManagerUI;
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
 using BMManagerLN;
-using BMManager;
+using BMManager.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<BMManagerContext>(options =>

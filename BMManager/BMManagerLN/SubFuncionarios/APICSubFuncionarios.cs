@@ -1,4 +1,4 @@
-﻿using BMManager;
+﻿using BMManager.Utils;
 
 namespace BMManagerLN.SubFuncionarios
 {

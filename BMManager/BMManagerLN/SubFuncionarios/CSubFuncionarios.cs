@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BMManager.BMManagerCD;
-using BMManager;
+using BMManager.Utils;
 
 namespace BMManagerLN.SubFuncionarios
 {

@@ -1,4 +1,4 @@
-﻿using BMManager;
+﻿using BMManager.Utils;
 using BMManagerLN.SubEncomendas;
 using BMManagerLN.SubFuncionarios;
 using BMManagerLN.SubMateriais;
@@ -41,7 +41,7 @@ namespace BMManagerLN
         Task<List<Encomenda_Precisa_Movel>> GetEncomendaPrecisaMovel(); // Obtém a lista de encomendas que precisam de móveis.
         Task<Movel> GetMovel(int codMovel); // Obtém os detalhes de um móvel específico.
         Task<Movel> GetMovelSemImagem(int codMovel); // Obtém os detalhes de um móvel sem carregar imagens.
-        bool MovelExiste(int codMovel); // Verifica se um móvel existe.
+        Task<bool> MovelExiste(int codMovel); // Verifica se um móvel existe.
         Task PutMovel(Movel movel); // Atualiza os dados de um móvel.
         Task<List<Etapa>> GetEtapas(); // Obtém a lista de etapas para montagem.
         Task<List<Etapa>> GetEtapasSemImagens(); // Obtém a lista de etapas sem carregar imagens.

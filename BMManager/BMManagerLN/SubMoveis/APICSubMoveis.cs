@@ -8,7 +8,7 @@ namespace BMManagerLN.SubMoveis
         Task<List<Encomenda_Precisa_Movel>> GetEncomendaPrecisaMovel();
         Task<Movel> GetMovel(int codMovel);
         Task<Movel> GetMovelSemImagem(int codMovel);
-        bool MovelExiste(int codMovel);
+        Task<bool> MovelExiste(int codMovel);
         Task PutMovel(Movel moveis);
         Task<List<Etapa>> GetEtapas();
         Task<List<Etapa>> GetEtapasSemImagens();

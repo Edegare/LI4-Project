@@ -48,9 +48,9 @@ namespace BMManagerLN.SubMoveis
                                                                                     }).FirstOrDefaultAsync() ?? new Movel();
         }
 
-        public bool MovelExiste(int codMovel)
+        public async Task<bool> MovelExiste(int codMovel)
         {
-            return _context.Movel.Any(m => m.Numero == codMovel);
+            return await _context.Movel.AnyAsync(m => m.Numero == codMovel);
         }
 
         public async Task PutMovel(Movel movel)

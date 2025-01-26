@@ -1,4 +1,4 @@
-﻿namespace BMManager;
+﻿namespace BMManager.Utils;
 
 public static class Constants
 {

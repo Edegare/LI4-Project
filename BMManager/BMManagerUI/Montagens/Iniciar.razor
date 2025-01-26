@@ -60,8 +60,11 @@
     {
         _contexto = new EditContext(_codMovel);
         _mensagens = new ValidationMessageStore(_contexto);
-        _contexto.OnValidationRequested += ValidarAsync;
+
+        // Associar eventos com métodos adequados
+        _contexto.OnValidationRequested += Validar; // Associamos o método síncrono
         _contexto.OnFieldChanged += LimparMensagens;
+
         await base.OnParametersSetAsync();
     }
 
@@ -72,24 +75,33 @@
         _contexto.NotifyValidationStateChanged();
     }
 
-    private async void ValidarAsync(object? sender, ValidationRequestedEventArgs e)
+    private void Validar(object? sender, ValidationRequestedEventArgs e)
     {
+        // Chamar o método assíncrono de forma segura (fire-and-forget)
+        _ = ValidarAsync();
+    }
+
+    private async Task ValidarAsync()
+    {
+        // Verificação inicial do código do móvel
         if (_codMovel <= 0)
         {
             _mensagens.Add(() => _codMovel, "O código deve ser válido!");
         }
         else
         {
-            if (!ln.MovelExiste(_codMovel))
+            var existe = await ln.MovelExiste(_codMovel);
+
+            if (!existe) // Corrigi a lógica: agora verifica se o móvel existe
             {
                 _mensagens.Add(() => _codMovel, $"O móvel com código {_codMovel} não existe!");
             }
             else
             {
-                (int, int) materiaisSuficientes = await ln.MateriaisSuficientesMontagem(_codMovel);
-                int etapasComMateriais = materiaisSuficientes.Item1;
-                int totalEtapas = materiaisSuficientes.Item2;
+                // Verificar disponibilidade de materiais
+                (int etapasComMateriais, int totalEtapas) = await ln.MateriaisSuficientesMontagem(_codMovel);
                 _mensagens.Clear();
+
                 if (etapasComMateriais == 0)
                 {
                     _mensagens.Add(() => _codMovel, "Não existem materiais suficientes para iniciar a montagem!");
@@ -103,10 +115,12 @@
                 }
                 else
                 {
-                    IniciarMontagem();
+                    IniciarMontagem(); // Iniciar montagem diretamente se tudo estiver em ordem
                 }
             }
         }
+
+        // Atualizar o estado de validação
         _contexto.NotifyValidationStateChanged();
         StateHasChanged();
     }
